@@ -1,0 +1,44 @@
+name: test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+        extras:
+          - "--all-extras"
+          - ""
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - uses: abatilo/actions-poetry@v4
+
+      - name: Install dependencies
+        run: |
+          if [ -n "${{ matrix.extras }}" ]; then
+            poetry install ${{ matrix.extras }}
+          else
+            poetry install
+          fi
+
+      - name: Run tests
+        run: poetry run poe test

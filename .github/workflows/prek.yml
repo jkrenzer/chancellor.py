@@ -1,0 +1,44 @@
+name: pre-commit
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prek-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prek:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: abatilo/actions-poetry@v4
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run pre-commit
+        run: poetry run pre-commit run --all-files --show-diff-on-failure
+
+      - name: Validate commit subjects
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git rev-list --no-merges --reverse "$BASE_SHA..$HEAD_SHA" | while read -r sha; do
+            subject=$(git show -s --format=%s "$sha")
+            if [ "$subject" = "Initial plan" ]; then
+              continue
+            fi
+            echo "$subject" | poetry run conventional-pre-commit --strict
+          done
