@@ -1,3 +1,6 @@
+# Project-local Poetry plugins (requires-plugins in pyproject.toml)
+.poetry/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

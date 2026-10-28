@@ -1,1 +1,5 @@
 * text=auto eol=lf
+
+# Filled in by git archive, so builds from archive downloads know their version
+# (poetry-dynamic-versioning reads it through Dunamai).
+.git_archival.json export-subst

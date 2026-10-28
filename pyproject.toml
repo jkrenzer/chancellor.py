@@ -1,6 +1,6 @@
 [project]
 name = "chancellor"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Keeps project records as data and renders them into documents, incrementally and deterministically."
 readme = "README.md"
 requires-python = ">=3.11,<4.0"
@@ -78,16 +78,44 @@ docs = [
 ]
 
 [build-system]
-requires = ["poetry-core>=2.3,<3"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=2.3,<3", "poetry-dynamic-versioning>=1.10,<2"]
+build-backend = "poetry_dynamic_versioning.backend"
 
-# Only what no packaging standard covers yet: the src layout and shipping the template tree.
+# Only what no packaging standard covers yet: the src layout, shipping the template tree, and
+# the version field poetry-dynamic-versioning requires.
 [tool.poetry]
 requires-poetry = ">=2.3,<3"
 packages = [{ include = "chancellor", from = "src" }]
 include = [
   { path = "src/chancellor/templates/**/*", format = ["sdist", "wheel"] },
 ]
+# Last released version, kept by bump-my-version. Builds take their version from the git tag via
+# poetry-dynamic-versioning; the release workflow checks that both agree. Must stay the last key:
+# the plugin writes it back at the end of the table when it restores this file after a build.
+version = "0.1.0"
+
+[tool.poetry.requires-plugins]
+poetry-dynamic-versioning = { version = ">=1.10,<2", extras = ["plugin"] }
+
+# Version from git: the tag on a release commit (0.1.0), the next patch as a dev release with the
+# commit hash in between (0.1.1.dev3+g9f2c1ab). Archive downloads read .git_archival.json.
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "pep440"
+# Tags are written by bump-my-version as v{new_version}; this preset requires the v prefix.
+pattern = "default"
+format-jinja = """
+{%- if distance == 0 -%}
+{{ base }}
+{%- else -%}
+{{ serialize_pep440(bump_version(base), dev=distance, metadata=["g" ~ commit]) }}
+{%- endif -%}
+"""
+
+# chancellor.__version__ reads the installed metadata, so no source file needs rewriting.
+[tool.poetry-dynamic-versioning.substitution]
+files = []
 
 [tool.black]
 line-length = 88
@@ -121,20 +149,17 @@ current_version = "0.1.0"
 commit = true
 tag = true
 tag_name = "v{new_version}"
+# Annotated tags; pre-releases must use PEP 440 spelling (1.0.0rc1) for the tag pattern to match.
+tag_message = "chore(release): {new_version}"
 message = "chore(release): bump version {current_version} -> {new_version}"
 
-# Anchored regexes: a plain `version = "…"` search would also match `current_version = "…"`.
+# Anchored regex: a plain `version = "…"` search would also match `current_version = "…"`.
+# Matches the version in [tool.poetry]; [project] declares it dynamic.
 [[tool.bumpversion.files]]
 filename = "pyproject.toml"
 regex = true
 search = "^version = \"{current_version}\""
 replace = "version = \"{new_version}\""
-
-[[tool.bumpversion.files]]
-filename = "src/chancellor/__init__.py"
-regex = true
-search = "^__version__ = \"{current_version}\""
-replace = "__version__ = \"{new_version}\""
 
 [tool.poe.tasks]
 # mdformat cannot exclude gitignored paths on Python < 3.13, so it gets git's file list.

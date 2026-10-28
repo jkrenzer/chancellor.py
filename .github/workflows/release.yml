@@ -24,6 +24,9 @@ jobs:
     environment: pypi
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history with tags: poetry-dynamic-versioning derives the version from them.
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -49,12 +52,21 @@ jobs:
     environment: testpypi
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history with tags: poetry-dynamic-versioning derives the version from them.
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - uses: abatilo/actions-poetry@v4
+      # Off a tag the version is e.g. 0.1.1.dev3+g9f2c1ab. Package indexes reject the local
+      # "+…" part, so build with the version up to it. Installing the project root first makes
+      # Poetry install the poetry-dynamic-versioning plugin, which provides the version command.
       - name: Build package
-        run: poetry build
+        run: |
+          poetry install --only-root
+          version="$(poetry dynamic-versioning show)"
+          POETRY_DYNAMIC_VERSIONING_BYPASS="${version%%+*}" poetry build
       - name: Publish package to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
