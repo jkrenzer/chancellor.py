@@ -30,7 +30,7 @@ pip install 'chancellor[mcp]'
 git clone https://github.com/jkrenzer/chancellor.py.git
 cd chancellor.py
 pip install poetry
-poetry install --all-extras --with docs
+poetry install --all-extras
 poetry run pre-commit install
 ```
 

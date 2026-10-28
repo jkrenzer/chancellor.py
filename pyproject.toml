@@ -1,10 +1,10 @@
-[tool.poetry]
+[project]
 name = "chancellor"
 version = "0.1.0"
 description = "Keeps project records as data and renders them into documents, incrementally and deterministically."
-authors = ["jkrenzer <jkrenzer@users.noreply.github.com>"]
 readme = "README.md"
-packages = [{ include = "chancellor", from = "src" }]
+requires-python = ">=3.11,<4.0"
+authors = [{ name = "Jörn Krenzer", email = "jkrenzer@users.noreply.github.com" }]
 keywords = [
   "documentation",
   "records",
@@ -15,74 +15,104 @@ keywords = [
   "incremental-build",
   "mcp",
 ]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Documentation",
+  "Topic :: Software Development :: Documentation",
+  "Topic :: Text Processing :: Markup :: Markdown",
+  "Typing :: Typed",
+]
+dependencies = [
+  "jinja2>=3.1,<4.0",
+  "pydantic>=2,<3",
+  "ruamel.yaml>=0.18,<0.19",
+  "markdown-it-py>=3,<4",
+  "mdit-py-plugins>=0.6.1,<0.7",
+  "typer>=0.27,<0.28",
+]
+
+[project.optional-dependencies]
+git = ["dulwich>=1.2.20,<2"]
+mcp = ["mcp>=2,<3"]
+
+[project.scripts]
+chancellor = "chancellor.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/jkrenzer/chancellor.py"
+Repository = "https://github.com/jkrenzer/chancellor.py"
+Issues = "https://github.com/jkrenzer/chancellor.py/issues"
+Changelog = "https://github.com/jkrenzer/chancellor.py/releases"
+
+[dependency-groups]
+dev = [
+  "black>=26.10.1,<27",
+  "isort>=9.0.2,<10",
+  "autopep8>=2.3.2,<3",
+  "pylint>=4.1.3,<5",
+  "pymarkdownlnt>=0.9.41,<0.10",
+  "mdformat>=1.0.0,<2",
+  "mdformat-gfm>=1.0.0,<2",
+  "mdformat-gfm-alerts>=2.1.0,<3",
+  "mdformat-myst>=0.3.0,<0.4",
+  "pytest>=9.1.1,<10",
+  "pre-commit>=4.7.0,<5",
+  "conventional-pre-commit>=4.4.0,<5",
+  "poethepoet>=0.49.0,<0.50",
+  "bump-my-version>=1.6.7,<2",
+]
+docs = [
+  "sphinx>=8.2,<9",
+  "myst-parser>=4.0,<5",
+  "sphinx-markdown-builder>=0.6.11,<0.7",
+]
+
+[build-system]
+requires = ["poetry-core>=2.3,<3"]
+build-backend = "poetry.core.masonry.api"
+
+# Only what no packaging standard covers yet: the src layout and shipping the template tree.
+[tool.poetry]
+requires-poetry = ">=2.3,<3"
+packages = [{ include = "chancellor", from = "src" }]
 include = [
   { path = "src/chancellor/templates/**/*", format = ["sdist", "wheel"] },
 ]
-
-[tool.poetry.dependencies]
-python = "^3.11"
-jinja2 = "^3.1"
-pydantic = "^2"
-"ruamel.yaml" = "^0.18"
-markdown-it-py = "^3"
-mdit-py-plugins = "^0.6.1"
-typer = "^0.27"
-dulwich = { version = "^1.2.20", optional = true }
-mcp = { version = "^2", optional = true }
-
-[tool.poetry.extras]
-git = ["dulwich"]
-mcp = ["mcp"]
-
-[tool.poetry.group.dev.dependencies]
-black = "^26.10.1"
-isort = "^9.0.2"
-autopep8 = "^2.3.2"
-pylint = "^4.1.3"
-pymarkdownlnt = "^0.9.41"
-mdformat = "^1.0.0"
-mdformat-gfm = "^1.0.0"
-mdformat-gfm-alerts = "^2.1.0"
-mdformat-myst = "^0.3.0"
-pytest = "^9.1.1"
-pre-commit = "^4.7.0"
-conventional-pre-commit = "^4.4.0"
-poethepoet = "^0.49.0"
-bump-my-version = "^1.6.7"
-
-[tool.poetry.group.docs.dependencies]
-sphinx = "^8.2"
-myst-parser = "^4.0"
-sphinx-markdown-builder = "^0.6.11"
-
-[tool.poetry.scripts]
-chancellor = "chancellor.cli:app"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 88
 target-version = ["py311"]
 
+# Must stay equal to black's line-length, or the two pre-commit hooks undo each other's work.
 [tool.autopep8]
 max_line_length = 88
 
 [tool.isort]
 profile = "black"
+line_length = 88
+src_paths = ["src", "tests"]
 
 [tool.pylint.messages_control]
 disable = [
-  "C0114",
-  "C0115",
-  "C0116",
+  "missing-module-docstring",
+  "missing-class-docstring",
+  "missing-function-docstring",
 ]
 
 [tool.pymarkdown]
 plugins.md013.line_length = 100
-plugins.md041.enabled = false
 extensions.front-matter.enabled = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [tool.bumpversion]
 current_version = "0.1.0"
@@ -91,18 +121,26 @@ tag = true
 tag_name = "v{new_version}"
 message = "chore(release): bump version {current_version} -> {new_version}"
 
+# Anchored regexes: a plain `version = "…"` search would also match `current_version = "…"`.
 [[tool.bumpversion.files]]
 filename = "pyproject.toml"
+regex = true
+search = "^version = \"{current_version}\""
+replace = "version = \"{new_version}\""
 
 [[tool.bumpversion.files]]
 filename = "src/chancellor/__init__.py"
+regex = true
+search = "^__version__ = \"{current_version}\""
+replace = "__version__ = \"{new_version}\""
 
 [tool.poe.tasks]
 # mdformat cannot exclude gitignored paths on Python < 3.13, so it gets git's file list.
 # Settings live in .mdformat.toml.
 format = [
-  { cmd = "black src tests" },
+  { cmd = "autopep8 --in-place --recursive src tests" },
   { cmd = "isort src tests" },
+  { cmd = "black src tests" },
   { shell = "git ls-files -co --exclude-standard -- '*.md' | while read -r f; do [ -e \"$f\" ] && printf '%s\\0' \"$f\"; done | xargs -0 -r mdformat" },
   { cmd = "pymarkdown fix -r --respect-gitignore ." },
 ]
@@ -111,7 +149,7 @@ lint = [
   { cmd = "isort --check-only src tests" },
   { cmd = "pylint src/chancellor tests" },
   { shell = "git ls-files -co --exclude-standard -- '*.md' | while read -r f; do [ -e \"$f\" ] && printf '%s\\0' \"$f\"; done | xargs -0 -r mdformat --check" },
-  { cmd = "pymarkdown scan ." },
+  { cmd = "pymarkdown scan -r --respect-gitignore ." },
 ]
 test = "pytest"
 docs = "sphinx-build -b html .agents/context _build/docs"
