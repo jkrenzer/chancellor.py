@@ -51,3 +51,14 @@ subcommands (not implemented yet): `build`, `hash`, `schema`, `explain`, `impact
 `recover`, `normalize-eol`.
 
 The MCP server name is `chancellor-records`; its implementation arrives with the renderer migration.
+
+## License
+
+Copyright (C) 2026 Jörn Krenzer.
+
+Chancellor is licensed under the [GNU Affero General Public License v3.0](LICENSE) only. You are
+free to use and run it; if you pass on a modified version, you must pass on its source under the
+same license.
+
+As provided in section 14 of the license, Jörn Krenzer is designated as proxy to decide whether
+future versions of the GNU Affero General Public License can be used for chancellor.

@@ -4,6 +4,8 @@ version = "0.1.0"
 description = "Keeps project records as data and renders them into documents, incrementally and deterministically."
 readme = "README.md"
 requires-python = ">=3.11,<4.0"
+license = "AGPL-3.0-only"
+license-files = ["LICENSE"]
 authors = [{ name = "Jörn Krenzer", email = "jkrenzer@users.noreply.github.com" }]
 keywords = [
   "documentation",
