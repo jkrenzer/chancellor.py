@@ -1,0 +1,5 @@
+# mdformat reads only this file; it has no pyproject.toml support. Wrap must match md013 in
+# [tool.pymarkdown].
+wrap = 100
+number = true
+end_of_line = "lf"

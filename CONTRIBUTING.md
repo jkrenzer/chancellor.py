@@ -2,8 +2,7 @@
 
 ## Commit messages
 
-This repository enforces Conventional Commits (`conventional-pre-commit --strict`).
-Use these types:
+This repository enforces Conventional Commits (`conventional-pre-commit --strict`). Use these types:
 
 - `feat`
 - `fix`

@@ -1,15 +1,15 @@
 # chancellor
 
-Chancellor keeps structured records — decisions, requirements, specifications — in one
-validated data model and renders them into per-record files plus the core documents
-that index them. Builds are incremental and content-hash based, so only what actually
-changed is re-rendered, and repeated runs on unchanged input produce byte-identical
-output. Templates are Jinja2 and can be overridden per repository. It runs as a CLI and
-as an MCP server, so an agent can co-maintain the records alongside you.
+Chancellor keeps structured records — decisions, requirements, specifications — in one validated
+data model and renders them into per-record files plus the core documents that index them. Builds
+are incremental and content-hash based, so only what actually changed is re-rendered, and repeated
+runs on unchanged input produce byte-identical output. Templates are Jinja2 and can be overridden
+per repository. It runs as a CLI and as an MCP server, so an agent can co-maintain the records
+alongside you.
 
 > [!IMPORTANT]
-> Status: this repository currently contains only the package skeleton, tooling, and CI.
-> The renderer implementation is migrated in a follow-up pull request.
+> Status: this repository currently contains only the package skeleton, tooling, and CI. The
+> renderer implementation is migrated in a follow-up pull request.
 
 ## Install
 
@@ -45,9 +45,8 @@ poetry run poe docs
 
 ## CLI and MCP server
 
-The package exposes the `chancellor` CLI. At this stage it only supports `--version`.
-Planned subcommands (not implemented yet): `build`, `hash`, `schema`, `explain`,
-`impact`, `doctor`, `recover`, `normalize-eol`.
+The package exposes the `chancellor` CLI. At this stage it only supports `--version`. Planned
+subcommands (not implemented yet): `build`, `hash`, `schema`, `explain`, `impact`, `doctor`,
+`recover`, `normalize-eol`.
 
-The MCP server name is `chancellor-records`; its implementation arrives with the
-renderer migration.
+The MCP server name is `chancellor-records`; its implementation arrives with the renderer migration.

@@ -1,15 +1,15 @@
 # Agent instructions
 
-This repository is maintained with multiple AI coding tools. `AGENTS.md` is the
-single source of truth; vendor-specific files should only point here.
+This repository is maintained with multiple AI coding tools. `AGENTS.md` is the single source of
+truth; vendor-specific files should only point here.
 
 ## Folder documentation rules
 
 - Each root-level folder should include a `README.md` and an `AGENTS.md`.
 - A folder's `AGENTS.md` indexes the folder and states folder-specific rules.
 - Use progressive context loading: read parent instructions first, then descend.
-- A child rule can override a parent rule only when it names the overridden rule and
-  explains why the override is required.
+- A child rule can override a parent rule only when it names the overridden rule and explains why
+  the override is required.
 
 ## Git and commit rules
 

@@ -42,6 +42,8 @@ pylint = "^4.1.3"
 pymarkdownlnt = "^0.9.41"
 mdformat = "^1.0.0"
 mdformat-gfm = "^1.0.0"
+mdformat-gfm-alerts = "^2.1.0"
+mdformat-myst = "^0.3.0"
 pytest = "^9.1.1"
 pre-commit = "^4.7.0"
 conventional-pre-commit = "^4.4.0"
@@ -96,14 +98,19 @@ filename = "pyproject.toml"
 filename = "src/chancellor/__init__.py"
 
 [tool.poe.tasks]
+# mdformat cannot exclude gitignored paths on Python < 3.13, so it gets git's file list.
+# Settings live in .mdformat.toml.
 format = [
   { cmd = "black src tests" },
   { cmd = "isort src tests" },
+  { shell = "git ls-files -co --exclude-standard -- '*.md' | while read -r f; do [ -e \"$f\" ] && printf '%s\\0' \"$f\"; done | xargs -0 -r mdformat" },
+  { cmd = "pymarkdown fix -r --respect-gitignore ." },
 ]
 lint = [
   { cmd = "black --check src tests" },
   { cmd = "isort --check-only src tests" },
   { cmd = "pylint src/chancellor tests" },
+  { shell = "git ls-files -co --exclude-standard -- '*.md' | while read -r f; do [ -e \"$f\" ] && printf '%s\\0' \"$f\"; done | xargs -0 -r mdformat --check" },
   { cmd = "pymarkdown scan ." },
 ]
 test = "pytest"
