@@ -10,8 +10,13 @@ permissions:
   contents: read
 
 jobs:
+  test:
+    if: github.event_name == 'push'
+    uses: ./.github/workflows/test.yml
+
   pypi:
     if: github.event_name == 'push'
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -23,6 +28,13 @@ jobs:
         with:
           python-version: "3.11"
       - uses: abatilo/actions-poetry@v4
+      - name: Check tag matches package version
+        run: |
+          version="$(poetry version -s)"
+          if [ "${GITHUB_REF_NAME#v}" != "$version" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match package version $version"
+            exit 1
+          fi
       - name: Build package
         run: poetry build
       - name: Publish package
