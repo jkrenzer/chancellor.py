@@ -3,6 +3,16 @@
 Chancellor uses [Poetry](https://python-poetry.org/) 2.3 or later for dependencies and virtual
 environments, and [Poe the Poet](https://poethepoet.natn.io/) tasks for routine work.
 
+## Dev container
+
+The repository includes a `Dockerfile` and `.devcontainer/devcontainer.json`. Opening the repository
+in a dev container gives Python 3.11, git, the GitHub CLI and Poetry, with all dependency groups and
+extras installed.
+
+The container uses the Docker daemon of the host (dev container feature `docker-outside-of-docker`)
+so that VS Code can start the GitHub MCP server registered in `.vscode/mcp.json`, which runs as a
+Docker container. Access to the Docker socket amounts to root access on the host's Docker.
+
 ## Local setup
 
 ```bash

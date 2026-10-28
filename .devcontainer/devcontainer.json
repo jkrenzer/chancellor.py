@@ -1,0 +1,27 @@
+{
+  "name": "chancellor",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-python.pylint",
+        "github.vscode-pull-request-github",
+        "vivaxy.vscode-conventional-commits",
+        "anthropic.claude-code",
+        "openai.chatgpt",
+        "github.copilot-chat"
+      ]
+    }
+  },
+  "postCreateCommand": "poetry install --with dev,docs --all-extras"
+}

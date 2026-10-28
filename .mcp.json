@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "chancellor-records": {
+      "command": "poetry",
+      "args": ["run", "chancellor", "serve"]
+    }
+  }
+}
