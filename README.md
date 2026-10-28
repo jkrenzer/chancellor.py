@@ -17,11 +17,12 @@ alongside you.
 pip install chancellor
 ```
 
-Optional extras:
+Git support is optional. The `git` extra adds [dulwich](https://www.dulwich.io/) so chancellor can
+tell whether a file is tracked or ignored; without it chancellor runs in its no-git configuration,
+which is supported and tested:
 
 ```bash
 pip install 'chancellor[git]'
-pip install 'chancellor[mcp]'
 ```
 
 ## Developer setup

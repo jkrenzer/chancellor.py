@@ -37,11 +37,11 @@ dependencies = [
   "markdown-it-py>=3,<4",
   "mdit-py-plugins>=0.6.1,<0.7",
   "typer>=0.27,<0.28",
+  "mcp>=2,<3",
 ]
 
 [project.optional-dependencies]
 git = ["dulwich>=1.2.20,<2"]
-mcp = ["mcp>=2,<3"]
 
 [project.scripts]
 chancellor = "chancellor.cli:app"

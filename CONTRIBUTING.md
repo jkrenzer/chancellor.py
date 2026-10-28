@@ -16,6 +16,7 @@ This repository enforces Conventional Commits (`conventional-pre-commit --strict
 Recommended scopes in this repository include:
 
 - `packaging`
+- `deps`
 - `cli`
 - `templates`
 - `tests`
