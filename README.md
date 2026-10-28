@@ -52,6 +52,8 @@ subcommands (not implemented yet): `build`, `hash`, `schema`, `explain`, `impact
 
 The MCP server name is `chancellor-records`; its implementation arrives with the renderer migration.
 
+Full documentation lives in [`docs/`](docs/index.md) and builds with `poetry run poe docs`.
+
 ## License
 
 Copyright (C) 2026 Jörn Krenzer.

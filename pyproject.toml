@@ -139,6 +139,7 @@ disable = [
 
 [tool.pymarkdown]
 plugins.md013.line_length = 100
+plugins.md013.code_block_line_length = 100
 extensions.front-matter.enabled = true
 
 [tool.pytest.ini_options]
@@ -165,22 +166,22 @@ replace = "version = \"{new_version}\""
 # mdformat cannot exclude gitignored paths on Python < 3.13, so it gets git's file list.
 # Settings live in .mdformat.toml.
 format = [
-  { cmd = "autopep8 --in-place --recursive src tests" },
-  { cmd = "isort src tests" },
-  { cmd = "black src tests" },
+  { cmd = "autopep8 --in-place --recursive src tests docs/conf.py" },
+  { cmd = "isort src tests docs/conf.py" },
+  { cmd = "black src tests docs/conf.py" },
   { shell = "git ls-files -co --exclude-standard -- '*.md' | while read -r f; do [ -e \"$f\" ] && printf '%s\\0' \"$f\"; done | xargs -0 -r mdformat" },
   { cmd = "pymarkdown fix -r --respect-gitignore ." },
 ]
 lint = [
-  { cmd = "black --check src tests" },
-  { cmd = "isort --check-only src tests" },
-  { cmd = "pylint src/chancellor tests" },
+  { cmd = "black --check src tests docs/conf.py" },
+  { cmd = "isort --check-only src tests docs/conf.py" },
+  { cmd = "pylint src/chancellor tests docs/conf.py" },
   { shell = "git ls-files -co --exclude-standard -- '*.md' | while read -r f; do [ -e \"$f\" ] && printf '%s\\0' \"$f\"; done | xargs -0 -r mdformat --check" },
   { cmd = "pymarkdown scan -r --respect-gitignore ." },
 ]
 test = "pytest"
-docs = "sphinx-build -b html .agents/context _build/docs"
-docs-md = "sphinx-build -b markdown .agents/context _build/docs-md"
+docs = "sphinx-build -W --keep-going -b html docs docs/_build/html"
+docs-md = "sphinx-build -W --keep-going -b markdown docs docs/_build/markdown"
 prek = "pre-commit run --all-files --show-diff-on-failure"
 publish = "poetry publish --build"
 release-patch = "bump-my-version bump patch"
