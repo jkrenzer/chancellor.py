@@ -9,6 +9,11 @@ The repository includes a `Dockerfile` and `.devcontainer/devcontainer.json`. Op
 in a dev container gives Python 3.11, git, the GitHub CLI and Poetry, with all dependency groups and
 extras installed.
 
+Chancellor itself is installed in editable mode, so the `chancellor` command always runs the code in
+your working tree; chancellor manages its own design records in `arch/`. `poetry install` does this
+by default, in the dev container (re-run after creation, so it points at the mounted repository),
+locally and in CI.
+
 The container uses the Docker daemon of the host (dev container feature `docker-outside-of-docker`)
 so that VS Code can start the GitHub MCP server registered in `.vscode/mcp.json`, which runs as a
 Docker container. Access to the Docker socket amounts to root access on the host's Docker.

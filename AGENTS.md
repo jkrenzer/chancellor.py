@@ -11,6 +11,8 @@ truth; vendor-specific files should only point here.
 - `.github/`: tool-prescribed. CI workflows and the Copilot pointer file.
 - `.vscode/`: tool-prescribed. Recommended editor extensions; `mcp.json` registers the GitHub MCP
   server for VS Code.
+- `arch/`: chancellor's own architecture records (decisions, requirements, specifications), managed
+  with chancellor itself; see `arch/AGENTS.md`.
 - `docs/`: user and developer documentation, Sphinx with MyST Markdown sources.
 - `src/chancellor/`: the package; built-in templates under `templates/builtin/`.
 - `tests/`: pytest test suite.
