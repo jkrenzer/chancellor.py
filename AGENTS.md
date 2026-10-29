@@ -13,6 +13,8 @@ truth; vendor-specific files should only point here.
   server for VS Code.
 - `arch/`: chancellor's own architecture records (decisions, requirements, specifications), managed
   with chancellor itself; see `arch/AGENTS.md`.
+- `cla/`: contributor licence agreement records, signing helper and CI check; see `cla/AGENTS.md`.
+  The agreements themselves are `CLA.md` and `CLA-entity.md`.
 - `docs/`: user and developer documentation, Sphinx with MyST Markdown sources.
 - `src/chancellor/`: the package; built-in templates under `templates/builtin/`.
 - `tests/`: pytest test suite.
