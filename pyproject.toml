@@ -143,6 +143,21 @@ disable = [
   "missing-function-docstring",
 ]
 
+# Pipelines such as the project load and the build read better as one sequence than split to
+# satisfy pylint's default size limits; these limits fit them.
+[tool.pylint.design]
+max-args = 8
+max-positional-arguments = 6
+max-locals = 25
+max-returns = 8
+max-branches = 15
+max-attributes = 20
+min-public-methods = 0
+
+# chancellor.api is the public surface and stays one module, documented as one.
+[tool.pylint.format]
+max-module-lines = 1200
+
 [tool.pymarkdown]
 plugins.md013.line_length = 100
 plugins.md013.code_block_line_length = 100
