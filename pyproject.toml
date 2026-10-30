@@ -201,6 +201,7 @@ lint = [
   { cmd = "pymarkdown scan -r --respect-gitignore ." },
 ]
 test = "pytest"
+golden = { cmd = "pytest tests/test_rendering.py::test_golden --update-golden", help = "Rewrite the golden files; pair with a version bump" }
 docs = "sphinx-build -W --keep-going -b html docs docs/_build/html"
 docs-md = "sphinx-build -W --keep-going -b markdown docs docs/_build/markdown"
 prek = "pre-commit run --all-files --show-diff-on-failure"
