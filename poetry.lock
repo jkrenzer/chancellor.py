@@ -1317,7 +1317,7 @@ version = "1.0.0"
 description = "CommonMark compliant Markdown formatter"
 optional = false
 python-versions = ">=3.10"
-groups = ["dev"]
+groups = ["main", "dev"]
 files = [
     {file = "mdformat-1.0.0-py3-none-any.whl", hash = "sha256:bca015d65a1d063a02e885a91daee303057bc7829c2cd37b2075a50dbb65944b"},
     {file = "mdformat-1.0.0.tar.gz", hash = "sha256:4954045fcae797c29f86d4ad879e43bb151fa55dbaf74ac6eaeacf1d45bb3928"},
@@ -1373,7 +1373,7 @@ version = "1.0.0"
 description = "Mdformat plugin for GitHub Flavored Markdown compatibility"
 optional = false
 python-versions = ">=3.10"
-groups = ["dev"]
+groups = ["main", "dev"]
 files = [
     {file = "mdformat_gfm-1.0.0-py3-none-any.whl", hash = "sha256:7305a50efd2a140d7c83505b58e3ac5df2b09e293f9bbe72f6c7bee8c678b005"},
     {file = "mdformat_gfm-1.0.0.tar.gz", hash = "sha256:d1d49a409a6acb774ce7635c72d69178df7dce1dc8cdd10e19f78e8e57b72623"},
@@ -1535,7 +1535,7 @@ version = "26.3"
 description = "Core utilities for Python packages"
 optional = false
 python-versions = ">=3.9"
-groups = ["dev", "docs"]
+groups = ["main", "dev", "docs"]
 files = [
     {file = "packaging-26.3-py3-none-any.whl", hash = "sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"},
     {file = "packaging-26.3.tar.gz", hash = "sha256:94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79"},
@@ -1859,7 +1859,7 @@ version = "2.16.1"
 description = "Settings management using Pydantic"
 optional = false
 python-versions = ">=3.11"
-groups = ["dev"]
+groups = ["main", "dev"]
 files = [
     {file = "pydantic_settings-2.16.1-py3-none-any.whl", hash = "sha256:30f5313340da4e8f1b440d1910b92a5bc3ccbb6b4ba70ec2b8395bc921f418f5"},
     {file = "pydantic_settings-2.16.1.tar.gz", hash = "sha256:aff602a1886338c2df3d1e958e2193a8dc33cec75b91f202e83fd98484b4b0da"},
@@ -2191,7 +2191,7 @@ version = "1.2.4"
 description = "Read key-value pairs from a .env file and set them as environment variables"
 optional = false
 python-versions = ">=3.10"
-groups = ["dev"]
+groups = ["main", "dev"]
 files = [
     {file = "python_dotenv-1.2.4-py3-none-any.whl", hash = "sha256:42269a8a5b3fd54ffa6f3d84b18abed50064717576b4ecf03dc4a55d8aa04fdc"},
     {file = "python_dotenv-1.2.4.tar.gz", hash = "sha256:f0d53e69935a851c0dcc78f3ab7aaccd8cabef0b92382b576b824212902873c0"},
@@ -2435,6 +2435,24 @@ urllib3 = ">=1.26,<3"
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use-chardet-on-py3 = ["chardet (>=3.0.2,<8)"]
+
+[[package]]
+name = "rfc8785"
+version = "0.1.4"
+description = "A pure-Python implementation of RFC 8785 (JSON Canonicalization Scheme)"
+optional = false
+python-versions = ">=3.8"
+groups = ["main"]
+files = [
+    {file = "rfc8785-0.1.4-py3-none-any.whl", hash = "sha256:520d690b448ecf0703691c76e1a34a24ddcd4fc5bc41d589cb7c58ec651bcd48"},
+    {file = "rfc8785-0.1.4.tar.gz", hash = "sha256:e545841329fe0eee4f6a3b44e7034343100c12b4ec566dc06ca9735681deb4da"},
+]
+
+[package.extras]
+dev = ["build", "rfc8785[doc,lint,test]"]
+doc = ["pdoc"]
+lint = ["interrogate", "mypy (>=1.0)", "ruff (>=0.3,<1.0)"]
+test = ["coverage", "pytest", "pytest-cov"]
 
 [[package]]
 name = "rich"
@@ -3227,7 +3245,7 @@ version = "0.9.4"
 description = "Measures the displayed width of unicode strings in a terminal"
 optional = false
 python-versions = ">=3.9"
-groups = ["dev"]
+groups = ["main", "dev"]
 files = [
     {file = "wcwidth-0.9.4-cp310-abi3-macosx_10_9_x86_64.whl", hash = "sha256:b7969c9aa258d536df54c8ac8af5cad0c74a6268c9972e1fb60a5f29feffb66d"},
     {file = "wcwidth-0.9.4-cp310-abi3-macosx_11_0_arm64.whl", hash = "sha256:f279f32c8e206a9092fa350e53ca0c2bd8072e45b1c9fd31bb6d476b59b591c4"},
@@ -3266,4 +3284,4 @@ git = ["dulwich"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<4.0"
-content-hash = "1e3257d0250082a247d946cb46596f9f4fa8b7901b44222c5cfcaf2d3b669568"
+content-hash = "344c8821bff8a9c503e801641797097c3119e90eebc3d4caaefd1ff061a1056a"
