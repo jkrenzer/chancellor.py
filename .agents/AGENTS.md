@@ -13,6 +13,8 @@ This folder contains cross-tool agent metadata, context, scripts, and skills.
   is loaded as a subagent, so no index files. Empty apart from `.gitkeep`.
 - `skills/`: tool-prescribed. One folder per skill, each with a `SKILL.md`; no index files.
   - `setup-session/`: session start-up procedure.
+  - `devcontainer-setup/`: set up an agent-ready dev container (VS Code, SSH, Codespaces, CI) in a
+    repository; generic templates in its `assets/template/`.
 - `tmp/`: gitignored. Session-bound context (hand-offs, work boards, plans, notes), one subfolder
   per task; see "Working alongside other sessions" in `/AGENTS.md`.
 
