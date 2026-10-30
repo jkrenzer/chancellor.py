@@ -122,6 +122,9 @@ install_commands() {
   mkdir -p ~/.local/bin
   printf '#!/bin/sh\nexec bash "%s" "$@"\n' "$DEVCONTAINER_DIR/ssh-info.sh" >~/.local/bin/ssh-info
   chmod 0755 ~/.local/bin/ssh-info
+  printf '#!/bin/sh\nexec bash "%s" "$@"\n' "$DEVCONTAINER_DIR/ssh-update-keys.sh" \
+    >~/.local/bin/ssh-update-keys
+  chmod 0755 ~/.local/bin/ssh-update-keys
 }
 
 # SSH sessions get no container environment; sshd reads ~/.ssh/environment instead (allowed
@@ -136,6 +139,34 @@ install_ssh_env() {
     printf 'DEVCONTAINER_WORKSPACE=%s\n' "${DEVCONTAINER_WORKSPACE:-$WORKSPACE_DIR}"
   } >~/.ssh/environment
   chmod 0600 ~/.ssh/environment
+}
+
+# Rebuilds ~/.ssh/authorized_keys from the keys the container came with and the workspace's
+# gitignored .ssh/authorized_keys, so a key deleted there is gone after the next run. The first
+# run keeps the container's own file as authorized_keys.image (empty if there was none). Keys are
+# copied, not linked: sshd's StrictModes rejects a key file below the world-writable workspace
+# mount. sshd reads the file on every login, so changes need no restart. Also the command
+# `ssh-update-keys`.
+install_authorized_keys() {
+  local keys="$HOME/.ssh/authorized_keys" src="$WORKSPACE_DIR/.ssh/authorized_keys"
+  local image="$HOME/.ssh/authorized_keys.image" tmp file line
+  mkdir -p ~/.ssh
+  if [ ! -f "$image" ]; then
+    if [ -f "$keys" ] && [ ! -L "$keys" ]; then cp "$keys" "$image"; else : >"$image"; fi
+    chmod 0600 "$image"
+  fi
+  # A temporary file in the same folder and a rename, so a login never sees a partial file.
+  tmp="$(mktemp "$keys.XXXXXX")"
+  for file in "$image" "$src"; do
+    [ -f "$file" ] || continue
+    while IFS= read -r line || [ -n "$line" ]; do
+      line="${line%$'\r'}"
+      [ -n "${line//[[:space:]]/}" ] || continue
+      grep -qxF -- "$line" "$tmp" || printf '%s\n' "$line" >>"$tmp"
+    done <"$file"
+  done
+  mv -f "$tmp" "$keys"
+  log "ssh: $(grep -cvE '^[[:space:]]*#' "$keys" || true) key(s) in $keys"
 }
 
 # Interactive shells source profile.sh, which applies the auth choice to the shell environment.

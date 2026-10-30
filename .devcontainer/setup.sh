@@ -35,6 +35,7 @@ for phase in "$@"; do
       repair_ownership
       repair_links
       install_ssh_env
+      install_authorized_keys
       configure_auth
       env_start
       if [ "$AGENT_FIREWALL" = 1 ]; then enable_firewall; fi

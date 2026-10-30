@@ -1,6 +1,10 @@
 # Temporary files and directories
 tmp/
 
+# SSH local files except documentation
+.ssh/*
+!.ssh/README.md
+
 # Project-local Poetry plugins (requires-plugins in pyproject.toml)
 .poetry/
 

@@ -20,6 +20,7 @@ others) use the same environment, interactively or unattended.
 | `.devcontainer/root/`                  | Root helpers and allowlist, baked into image.    |
 | `.devcontainer/profile.sh`             | Interactive shells: auth choice, start folder.   |
 | `.devcontainer/ssh-info.sh`            | The `ssh-info` command: how to reach the box.    |
+| `.devcontainer/ssh-update-keys.sh`     | The `ssh-update-keys` command: refresh keys.     |
 
 `setup.sh create` repairs file ownership and git symbolic links, runs `PROJECT_SETUP` and the
 environment hook's `env_create`. `setup.sh start` repairs again, checks the agent logins, runs
@@ -36,9 +37,14 @@ without either side knowing about the other.
   `devcontainer exec`. The `sshd` feature runs in the container, but its port is not published. The
   container's main process runs as root, so `docker exec` without `-u dev` gives a root shell.
 - Local SSH, optional: forward port 2222 in VS Code's Ports panel (it is labelled "SSH: user dev, …"
-  and never forwarded automatically), add your public key to `~/.ssh/authorized_keys` in the
-  container, and connect to the local port the panel shows. The forward lasts while VS Code is
+  and never forwarded automatically), add your public key to `.ssh/authorized_keys` in the workspace
+  (gitignored), and connect to the local port the panel shows. The forward lasts while VS Code is
   connected.
+- Authorized keys: `setup.sh start` rebuilds `~/.ssh/authorized_keys` in the container from the keys
+  the container came with (kept as `~/.ssh/authorized_keys.image`) and the workspace's
+  `.ssh/authorized_keys`. After editing the latter, run `ssh-update-keys`; a key deleted there is
+  then gone too. Keys added by hand to `~/.ssh/authorized_keys` are lost on the next rebuild; add
+  them to the workspace file instead.
 - MCP from outside: an agent on another machine can start a server inside the container as a stdio
   server, e.g. `ssh <host> chancellor serve`.
 
