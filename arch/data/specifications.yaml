@@ -1,0 +1,1023 @@
+# Specifications of chancellor: this kind's section (core, records). Edit here, then run
+# `poetry run chancellor build`.
+core:
+  title: Specification Documentation Core Document
+  id: S0000
+  short_title: Specification Core
+  description: Rules for chancellor's specification records and the index of all specifications.
+  author: jkrenzer
+  state: accepted
+  revisions:
+    - version: "1.0.0"
+      date: 2026-10-29
+      description: Initial record.
+  introduction: |
+    This document is the core and root of chancellor's specification documentation. A
+    specification record, identified as `S####`, states what an artifact of chancellor is: its
+    structure, its permitted content and the conditions an instance of it has to satisfy. The
+    need for the artifact belongs in a requirement record, the reasoning that led to it in a
+    decision record.
+
+    The records are data in `arch/data/specifications.yaml` and are rendered by chancellor itself.
+  rule_sets:
+    - scope: 'Following rules are to be applied to the files in this folder:'
+      rules:
+        - >-
+          Do not edit the rendered documents. Change the data in `arch/data/` and run
+          `chancellor build`.
+        - One file should cover one major topic.
+        - File names are lower-kebab-case of the record ID and short title.
+        - Short and long title shall be descriptive and specific.
+    - scope: 'Following rules are to be applied to the content of a record:'
+      rules:
+        - State what the artifact is, not why it was chosen.
+        - Delimit the subject in the Subject section and state exclusions explicitly.
+        - Define every term the normative statements rely on in the Terms section.
+        - Every statement of a clause is normative; all remaining text is explanatory.
+        - >-
+          State in the Conformance section how a clause is checked and which evidence the check
+          produces.
+    - scope: 'Following rules are to be applied to the links between records:'
+      rules:
+        - >-
+          List the requirements a specification answers in `addresses`, and keep their
+          `addressed_by` consistent.
+        - Link the decision that governs a specification under References and Links.
+records:
+  - title: Provider Manifest chancellor-provider.yaml
+    id: S0001
+    addresses: [R0004, R0005, R0006]
+    short_title: Provider Manifest
+    description: >-
+      Structure of a provider manifest, the one file or object by which a provider declares its
+      name, version and contributions, and the load order of providers.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Built-in, plugin and local providers declare themselves in one format, so there is one
+      schema to document, validate and fingerprint.
+    subject:
+      - The manifest file `chancellor-provider.yaml` of a local or built-in provider.
+      - The manifest object an entry point in the group `chancellor.providers` returns.
+      - The load order and addressing of contributions.
+      - 'Excluded: the content of templates and the fields of record models.'
+    terms:
+      - >-
+        Provider: a named bundle of contributions loaded from the distribution, an entry point
+        or a project folder.
+      - >-
+        Contribution: a kind, template, formatter, linter, config loader or version scheme a
+        provider adds.
+      - 'Address: `<provider>/<name>`, the only way to name a contribution.'
+      - 'Code provider: a provider fingerprinted by its distribution version.'
+      - >-
+        Declarative provider: a provider fingerprinted by a digest over its manifest and
+        template sources.
+    specification:
+      - designation: Manifest keys
+        description: |
+          ```yaml
+          _api:
+            version: 1.0.0
+            kind: chancellor_provider
+          name: example
+          version: "3"
+          templates:
+            directory: templates
+          kinds:
+            interface:
+              folder: arch/interface
+              templates:
+                records: example/interface.md.j2
+                core_document: example/interface-core.md.j2
+              fields:
+                protocol: {type: str, required: true}
+                partners: {type: "list[record_ref]", required: false}
+          ```
+        statements:
+          - '`_api.version` is `1.0.0` and `_api.kind` is `chancellor_provider`.'
+          - >-
+            `name` matches `^[a-z][a-z0-9_-]*(\.[a-z][a-z0-9_-]*)*$`; a dot separates a flavour,
+            as in `builtin.jkrenzer`.
+          - '`version` is optional; a local provider without one is a degradation.'
+          - >-
+            The top-level keys besides `_api`, `name` and `version` are the closed set of
+            extension points: `kinds`, `templates`, `formatters`, `linters`, `config_loaders`,
+            `version_schemes`. Any other key is an error naming the loaded providers.
+          - >-
+            `formatters`, `linters`, `config_loaders` and `version_schemes` map a type name to
+            `module:Class`; a type is addressed as `<provider>.<name>`, e.g. `builtin.mdformat`.
+      - designation: Kind declarations
+        statements:
+          - >-
+            A kind declares `folder`, its default output folder relative to the project root, and
+            `templates.records`.
+          - >-
+            A kind gives exactly one model source: `model` (`module:Class`), `fields`
+            (declarative) or `schema` (JSON Schema, needs the `schema` extra).
+          - '`core_model` and `templates.core_document` are given together or not at all.'
+          - '`base` names the base model of declarative fields and is valid with `fields` only.'
+          - >-
+            A declarative field has `type` (`str`, `text`, `int`, `bool`, `date`, `record_ref`, or
+            `list[...]` of these), `required` (default true), `depends` for `record_ref` fields
+            (`id`, `name` or `data`, default `id`; D0032) and an optional `description`.
+          - >-
+            `aliases` maps extra kind names to `records` or `core_document`, e.g. `adr: records`.
+      - designation: Load order and addressing
+        statements:
+          - >-
+            Providers load in a fixed order, built-in first, then entry points sorted by
+            distribution name, then local providers in declared order.
+          - >-
+            A later provider may add a kind or template but may not redefine one; redefinition is
+            an error.
+          - >-
+            Every contribution is addressed by its provider's name; templates as
+            `<provider>/<file>`.
+          - >-
+            The built-in providers `builtin` and `builtin.jkrenzer` load through the same code
+            path as a local one.
+      - designation: Fingerprints
+        statements:
+          - >-
+            A code provider's fingerprint is its distribution version string, compared as an exact
+            string.
+          - >-
+            In an editable install, the fingerprint is `<version> source <digest>`, the digest
+            covering the package source (D0017, D0031).
+          - >-
+            Code from no distribution is fingerprinted by the digest of its source and its static
+            import closure; an import that cannot be resolved records `unfingerprinted-code`
+            (D0031).
+          - >-
+            A provider without a version that is hashed completely raises an INFO message; one
+            that cannot be hashed safely records `unversioned-provider` (D0021).
+          - >-
+            A declarative provider's fingerprint is a digest over its canonicalized manifest, its
+            kind declarations and the loader's source string of each template it contributes.
+          - A model's contribution to a fingerprint is the digest of the JSON Schema it emits.
+    conformance:
+      - >-
+        Manifest keys and kind declarations: `chancellor schema` of the manifest model and the
+        tests in `tests/test_providers.py`.
+      - >-
+        Load order: `chancellor providers` lists providers in load order; covered by the
+        provider tests.
+      - >-
+        Fingerprints: the `providers` part named by `chancellor explain` after a template
+        change in a local provider.
+    references:
+      - designation: Governing decision
+        pointers:
+          - >-
+            [D0002: Providers With Prefix
+            Addressing](../decisions/D0002-providers-with-prefix-addressing.md)
+          - >-
+            [D0005: Pydantic Models and Schema
+            Fingerprints](../decisions/D0005-pydantic-models-and-schema-fingerprints.md)
+
+
+  - title: Project Data Tree Layout and Merge Rules
+    id: S0002
+    addresses: [R0003, R0010, R0011, R0012, R0013, R0014, R0015, R0018]
+    short_title: Project Data Tree
+    description: >-
+      Top-level layout of the project data tree, chancellor's configuration keys, and how several
+      data files merge.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      One YAML file, or several, is the source of truth for records and for the configuration
+      of the tools that read them.
+    subject:
+      - The data file `chancellor.yaml`, the files it includes, and their merged tree.
+      - The keys under `_api/chancellor` and `config/chancellor`.
+      - 'Excluded: the fields of individual record kinds, which their models define.'
+    terms:
+      - >-
+        Data file: the main file, found as `--data`, else `$CHANCELLOR_DATA`, else the nearest
+        `chancellor.yaml` upwards from the working directory.
+      - >-
+        Module: a tool owning one key under `_api` and one under `config`, such as
+        `chancellor`.
+      - 'Kind section: a top-level key holding the core document and records of one kind.'
+    specification:
+      - designation: Top level
+        description: |
+          ```yaml
+          _api:
+            chancellor:
+              version: "2.0.0"
+              kind: project_records
+          config:
+            chancellor:
+              include: [arch/data]
+          decisions:
+            core: {}
+            records: []
+          ```
+        statements:
+          - >-
+            The top level holds `_api`, `config`, `meta` and kind sections, nothing else (S0008).
+          - '`_api.chancellor` has `version: "2.0.0"` and `kind: project_records`.'
+          - >-
+            A kind section holds `core`, the core document, and `records`, the list of records.
+          - >-
+            Keys under another module of `_api` or `config` are preserved and never read by
+            chancellor.
+          - A tree without the scoped layout is refused with a message showing the new shape.
+          - |-
+            Every top-level section encountered is logged at INFO level (D0027).
+      - designation: Chancellor configuration
+        statements:
+          - >-
+            `providers`: list of local providers, each `{name, path}`; only in the main data file.
+          - >-
+            `include`: data-tree files or folders to merge, relative to the project root; a folder
+            contributes its `*.yaml` files in name order; only in the main data file.
+          - |-
+            `loaders`: the configuration loaders, default `["builtin.data_file"]`, by type address or
+            import path.
+            - Note: proposed in D0034.
+          - '`wrap_width`: positive integer, default 100.'
+          - "`formatter` and `linter`: a type address under `type` plus the type's arguments."
+          - >-
+            `kinds.<kind>.folder` and `kinds.<kind>.templates`: per-kind output folder and
+            template addresses, defaulting to the provider's.
+          - >-
+            `kinds.<kind>.data`: the file holding the kind's section, relative to the project
+            root; a missing file means no data yet (D0019).
+          - >-
+            `kinds.<kind>.model` and `kinds.<kind>.core_model`: a subclass of the provider's
+            record or core model, as `path/to/file.py:Class` or `module:Class` (D0025).
+          - >-
+            `data_model`: a supplied root model as `module:Class`, built from chancellor's public
+            bases; output folders stay configurable alongside it (D0030).
+          - '`snapshot`: optional path for a JSON export of the validated data.'
+          - '`lock`: lock file path, default `chancellor.lock`.'
+          - An unknown key is an error naming the loaded providers and the nearest valid keys.
+          - |-
+            A setting can be overridden for one run with `--set KEY=VALUE`.
+            - Note: proposed in D0034.
+      - designation: Merging files
+        statements:
+          - Mappings merge key-wise.
+          - Record lists of a kind section concatenate.
+          - A value defined in two files is an error naming both files.
+          - A record ID appearing twice is an error naming both records and files.
+          - >-
+            The file layout enters no digest; provenance per section and record is recorded in the
+            lock.
+      - designation: Paths
+        statements:
+          - >-
+            The project root is the nearest folder above the data file holding `pyproject.toml`,
+            else `.git`, else the data file's folder.
+          - >-
+            Every configured path is relative to the project root and must resolve inside it,
+            symlinks included.
+          - Paths are stored repo-relative in POSIX form.
+    conformance:
+      - >-
+        Top level and configuration: `chancellor schema config` prints the merged
+        configuration schema; the scoped-layout tests in `tests/test_project.py`.
+      - 'Merging: a split-file test shows equal digests for one file and several.'
+      - >-
+        This repository: `chancellor build --check` over `chancellor.yaml` with `include:
+        [arch/data]`.
+    references:
+      - designation: Governing decision
+        pointers:
+          - '[D0012: Facet-Scoped Data Tree](../decisions/D0012-facet-scoped-data-tree.md)'
+          - '[D0019: Per-Kind Data Files](../decisions/D0019-per-kind-data-files.md)'
+          - >-
+            [D0025: Model Override in
+            Configuration](../decisions/D0025-model-override-in-configuration.md)
+          - '[D0027: Log Top-Level Sections](../decisions/D0027-log-top-level-sections.md)'
+          - >-
+            [D0030: Root Models by Inheritance](../decisions/D0030-root-models-by-inheritance.md)
+
+
+  - title: Canonical Form and Digest Format
+    id: S0003
+    addresses: [R0007, R0021]
+    short_title: Canonical Form and Digests
+    description: >-
+      The canonical bytes behind every chancellor digest and the written form of a digest.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Four callers depend on one canonical form: record data, the configuration subtree, a
+      model's emitted JSON Schema and a provider manifest.
+    subject:
+      - >-
+        The function from JSON data to canonical bytes, and the digest written from those
+        bytes.
+      - 'Excluded: which fields a caller passes in; the models define that.'
+    terms:
+      - "Validated dump: a model's JSON-mode dump after validation, with defaults filled."
+      - 'Spec tag: the leading name of the canonicalization rules, currently `c1`.'
+    specification:
+      - designation: Input
+        statements:
+          - The input is the validated dump with defaults filled, never raw parsed YAML.
+          - >-
+            Fields marked `DigestExclude` or `Generated` in `chancellor.api` are left out of a
+            record's data.
+          - A key absent with a null default and an explicit null are both serialized as null.
+      - designation: Normalization
+        statements:
+          - Strings are normalized to Unicode NFC.
+          - Line breaks inside strings are normalized to LF.
+          - Trailing whitespace is kept.
+          - Floats are refused; `Decimal` values arrive as strings.
+          - Mapping keys must be strings.
+      - designation: Bytes and digest
+        statements:
+          - Canonical bytes are JCS, RFC 8785, as produced by the `rfc8785` package.
+          - A digest is written `c1:sha256:<hex>` with the full lowercase SHA-256 hex digest.
+          - A stored digest with another tag is never compared; the document is rebuilt.
+    conformance:
+      - >-
+        Test vectors in `tests/test_canonical.py` cover NFC, LF, floats, nulls and the digest
+        form.
+    references:
+      - designation: Governing decision
+        pointers:
+          - '[D0006: JCS Canonical Form](../decisions/D0006-jcs-canonical-form.md)'
+      - designation: RFC 8785
+        description: JSON Canonicalization Scheme (JCS).
+
+  - title: Extension Interfaces of chancellor.api
+    id: S0004
+    addresses: [R0004, R0015, R0019, R0021]
+    short_title: Extension Interfaces
+    description: >-
+      The abstract classes, the six model hooks, the field markers and the root-model protocol
+      that make up chancellor's public extension surface.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Consumers extend chancellor by subclassing; the built-in types implement the same classes.
+    subject:
+      - The public module `chancellor.api`.
+      - 'Excluded: internal modules, which may change without notice.'
+    terms:
+      - 'Hook: a method of an interface a subclass overrides to change one step.'
+      - >-
+        Marker: an annotation from `chancellor.api` that also appears in the emitted JSON
+        Schema.
+    specification:
+      - designation: Abstract classes
+        statements:
+          - >-
+            `Model` is the base of every record model and `CoreModel` the base of a kind's core
+            document.
+          - >-
+            `Provider`, `Formatter`, `Linter`, `ConfigLoader` and `VersionScheme` are abstract
+            base classes.
+          - >-
+            `RootModel` is a Protocol with `chancellor_sections()`, returning per kind its core
+            document or none and its records.
+          - Built-in types subclass these same classes.
+          - "`Model.output_name(suffix)` gives the file name of a record's document."
+          - >-
+            `Model.inverse_refs` maps a `RecordRef` field to the field of the referenced record
+            that must list this record back, e.g. `{"addresses": "addressed_by"}`; `doctor`
+            reports one-sided links.
+          - >-
+            `CoreModel.index_records(records)` returns a copy of the core document with its
+            generated index filled in.
+          - >-
+            `ProjectModel`, `ApiTree`, `ConfigTree`, `ChancellorConfig`, `KindConfig` and
+            `Section` are public bases a supplied root model inherits from, with every field and
+            its default (D0030).
+          - |-
+            A `ConfigLoader` is constructed with a `LoaderContext` and its configured arguments.
+            - Note: proposed in D0034.
+          - >-
+            A `VersionScheme` parses and orders versions; the built-in schemes are `semver`,
+            `pep440` (through the `packaging` library) and `free`, and providers may contribute
+            more (S0008).
+      - designation: Model hooks
+        description: The hook names are recorded in D0024.
+        statements:
+          - '`model_load`: raw source data to validation input; the default passes it through.'
+          - '`model_validate`: Pydantic validation.'
+          - >-
+            `model_canonicalize`: the JSON data behind `data_hash`, with defaults filled and
+            excluded fields left out.
+          - "`model_index`: the record's ID and every `RecordRef` it holds."
+          - >-
+            `model_serialize`: document data for templates and front matter, computed fields
+            included.
+          - >-
+            `model_save`: the data written back into the data tree, without generated and computed
+            fields.
+          - >-
+            `front_matter` is a class variable listing the front-matter keys in order; it is not a
+            hook.
+      - designation: Markers
+        statements:
+          - >-
+            `RecordRef(depends=...)` marks a record ID and declares what flows over the reference:
+            `"id"` (default), `"name"` or `"data"`; the value is written into the JSON Schema as
+            `x-chancellor-record-ref`. `RecordRefs` is a list of `depends="id"` references (D0032).
+          - >-
+            A value shaped like an ID of a registered kind must resolve; any other value is
+            external, written as `<project>:<version>:<id>` or as a URL (D0029, S0008).
+          - '`DigestExclude` keeps a field out of `model_canonicalize`.'
+          - >-
+            `Generated` marks a field chancellor fills in; it is excluded from the digest and
+            rejected as input.
+      - designation: Extension point names
+        statements:
+          - >-
+            The extension points are exactly `kinds`, `templates`, `formatters`, `linters`,
+            `config_loaders` and `version_schemes`.
+      - designation: Template context
+        statements:
+          - >-
+            A template sees another record only under `refs.<field>`, with exactly what that
+            field's `depends` exposes (D0032).
+          - '`refs` and `data_hash` are reserved; a model field with either name is refused.'
+          - >-
+            A referenced record's own references are not exposed; a template that reaches past one
+            hop fails (D0033).
+      - designation: Model overrides
+        statements:
+          - >-
+            `config/chancellor/kinds/<kind>/model` and `core_model` name a subclass of the
+            provider's model; any other class is refused.
+          - >-
+            A model is named as `path/to/file.py:Class`, relative to the project root, or as
+            `module:Class`.
+          - |-
+            An override is fingerprinted by its code, along the one code path of D0031, and its
+            emitted JSON Schema; it is no degradation when its code is hashed completely.
+    conformance:
+      - >-
+        `tests/test_models.py` and `tests/test_providers.py` exercise the hooks and markers
+        through the built-in kinds and a supplied root model (`tests/rootmodel.py`).
+      - 'Documentation with a minimal subclass per class: not complete yet.'
+    references:
+      - designation: Governing decision
+        pointers:
+          - >-
+            [D0009: Abstract Classes and Six Model
+            Hooks](../decisions/D0009-abstract-classes-and-six-model-hooks.md)
+          - '[D0024: Model Hook Names](../decisions/D0024-model-hook-names.md)'
+          - >-
+            [D0025: Model Override in
+            Configuration](../decisions/D0025-model-override-in-configuration.md)
+          - '[D0032: Reference Dependencies](../decisions/D0032-reference-dependencies.md)'
+          - >-
+            [D0029: Usage Errors and Ref
+            Resolution](../decisions/D0029-usage-errors-and-ref-resolution.md)
+
+
+  - title: Exit Codes of Every Chancellor Command
+    id: S0005
+    addresses: [R0018, R0020]
+    short_title: Exit Codes
+    description: The seven exit codes every chancellor command returns and what each means.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: Scripts, hooks and CI react to chancellor by its exit code.
+    subject:
+      - The process exit code of the `chancellor` console script.
+      - 'Excluded: messages on stderr, which may change.'
+    terms:
+      - >-
+        Drift: a document whose bytes or inputs differ from what the data and the lock say it
+        should be.
+      - 'Degradation: a build input chancellor cannot fingerprint reliably.'
+    specification:
+      - designation: Codes
+        statements:
+          - '0: success.'
+          - >-
+            1: configuration error, including `builtin.none` under `lint`, command-line misuse
+            (D0029) and problems `doctor` finds outside the record data, such as untracked
+            documents (D0035).
+          - >-
+            2: record data invalid: duplicate IDs, also across files, dangling refs, one-sided
+            links found by `doctor`, a record failing its model.
+          - '3: `--check` found drift.'
+          - '4: `--strict` found degradations.'
+          - '5: the linter reported problems.'
+          - '6: internal error.'
+      - designation: Documentation
+        statements:
+          - >-
+            The table appears in the CLI help, and each command's help names the codes it can
+            return.
+    conformance:
+      - '`tests/test_cli.py` asserts each code.'
+      - '`chancellor --help` shows the table.'
+    references:
+      - designation: Governing decision
+        pointers:
+          - '[D0010: Seven Exit Codes](../decisions/D0010-seven-exit-codes.md)'
+          - >-
+            [D0029: Usage Errors and Ref
+            Resolution](../decisions/D0029-usage-errors-and-ref-resolution.md)
+
+
+  - title: Lock File and Document Input Hash
+    id: S0006
+    addresses: [R0006, R0007, R0008, R0009, R0023]
+    short_title: Lock File
+    description: >-
+      Structure of the lock file and the digest parts of a document's `input_hash` that decide
+      whether a document is rebuilt.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      The lock records what the last build saw, so the next build rebuilds exactly what changed
+      and `explain` can say why.
+    subject:
+      - >-
+        The lock file, `chancellor.lock` by default, and the digest parts it stores per
+        document.
+      - "Excluded: the rendered documents, which carry only their record's `data_hash`."
+    terms:
+      - "`data_hash`: the digest of a record's own canonical data."
+      - '`input_hash`: the digest over all digest parts of one document.'
+      - >-
+        Feeding provider: a provider contributing the kind, a template in the closure, the
+        formatter or the root model of a document.
+    specification:
+      - designation: Lock structure
+        description: |
+          ```json
+          {
+            "_api": {"kind": "chancellor_lock", "version": "2"},
+            "renderer": "0.1.0",
+            "environment": {"api": "c1:sha256:…", "config": "c1:sha256:…", "providers": "c1:sha256:…",
+                          "fingerprints": {"builtin.jkrenzer": "0.1.0"}},
+            "providers": [{"name": "builtin.jkrenzer", "origin": "chancellor", "type": "code",
+                           "fingerprint": "0.1.0", "kinds": ["decisions"]}],
+            "degradations": [],
+            "documents": {}
+          }
+          ```
+        statements:
+          - >-
+            The lock is JSON with sorted keys and two-space indentation, ending with a newline.
+          - '`_api` is `{kind: chancellor_lock, version: "2"}`.'
+          - >-
+            `renderer` is chancellor's distribution version, unchanged; in an editable install the
+            renderer fingerprint also carries a digest of the package source (D0017, D0031).
+          - >-
+            `environment` holds the `api`, `config` and `providers` digests and the whole
+            fingerprint map under `fingerprints`.
+          - >-
+            `providers` lists the resolved provider set: name, origin, type `code` or
+            `declarative`, fingerprint and contributed kinds.
+          - '`degradations` lists each degradation of the build with code, subject and message.'
+          - >-
+            `documents` maps each output path to its ID, kind, part (`records` or
+            `core_document`), `data_hash`, `input_hash`, digest `parts`, the digest of the bytes
+            written as `output`, and its source data files.
+          - |-
+            `cli_overrides` records the settings overridden with `--set` for the build. - Note: proposed in D0034.
+      - designation: Digest parts
+        statements:
+          - "`data`: the record's own `data_hash`."
+          - >-
+            `refs`: per reference field, what its `depends` exposes of each target (`id`; `id`,
+            file name and path; or those plus the target's data), plus the record's `Generated`
+            fields, such as a core document's index context (D0032).
+          - |-
+            A target's own references are neither exposed nor digested (D0033).
+          - '`files`: bytes of hashed file refs.'
+          - >-
+            `templates`: source strings of every template reachable from the document's template.
+          - |-
+            `config`: the digest of the whole validated `config/chancellor`, without the layout keys
+            `include` and `kinds.<kind>.data` (D0020).
+            - Note: `loaders` is excluded as well; proposed in D0034.
+          - >-
+            `api`: the data-tree format version and the renderer fingerprint: chancellor's
+            version, plus its source digest in an editable install, the Python implementation and
+            major.minor version, and the installed versions of the libraries that shape output
+            (D0017).
+          - >-
+            `providers`: one digest per build over the provider set and every fingerprint:
+            providers, `data_model`, `model:<kind>`, `code:<address>` and `schema:<kind>` (D0018).
+      - designation: Reading a lock
+        statements:
+          - >-
+            A lock that cannot be read, or carries another `_api` version, is ignored and
+            everything is rebuilt.
+          - >-
+            A document is rebuilt when any stored part differs, is missing or carries an unknown
+            digest tag.
+          - Deleting the lock and building yields the same documents as an incremental build.
+          - >-
+            A document in the lock that no record produces any more is an orphan: removed when the
+            file is still what chancellor wrote, reported and kept otherwise.
+          - |-
+            The document paths of an unusable lock are read best effort; those still on disk are
+            reported as orphans and never deleted.
+            - Note: proposed in D0035.
+          - |-
+            A file in a kind's output folder named like a record of that kind and unknown to the
+            plan and the lock is untracked: `build` warns and keeps it, and `doctor` reports it as a
+            problem.
+            - Note: proposed in D0035.
+    conformance:
+      - '`tests/test_build.py` covers cold and incremental builds, `explain` and degradations.'
+      - >-
+        This repository: `chancellor build --check` after deleting `arch/chancellor.lock`
+        reports no changed document.
+    references:
+      - designation: Governing decision
+        pointers:
+          - >-
+            [D0003: Coarse Environment Digest](../decisions/D0003-coarse-environment-digest.md)
+          - '[D0018: Whole-Set Provider Part](../decisions/D0018-whole-set-provider-part.md)'
+          - >-
+            [D0017: Editable Install Detected](../decisions/D0017-editable-install-detected.md)
+          - >-
+            [D0020: Config Digest by
+            Chancellor](../decisions/D0020-config-digest-by-chancellor.md)
+          - '[D0032: Reference Dependencies](../decisions/D0032-reference-dependencies.md)'
+          - '[D0035: Unvouched Documents Kept](../decisions/D0035-unvouched-documents-kept.md)'
+    notes: >-
+      The `files` part digests an empty list until a marker for hashed file refs exists.
+  - title: Built-In Record Kinds of builtin.jkrenzer
+    id: S0007
+    addresses: [R0001]
+    short_title: Built-In Record Kinds
+    description: >-
+      Fields, validation rules, core documents and rendering of the decision, requirement
+      and specification kinds that ship as `builtin.jkrenzer`.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-30
+        description: Initial record.
+    context: |-
+      The built-in provider is what a project gets from an empty configuration. Its models are
+      the single source of truth for the accepted inputs; this record states them in one place.
+    subject:
+      - >-
+        The decision, requirement and specification kinds of `builtin.jkrenzer`, their core
+        documents and their rendered documents.
+      - 'Excluded: the data-tree layout (S0002) and the digests (S0003, S0006).'
+    terms:
+      - "Record: one entry of a kind section's `records`."
+      - 'Core document: the one `core` entry of a kind section.'
+      - 'Not given: an optional value that is omitted, null or blank.'
+    specification:
+      - designation: Kinds and files
+        statements:
+          - >-
+            The kinds are `decisions`, `requirements` and `specifications`, with the aliases
+            `adr`, `arr` and `asr` for their records and `adr-core`, `arr-core` and `asr-core` for
+            their core documents.
+          - >-
+            The default output folders are `arch/decisions`, `arch/requirements` and
+            `arch/specification`.
+          - >-
+            Record IDs match `D####`, `R####` and `S####`; the core documents are `D0000`, `R0000`
+            and `S0000`.
+          - A document's file name is `<id>-<short title in lower kebab case>.md`.
+      - designation: Common fields
+        statements:
+          - >-
+            Every record and core document has `title`, `id`, `description`, `author`, `state` and
+            `revisions`; `short_title`, `tags` and `date` are optional.
+          - >-
+            `short_title` defaults to `title` and `date` to the first revision's date; `version`
+            is computed from the last revision.
+          - A tag is a nonempty string or a nonempty mapping of strings to strings.
+          - >-
+            A revision has `version`, `date` and `description`; revisions are at least one, oldest
+            first and unique by version, and versions follow the configured versioning scheme
+            (S0008).
+          - >-
+            Text must contain non-whitespace characters; an unknown field name fails; every
+            violation is reported, and the command exits 2.
+      - designation: Record fields
+        statements:
+          - >-
+            Every record has `context`; `references` and `notes` are optional. A reference has a
+            `designation`, an optional `description` and optional `pointers`.
+          - A decision has `addresses`, `decision`, `alternatives` and `consequences`.
+          - >-
+            A requirement has `addressed_by`, `requirement`, `goals`, `stakeholders` and
+            `responsibility`.
+          - >-
+            A specification has `addresses`, `subject`, `terms`, `specification` and
+            `conformance`; a clause has a `designation`, an optional `description` and its
+            `statements`.
+          - >-
+            `addresses` and `addressed_by` are references with `depends="id"` and inverses of each
+            other; `doctor` reports a link listed in one direction only.
+      - designation: Core documents
+        statements:
+          - >-
+            A core document has `introduction` and `rule_sets`, each rule set a `scope` sentence
+            and its `rules`.
+          - >-
+            Its `records` index is generated from the kind's records, ordered by ID, with short
+            title, description, tags and file name; it is refused as input.
+          - An empty index renders "None.".
+      - designation: Rendering
+        statements:
+          - >-
+            The front matter is YAML serialized from the model in the kind's key order, followed
+            by `data_hash`; a string longer than the wrap width is written as a folded block
+            scalar.
+          - >-
+            The body comes from the kind's template and is formatted by the configured formatter
+            at `wrap_width`.
+          - An optional section that is not given renders "None.".
+          - >-
+            A list item spanning several lines is indented under its marker, so nested bullets
+            stay nested, and an item's trailing line break does not loosen the list.
+          - >-
+            A reference renders its designation in bold, followed by its description, by a colon
+            before its pointers, or by a period.
+          - >-
+            A specification clause renders as a level-three heading with its description before
+            its statements.
+    conformance:
+      - >-
+        `tests/test_models.py` and `tests/test_rendering.py` cover validation and rendering;
+        the golden files under `tests/golden/` cover every kind and template.
+      - This repository's `arch/` documents pass `pymarkdown` and `mdformat --check`.
+    references:
+      - designation: Governing decision
+        pointers:
+          - '[D0001: Model Owns Record Logic](../decisions/D0001-model-owns-record-logic.md)'
+          - '[D0013: Built-In Flavours](../decisions/D0013-built-in-flavours.md)'
+  - title: Record-Set Version, Versioning Scheme and Absolute IDs
+    id: S0008
+    addresses: [R0024]
+    short_title: Versioning and Absolute IDs
+    description: >-
+      Where chancellor keeps the record-set version, how a configured scheme validates
+      versions, and how absolute IDs refer to records from outside the record set.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-30
+        description: Initial record.
+    context: |-
+      Chancellor's versioning support is scheme-neutral: a project chooses its scheme and
+      policy, and chancellor validates and exposes what the project configured.
+    subject:
+      - >-
+        The `meta` facet of the data tree, `config.<key>.versioning`, the validation of
+        versions, and absolute IDs.
+      - "Excluded: a project's choice of scheme and increment policy."
+    terms:
+      - >-
+        Record-set version: `meta.<key>.version`, the version of the record set as a whole.
+      - >-
+        Scheme: a `VersionScheme` type that parses and orders versions, such as `semver`,
+        `pep440` or `free`.
+      - 'Bare reference: a record ID alone; it means the current record-set version.'
+      - >-
+        Absolute ID: a record ID combined with the record-set version in the configured
+        format.
+      - >-
+        Historic reference: an absolute reference with a version older than the current
+        record-set version.
+    specification:
+      - designation: Meta facet
+        statements:
+          - >-
+            `meta.<key>.version` holds the record-set version; `<key>` is chancellor's module key,
+            as for `_api` and `config`.
+          - >-
+            `ProjectModel` has a `meta` field with public bases, so a supplied root model inherits
+            it.
+      - designation: Versioning configuration
+        statements:
+          - >-
+            `config.<key>.versioning.scheme` names a version scheme; the built-ins are `semver`,
+            `pep440` and `free`, and `free` is the default.
+          - >-
+            `config.<key>.versioning.absolute_id` is the absolute-ID format with the fields
+            `{version}` and `{id}`; the default is `"{version}:{id}"`.
+      - designation: Validation
+        statements:
+          - Under `free`, versions are checked only by the record model's own rules.
+          - >-
+            Under a known scheme, the record-set version and every revision version parse under
+            the scheme, and revision versions increase from oldest to newest.
+          - >-
+            Version schemes are an extension point: a provider may contribute one, resolved
+            through the registry like any other type; `pep440` uses the `packaging` library.
+      - designation: References
+        statements:
+          - >-
+            Inside the record data, a reference is bare or absolute; a bare reference means the
+            current record-set version.
+          - >-
+            An absolute reference with the current version is checked like a bare one; one with a
+            newer version is invalid input.
+          - >-
+            An absolute reference with an older version is historic: it is not resolved, it is a
+            warning rather than an error, `doctor` lists it, and templates see it marked
+            `historic`.
+          - >-
+            A version increment turns current absolute references into historic ones by itself.
+          - References from outside the record set use absolute IDs.
+          - >-
+            A historic ID given on the command line is a warning; the command proceeds on the
+            current record of that ID if it exists.
+          - >-
+            In a local absolute ID, the part before the ID parses as a version of the configured
+            scheme; an external reference names its project, as `<project>:<version>:<id>`, or is
+            a URL.
+      - designation: Templates and digest
+        statements:
+          - >-
+            Templates see the record-set version, each record's absolute ID, and whether a
+            reference is historic.
+          - >-
+            The record-set version and the absolute-ID format enter every document's digest, so an
+            increment rebuilds every document.
+    conformance:
+      - 'Not implemented yet: the tests come with the data model support.'
+    references:
+      - designation: Governing decision
+        pointers:
+          - '[D0036: Versioning Mechanism](../decisions/D0036-versioning-mechanism.md)'
+          - >-
+            [D0029: Usage Errors and Ref
+            Resolution](../decisions/D0029-usage-errors-and-ref-resolution.md)
+  - title: Increment Policy for Record Revisions and the Record Set
+    id: S0009
+    addresses: [R0024]
+    short_title: Version Increment Policy
+    description: >-
+      When this project increments a record's revision version and the record-set version,
+      and by which category.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-30
+        description: Initial record.
+    context: |-
+      The rules apply to this project's records and record set under SemVer (S0010).
+    subject:
+      - >-
+        Increments of record revision versions and of the record-set version in this project.
+      - >-
+        Excluded: the format of versions (S0010) and how chancellor validates them (S0008).
+    terms:
+      - 'Category: MAJOR, MINOR or PATCH.'
+      - >-
+        Published state: the records as committed to the project's shared history or released.
+      - 'Batch: the record changes between two published states.'
+    specification:
+      - designation: Published states
+        statements:
+          - >-
+            Increments mark published states. A version is incremented when a change is first
+            published, meaning committed to the project's shared history or released, not for each
+            edit made while working.
+          - >-
+            All changes between two published states are folded into a single increment, chosen by
+            the highest category among them.
+          - Published versions therefore follow each other without gaps.
+      - designation: MAJOR
+        description: MAJOR applies when an absolute ID would now lead a reader astray.
+        statements:
+          - A record is removed, or its ID is reused for different content.
+          - >-
+            An accepted record's meaning is reversed or contradicted: a decision reversed, an
+            obligation dropped or inverted.
+          - >-
+            A requirement or specification is narrowed so that conforming work no longer conforms.
+      - designation: MINOR
+        description: >-
+          MINOR applies when content is added or firmed up without invalidating what an absolute
+          ID said.
+        statements:
+          - A new record.
+          - A new obligation, alternative, consequence or clause.
+          - A state change that commits further, such as `proposed` to `accepted`.
+          - A record marked `superseded` or `deprecated` while kept.
+      - designation: PATCH
+        description: PATCH applies to corrections that do not change meaning.
+        statements:
+          - >-
+            Typos, wording, formatting, links, dates, tags, metadata and revision-history fixes.
+      - designation: No increment
+        statements:
+          - >-
+            Re-rendered documents whose record data is unchanged, after a template, formatter,
+            chancellor or library upgrade.
+          - >-
+            Layout changes: moving records between data files, `include`, `kinds.<kind>.data`,
+            output folders.
+          - Configuration, lock and provider changes.
+          - >-
+            A record's revision adds no record-set increment of its own; the coupling rules
+            decide.
+      - designation: Coupling
+        statements:
+          - A record's own revision version follows the same rules, applied to that record.
+          - >-
+            The record-set version moves by the highest category among the record changes since
+            the last record-set version.
+          - >-
+            Between two published states, the record set makes one increment, by the highest
+            category among the record changes.
+      - designation: Initial development
+        statements:
+          - >-
+            While the major version is 0, MAJOR-category changes increment MINOR and all others
+            PATCH.
+          - The record set goes to `1.0.0` together with chancellor's first final release.
+          - A version never goes back; a released `<version>:<id>` stays valid in history.
+    conformance:
+      - >-
+        Reviewers check each batch's increment against these rules; no tool checks the
+        category.
+    references:
+      - designation: Governing decision
+        pointers:
+          - '[D0038: Version Increment Policy](../decisions/D0038-version-increment-policy.md)'
+  - title: SemVer 2.0.0 for Record Revisions and the Record Set
+    id: S0010
+    addresses: [R0024]
+    short_title: SemVer Versions and Absolute IDs
+    description: >-
+      This project's versions of records and of the record set, and the form of its absolute
+      IDs.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-30
+        description: Initial record.
+    context: |-
+      This project uses the `semver` scheme of S0008 with the default absolute-ID format.
+    subject:
+      - >-
+        Revision versions of this project's records, its record-set version and its absolute
+        IDs.
+      - "Excluded: chancellor's own distribution version."
+    terms:
+      - 'SemVer: Semantic Versioning 2.0.0.'
+    specification:
+      - designation: Versions
+        statements:
+          - >-
+            Every revision version and the record-set version is a SemVer 2.0.0 version, written
+            as a quoted string in the data.
+          - The configured scheme is `semver`.
+          - The initial record-set version is `0.1.0`.
+      - designation: Absolute IDs
+        statements:
+          - An absolute ID is written `<version>:<id>`, for example `0.1.0:D0017`.
+          - >-
+            Code, tests, documentation, commit messages and other projects refer to records by
+            absolute ID.
+    conformance:
+      - >-
+        Once the scheme is configured, `chancellor build` validates every version; until then
+        reviewers check.
+    references:
+      - designation: Governing decision
+        pointers:
+          - '[D0037: SemVer for Records](../decisions/D0037-semver-for-records.md)'
+    notes: >-
+      `meta` and `versioning` are not configured in this repository yet; the data model
+      support is pending.

@@ -1,0 +1,26 @@
+# Chancellor's own project data tree (dogfooding): its architecture records in arch/.
+# Each kind's records live in their own data file under arch/data/; the documents are rendered by
+# chancellor.
+_api:
+  chancellor:
+    version: "2.0.0"
+    kind: project_records
+
+meta:
+  chancellor:
+    version: "0.1.0"
+
+config:
+  chancellor:
+    wrap_width: 100
+    versioning:
+      scheme: semver
+    lock: arch/chancellor.lock
+    kinds:
+      decisions:
+        data: arch/data/decisions.yaml
+      requirements:
+        data: arch/data/requirements.yaml
+      specifications:
+        folder: arch/specifications
+        data: arch/data/specifications.yaml

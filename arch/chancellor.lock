@@ -1,0 +1,1618 @@
+{
+  "_api": {
+    "kind": "chancellor_lock",
+    "version": "2"
+  },
+  "cli_overrides": {},
+  "degradations": [],
+  "documents": {
+    "arch/decisions/D0000-decision-core.md": {
+      "data_hash": "c1:sha256:f04fb292073e5ff432bcb8e80814a0a0bbfaa27c83d8cc31435cacf9a1a40a3c",
+      "id": "D0000",
+      "input_hash": "c1:sha256:97c2540e9b595658982654766274bce6a6108bbc1da571d2c83c7efb1d87ba5f",
+      "kind": "decisions",
+      "output": "c1:sha256:e01227ff19fd8ea55ec91b2ab86a38b183db8447e2186be4f3b250e8ef47d8cd",
+      "part": "core_document",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:f04fb292073e5ff432bcb8e80814a0a0bbfaa27c83d8cc31435cacf9a1a40a3c",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:c3c4f7e9412c1c907b2243f393125f14116e60cc1e66a5cbc50a76022b38708a",
+        "templates": "c1:sha256:3c2ae4b5d12698509652c30a5c03f83589d6192e5eeb902ad10245ea85be82c2"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0001-model-owns-record-logic.md": {
+      "data_hash": "c1:sha256:c3e7048fd5abb064c3bda467e4e5921c772d467a35c978a5fd2a12e583fc5bac",
+      "id": "D0001",
+      "input_hash": "c1:sha256:e0dcdedaea7e1cf3c48b2e170323321fa207242fa1057672bf50365a292cb977",
+      "kind": "decisions",
+      "output": "c1:sha256:744499c6b0c0d0b776a3adc49fc08cdfa48759b72177d6c7d3f2745422c7590d",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:c3e7048fd5abb064c3bda467e4e5921c772d467a35c978a5fd2a12e583fc5bac",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:5f27d35444eb4c03f872043da51c6a2018ab257c0e27a0911ae5510f82e7a412",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0002-providers-with-prefix-addressing.md": {
+      "data_hash": "c1:sha256:433daf0c6ad3e62d9570fef91b303c8757c5f5812e93078706ba27798d4788ba",
+      "id": "D0002",
+      "input_hash": "c1:sha256:d7ec392a73506d614eaef151fff1ee5be4c6cba0c9bc93e6f23d1c38781b9bf7",
+      "kind": "decisions",
+      "output": "c1:sha256:7372973a60dd59b2e58936cc919931fd0e13ecb8291cb0958b3aac6f6be1803a",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:433daf0c6ad3e62d9570fef91b303c8757c5f5812e93078706ba27798d4788ba",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:68882de636ff3c4e3ed1bb235c7ef70f73532ea11f6b28793dabe2cdeb6e351b",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0003-coarse-environment-digest.md": {
+      "data_hash": "c1:sha256:cb711f5ca79c539d0fa81c99e018b20e4eceb6d7fac02982740c7f7dbbd9b1e2",
+      "id": "D0003",
+      "input_hash": "c1:sha256:18c448f11be1e343781d10750849985348080bac6cb13d1b01600c7f972f47b6",
+      "kind": "decisions",
+      "output": "c1:sha256:a41f0482b8cb76356faddfef761faaf9f9fec001c061a492bdda8d4051569c89",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:cb711f5ca79c539d0fa81c99e018b20e4eceb6d7fac02982740c7f7dbbd9b1e2",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:18f2e581a100adc912323743e5ab5f5830a572f261b8fff222d4576427c2fda6",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0004-config-loader-interface.md": {
+      "data_hash": "c1:sha256:02387c4219c362a1da7065e7a868250058a5f324bc0d950805ed0d79156230d1",
+      "id": "D0004",
+      "input_hash": "c1:sha256:3ab66c0de4618075a6404c71b678e08099ec3e952b79226f3670ad273577bff1",
+      "kind": "decisions",
+      "output": "c1:sha256:c1fc82134eef2d9195ccb67690447022887c9be5c4f65e7712b5a50e413da43d",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:02387c4219c362a1da7065e7a868250058a5f324bc0d950805ed0d79156230d1",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:7740e2f1940722ba37995a704a0328995f693d7c86e1873fe1b7dea3dbb03fe3",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0005-pydantic-models-and-schema-fingerprints.md": {
+      "data_hash": "c1:sha256:128a14610444af25f0fdc7e51d53f64a7cfa97717df1814d32a9fb8d7a5bc001",
+      "id": "D0005",
+      "input_hash": "c1:sha256:784a2c01dead8be6d86d3d1eae59b9dba4a99520315144a886d3ff48bc8bb7c3",
+      "kind": "decisions",
+      "output": "c1:sha256:09dceabdcf444b4b7b63579ccae554719d91384213ed37867192041f15b9e2cd",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:128a14610444af25f0fdc7e51d53f64a7cfa97717df1814d32a9fb8d7a5bc001",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:2df50e38a63a46e34cf36e93b5b3595d2ea8207031922835b44796e2d2e4d021",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0006-jcs-canonical-form.md": {
+      "data_hash": "c1:sha256:cbb5d0ec40c2a141fb5ef1e6f911a01a0edef8dbcadb0a80fc9d371efbabe02f",
+      "id": "D0006",
+      "input_hash": "c1:sha256:3255ad2e7eabc6b191a2fb0c8efd52dd467ce0cf0ad98ce2c0c1bd1dbd08a465",
+      "kind": "decisions",
+      "output": "c1:sha256:805bc2d18f0a6fb6acb1dbf9f3fb0f497dc36eacbc209f9ec546ed3d051687fb",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:cbb5d0ec40c2a141fb5ef1e6f911a01a0edef8dbcadb0a80fc9d371efbabe02f",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:f3dd5eccf65aeb9f30f3e5ac904eec09d4699fcc3a38fdaef78e31327fcc4b02",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0007-generation-tooling-in-the-schema-extra.md": {
+      "data_hash": "c1:sha256:f1ec120f1a6bd2bbc734721bb3e8c483ec4227dcf5dbf4b1f84c69bf58638a32",
+      "id": "D0007",
+      "input_hash": "c1:sha256:6f108b14c4c9234d3cf6a70967fbdcd3a105681e43881d8debd6f0e62a585b5f",
+      "kind": "decisions",
+      "output": "c1:sha256:f65b71d77ac3bb96f99261d3ac558878bb0496aaeb07da52200ec607f91752bd",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:f1ec120f1a6bd2bbc734721bb3e8c483ec4227dcf5dbf4b1f84c69bf58638a32",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:aab0f04b3503b769b37260635ac893b0edcb086f77c32cddcba0c55e11d6ff71",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0008-formatter-and-linter-by-type.md": {
+      "data_hash": "c1:sha256:9da4d2ed2dc87a0d298715505e274bfbd438bb33fd94b24a000ac0bdc0552105",
+      "id": "D0008",
+      "input_hash": "c1:sha256:34cd5bee648459d044ffc81a9d2943dfdebf39e99aa0e9951745a77196b8758d",
+      "kind": "decisions",
+      "output": "c1:sha256:9b77d1b638ebbb635ca67f261f402506ce2940eb080d3873f73d788a69023dec",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:9da4d2ed2dc87a0d298715505e274bfbd438bb33fd94b24a000ac0bdc0552105",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:7cecdf596c060f6ae81fab7de44e4eb8c906d24e233bf19a0cbdcbaf1bfda878",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0009-abstract-classes-and-six-model-hooks.md": {
+      "data_hash": "c1:sha256:77d59187fcf3eef59e51e809945578fd5313267b4a7c6ad64714ba760d3dca32",
+      "id": "D0009",
+      "input_hash": "c1:sha256:5f2196b3b1b3b82b615f4c7cb8b7f55c2779a7302d9cc2aacc3c2ed2d2f097ae",
+      "kind": "decisions",
+      "output": "c1:sha256:21eefd98686fee7de4e44972f6370d9abf73a630dada9dc1dccee0f4d04eaf2b",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:77d59187fcf3eef59e51e809945578fd5313267b4a7c6ad64714ba760d3dca32",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:2c7c1db8ce66539b20191c1f677d709e110e9262be40e52dec6901719ecd88d6",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0010-seven-exit-codes.md": {
+      "data_hash": "c1:sha256:004a6e95a94921185a61b9bcff7b828f7ea73b4ac9f30121ef45735ea4ae073e",
+      "id": "D0010",
+      "input_hash": "c1:sha256:5c6c23ac0efe6d09eab0dc8fe1129a24b63f4e2171ebc94bf2abd3271dd49401",
+      "kind": "decisions",
+      "output": "c1:sha256:95c2d774b158657a142b2a634c59971731dc291c77626b1305779a3b4d3acef1",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:004a6e95a94921185a61b9bcff7b828f7ea73b4ac9f30121ef45735ea4ae073e",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:3828611db4036a66c1bb0339f3aa505c3db07d88514c329d66dcf3792e03487e",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0011-runtime-dependencies.md": {
+      "data_hash": "c1:sha256:45f19e9e299505a006189b18ce100f73bd7b3a4bb52cb860200180c9f38085be",
+      "id": "D0011",
+      "input_hash": "c1:sha256:70caf40b8eec1538d9cdc43de6a3fbba7a1a59c078e7cad2dd7c91a32a0b9d35",
+      "kind": "decisions",
+      "output": "c1:sha256:b06cb50a7d83bff1b28984aa7471449ead91b38ab9f2988535438a05ae38ec96",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:45f19e9e299505a006189b18ce100f73bd7b3a4bb52cb860200180c9f38085be",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:3a5fac0897a0db29e57262fe0915182e616ad14b6ddec9a6d87f587b3f8a4edd",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0012-facet-scoped-data-tree.md": {
+      "data_hash": "c1:sha256:ef90c780af60fe491f23ccb5eb95f4d25bb3c952d462a936c103db917990f553",
+      "id": "D0012",
+      "input_hash": "c1:sha256:3e373ea1113da9789f13df8ebaed436a84c2134817bfb446a4e27b7035527a03",
+      "kind": "decisions",
+      "output": "c1:sha256:ef12d58093585edb36a91a88c1a276abe4439fcddff4e3fbd9a0ba164d52fbb2",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:ef90c780af60fe491f23ccb5eb95f4d25bb3c952d462a936c103db917990f553",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:0b57b18dcc402bed14f2dd6d15ac4ad343702bc1c63a59b64e4024178ce39478",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0013-built-in-flavours.md": {
+      "data_hash": "c1:sha256:c4fe25d8a1d167d846a7ae7add163270d2e693a1e4a3c0cb559514833e160a45",
+      "id": "D0013",
+      "input_hash": "c1:sha256:fda2f01649a6bdbd68faf12ab6f8c9a4f23c54b6702dc31a5f5b5cdcb6a37816",
+      "kind": "decisions",
+      "output": "c1:sha256:64dcc9e7db90b8c129e7546c8283d19a163079d51ea3e83fa5104a782fd41217",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:c4fe25d8a1d167d846a7ae7add163270d2e693a1e4a3c0cb559514833e160a45",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:506bb6b9a3eb98d82a52e10ea1eea1948a35d4dd7c1561937c62568a0890e675",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0014-defer-prose-documents.md": {
+      "data_hash": "c1:sha256:786e7fe9879ff10746832b8be8196d0faf5d2716047814720e8f1bdcea4652bc",
+      "id": "D0014",
+      "input_hash": "c1:sha256:3c709066ebcb495c8285676baa67bac06aea0c0c9d7b1c9c87c830dcc3d96f1a",
+      "kind": "decisions",
+      "output": "c1:sha256:3909bab5f081f84ae5938eb2ffe7ec3ae91471c5fd6ab578710dca2a7437dbc8",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:786e7fe9879ff10746832b8be8196d0faf5d2716047814720e8f1bdcea4652bc",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:847088f626d3d8679b3f1dc1eaa4bcf3e652bfa426939791aa437641d85c3d11",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0015-version-0-1-0.md": {
+      "data_hash": "c1:sha256:071b699dabd9595f960e127362e7e78117a4314ca0dc1e828b4d3c1ee2473bff",
+      "id": "D0015",
+      "input_hash": "c1:sha256:ca708847b6bf6fd9f3529f97a218ef013e89eb44e78210f0d5bb0bedeed22353",
+      "kind": "decisions",
+      "output": "c1:sha256:9a6000300d56ad41e20cdc7b201027bcd6b87165c614b94d440899fe16855c97",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:071b699dabd9595f960e127362e7e78117a4314ca0dc1e828b4d3c1ee2473bff",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:36fc6551fa424fe0d60228fb4d2dea29bdbbc07fec3db214cb13c510a981af22",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0016-no-markdown-import.md": {
+      "data_hash": "c1:sha256:8a4655190ea97b9a599dbb2af96f65601fdcc71e8c99253845166de2bfeaba07",
+      "id": "D0016",
+      "input_hash": "c1:sha256:74803ed2bdd99a01b769cfce69761711c338876db3ee87b521ce13fa03d20fcc",
+      "kind": "decisions",
+      "output": "c1:sha256:b360149a11ecc45971760e8bfc7e56a84802ab76f7f567dbec52ad757bcdf8bb",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:8a4655190ea97b9a599dbb2af96f65601fdcc71e8c99253845166de2bfeaba07",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:9961475eb430a92148ebb494fdf28389cbd91775ee021f94828f6193e212f6de",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0017-editable-install-detected.md": {
+      "data_hash": "c1:sha256:bf6a1e53bd67256be86c814691c2154a088b5773ba742ec4e5c32d3fc87d95e6",
+      "id": "D0017",
+      "input_hash": "c1:sha256:997ea59a8ba559ccaa7ece078f7c422e7ef8867e8bdd2c9bc6f47cda1ad6a6b6",
+      "kind": "decisions",
+      "output": "c1:sha256:f8e338b08a256c7e87cd46d7e38517dcc486ba31cfc30e8cb91423c2a0aceb1d",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:bf6a1e53bd67256be86c814691c2154a088b5773ba742ec4e5c32d3fc87d95e6",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:fdbee8f08152edc804a95367d9647c1da3b0f21a42f22091f69774be07a66df6",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0018-whole-set-provider-part.md": {
+      "data_hash": "c1:sha256:e2308a461b7a89119883c6d6a17179d426bcfcb67c6dcd51e45340921454eb9c",
+      "id": "D0018",
+      "input_hash": "c1:sha256:ccd51fa180678df384d62610798eac5a3a8b052009ff05c92099a14d966c055c",
+      "kind": "decisions",
+      "output": "c1:sha256:d98e4b5d9916cec9f61b8b4fc95be2aea76631a300d882750282c8d9b9b93298",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:e2308a461b7a89119883c6d6a17179d426bcfcb67c6dcd51e45340921454eb9c",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:22e9739efc1e95edf744b4d75be7eff9ae62eed513f696ef426952150d4644aa",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0019-per-kind-data-files.md": {
+      "data_hash": "c1:sha256:51ee5230f60e2e198e2ce6297b98aaa0d8815def7eaadcf9c693563970655392",
+      "id": "D0019",
+      "input_hash": "c1:sha256:cf8a6b52d31fbc238156f98e20d479e8ee3a5e9c98864ed2996a33cca95aa78c",
+      "kind": "decisions",
+      "output": "c1:sha256:4f988981ade17488e64160076c695b1232cc0adef14c9a4d2a63509a56c7b905",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:51ee5230f60e2e198e2ce6297b98aaa0d8815def7eaadcf9c693563970655392",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:f73dc76db651005521816d7c2580de07eddbfb280c411df090d582c6e8f8669c",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0020-config-digest-by-chancellor.md": {
+      "data_hash": "c1:sha256:7068bea9b5a5fb808980d35e5b4a2fb5ac8139fe81b8bdc46b20c03ba863dac6",
+      "id": "D0020",
+      "input_hash": "c1:sha256:826d0393ca4efad3e5fd8d0292cb7689392a2cc0c084a05a06a23f212daae39a",
+      "kind": "decisions",
+      "output": "c1:sha256:b80faf76208ad05f1b6211ecff45c82db06ca6ce323f3efc1d9f725dcfd8be83",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:7068bea9b5a5fb808980d35e5b4a2fb5ac8139fe81b8bdc46b20c03ba863dac6",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:09f112af2290fe0ebd88bc3fc141cd4d47791a030a747f4c99c5b0560c123b74",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0021-fingerprinted-code-does-not-degrade.md": {
+      "data_hash": "c1:sha256:5ba4fc72eebd7caf84c818f1923f6105ee5062993798703b893d61aeab1ca906",
+      "id": "D0021",
+      "input_hash": "c1:sha256:76276eb6d18c797b4f4014708beeaa2fb30734a417397e8a7093b3aac24a304d",
+      "kind": "decisions",
+      "output": "c1:sha256:f909602adb4a464ffdd8f59a24b7ea129f62bfced034e50e601322fbf8c097e9",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:5ba4fc72eebd7caf84c818f1923f6105ee5062993798703b893d61aeab1ca906",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:703b72cbe97259b5899cc0092400ef8c7e69b04c618d0ee49f9dbe40adfb7e39",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0022-own-golden-fixtures.md": {
+      "data_hash": "c1:sha256:2db9b7fdad5b28e619c34f11fd9a9fa4db8322e5438b3570b641cca06f41852f",
+      "id": "D0022",
+      "input_hash": "c1:sha256:8c8a5cc2316a931c1e19519440ff5d04d0126e263d64eb134d87588e295e4c77",
+      "kind": "decisions",
+      "output": "c1:sha256:24ec5dc473c025263dd89a163e228573d76ccfbbbf190b42380d259a900a3fb5",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:2db9b7fdad5b28e619c34f11fd9a9fa4db8322e5438b3570b641cca06f41852f",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:b083946543069a8044833a03804b1cd676b01e9eebe3645ceeb854d4541e6bc4",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0023-one-write-path.md": {
+      "data_hash": "c1:sha256:5e641f8a53a4b961eb7859fd6692721a2da2775df20e5c1bff74dfeb52930d38",
+      "id": "D0023",
+      "input_hash": "c1:sha256:07d33f167fbc49ed191e861a007be53971ab70bf31d1eab0146f48d2d8da662e",
+      "kind": "decisions",
+      "output": "c1:sha256:620f5edcb96c5e8a61da4e0aba6cd8fa0c7d7706d2d3d2dac3c6cc3732a1eb57",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:5e641f8a53a4b961eb7859fd6692721a2da2775df20e5c1bff74dfeb52930d38",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:36fc6551fa424fe0d60228fb4d2dea29bdbbc07fec3db214cb13c510a981af22",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0024-model-hook-names.md": {
+      "data_hash": "c1:sha256:3a13de259b80979bbefd837d05afc4371cd6a5611117e9edff7ad6b5b2dbf4fa",
+      "id": "D0024",
+      "input_hash": "c1:sha256:95898a747fa172f9aaf0669495fa8891485131dc36d022edd8181cad75e526d0",
+      "kind": "decisions",
+      "output": "c1:sha256:11a431a7adfff9aaba9503db1a5e5afe538d2d3ca3e32197eb8e2872ff99e4bd",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:3a13de259b80979bbefd837d05afc4371cd6a5611117e9edff7ad6b5b2dbf4fa",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:2c7c1db8ce66539b20191c1f677d709e110e9262be40e52dec6901719ecd88d6",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0025-model-override-in-configuration.md": {
+      "data_hash": "c1:sha256:875310c15349b0e25787840bdd954ae3626bcf5232bdbd16e43eaa4a3f8df820",
+      "id": "D0025",
+      "input_hash": "c1:sha256:3ef46a37ffac1968f83b04f65947d4e7cf0e358d7fd6c09d052ef22d29504bb5",
+      "kind": "decisions",
+      "output": "c1:sha256:ae31a606b78df048bd35b05fee472321b27027b88fe228bf6bcb2332f82893df",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:875310c15349b0e25787840bdd954ae3626bcf5232bdbd16e43eaa4a3f8df820",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:2e512419dbcc97c797f04c122293d063a800b6d32e074b2975f2541ebfd6d86e",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0026-cli-changes-while-coding.md": {
+      "data_hash": "c1:sha256:3d31f8ae687b9c5f9a06b49effa2fdb44bad8ac7f58306dcf4fe5534f2078806",
+      "id": "D0026",
+      "input_hash": "c1:sha256:e20bf029a80c2a5b81f4421c4982a67ac66d65634e64e115c73e3e9240287f05",
+      "kind": "decisions",
+      "output": "c1:sha256:9d3171be78ff3b46450c151428b31a81ded929555bf0780d0f5020171d8e1b39",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:3d31f8ae687b9c5f9a06b49effa2fdb44bad8ac7f58306dcf4fe5534f2078806",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:8d90aa463e1e5ed6fe175bdae225a602b939b4141e55feabe90e2b2bde5e2ac2",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0027-log-top-level-sections.md": {
+      "data_hash": "c1:sha256:6117ba5ab034da265bed5e7c3be950e8179a7272835e756fe2a3c20c176e2a71",
+      "id": "D0027",
+      "input_hash": "c1:sha256:32a24553eced2671ec38c13d32616e41c7074d1aeccdebeb11b65c950ddbc8e4",
+      "kind": "decisions",
+      "output": "c1:sha256:5aadcdffc25da9fea60e361048f2313b5b00a32ca78d402268ebf9c757ccb6ca",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:6117ba5ab034da265bed5e7c3be950e8179a7272835e756fe2a3c20c176e2a71",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:8c3632daba51387e4add4d29edbb240f440dd45ea0b7f59183a74a308464b90b",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0028-data-snapshot-export.md": {
+      "data_hash": "c1:sha256:0d2fe8009ff3fe00e44a05e2263998f2107398467b3e00d38be59c5add788110",
+      "id": "D0028",
+      "input_hash": "c1:sha256:99f7be74bc15112347369dc68ae80950d4b0082e5d72dfce0121c33f606627a7",
+      "kind": "decisions",
+      "output": "c1:sha256:2fc7972d1c946e6791c026f5ea7fec770c0167b6e8178bef4ef77cab20334c29",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:0d2fe8009ff3fe00e44a05e2263998f2107398467b3e00d38be59c5add788110",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:8c3632daba51387e4add4d29edbb240f440dd45ea0b7f59183a74a308464b90b",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0029-usage-errors-and-ref-resolution.md": {
+      "data_hash": "c1:sha256:8f6d28e3a928a62c065656a01cdf271b3b8c4a0ce51c646d9492f1328cd75ec7",
+      "id": "D0029",
+      "input_hash": "c1:sha256:8e7f2ed57fae3dec8dd1e16940cdac7d5fcee1a4bf6c07c40ec719193e784c7b",
+      "kind": "decisions",
+      "output": "c1:sha256:188c9d03a565cd40b4e2914e658a286b8c65fc9b8e8499794cfb196c932e4a6c",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:8f6d28e3a928a62c065656a01cdf271b3b8c4a0ce51c646d9492f1328cd75ec7",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:99dad434fd346ac2e8dc7a376258569570c5b4f4502fd7857617725e9c276a24",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0030-root-models-by-inheritance.md": {
+      "data_hash": "c1:sha256:39caeafec1204e8d9cce68477d5706d1e856c4fb8a300efeb20835bbaf6ca7ec",
+      "id": "D0030",
+      "input_hash": "c1:sha256:22801d431f0cbab4e8b0f03e1f9e07912472c51d262421952ce3d416db6a81ba",
+      "kind": "decisions",
+      "output": "c1:sha256:0f5bd5a6253c10ab72c08c5c1e20316c650605eec7a4f5ce9d468d31336a74c9",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:39caeafec1204e8d9cce68477d5706d1e856c4fb8a300efeb20835bbaf6ca7ec",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:5ad33a1e5da0eee484c7ebeabf7489278327c7439fd64e537c111185c762c0cb",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0031-one-code-fingerprint-path.md": {
+      "data_hash": "c1:sha256:519e41afeff0860cd5b57956fb9a6d8a6cab9524b04070394dea1a92feba51a2",
+      "id": "D0031",
+      "input_hash": "c1:sha256:2cd52dbbf5f08c07c8e2d2fb01195cf17487fdd27196af74f5e22a099afdb84b",
+      "kind": "decisions",
+      "output": "c1:sha256:4f095f0538488a746a6da02d8c3fe94f8b580a9c71899764d5b7c161639971f8",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:519e41afeff0860cd5b57956fb9a6d8a6cab9524b04070394dea1a92feba51a2",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:93e1f4faeb890b8f8f9350af370db3359c608e9e3669bff99201b33799c3462f",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0032-reference-dependencies.md": {
+      "data_hash": "c1:sha256:44939ad0050c425be11b97ed4e60ddc69fed5f6dc4959d69b929359a7901d2eb",
+      "id": "D0032",
+      "input_hash": "c1:sha256:fc49b0054e97fd82982d74ce7ba539f1031aa3a71cfd90edd5a4b3db12c7fc3b",
+      "kind": "decisions",
+      "output": "c1:sha256:7e0b2bb7c6adb836bc6d923a7e9ad7d995a0dc91ff8e6b4ce61ad1193e446452",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:44939ad0050c425be11b97ed4e60ddc69fed5f6dc4959d69b929359a7901d2eb",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:867153bfaa78c891315181b81d95e88d3923771cd583f12266a555bbade77a43",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0033-one-hop-references.md": {
+      "data_hash": "c1:sha256:174f9654a0e5aea3c333c76c8f9885f51ce1dddde9a63844ed341f86c2ebbf94",
+      "id": "D0033",
+      "input_hash": "c1:sha256:bf8f84a1b696785a73b56c9391216bbe206b36143f9fbd4c6173c63a8d63c3c7",
+      "kind": "decisions",
+      "output": "c1:sha256:16d1398ff15d0de88eb7e62e9d07e8389c0e30966af44f3470dc4bcda6d3e2a0",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:174f9654a0e5aea3c333c76c8f9885f51ce1dddde9a63844ed341f86c2ebbf94",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:18f2e581a100adc912323743e5ab5f5830a572f261b8fff222d4576427c2fda6",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0034-config-loaders-and-overrides.md": {
+      "data_hash": "c1:sha256:c14b5b9062060b8dbe0638845a19d1e44133d6da5d97eaec5a18f727c39ecc09",
+      "id": "D0034",
+      "input_hash": "c1:sha256:0db4ac4f12b1ad017a0ba2fe46cd7dcdee1f76cc5ad519efb71135ae62f6ab0b",
+      "kind": "decisions",
+      "output": "c1:sha256:37a4c329d441d7f566e4354cc32907f8a0005ebb795631ad4ba7c0d47b7e98cf",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:c14b5b9062060b8dbe0638845a19d1e44133d6da5d97eaec5a18f727c39ecc09",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:7740e2f1940722ba37995a704a0328995f693d7c86e1873fe1b7dea3dbb03fe3",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0035-unvouched-documents-kept.md": {
+      "data_hash": "c1:sha256:24866866a335de17fa4e79196513cb49e738a9b3eded8f45e077ebf51f93b5f0",
+      "id": "D0035",
+      "input_hash": "c1:sha256:af2867b37b66a9f8022ea50a49acdfb18a14b6c0027fbffc88523c57a8b283a3",
+      "kind": "decisions",
+      "output": "c1:sha256:878922c7f6765d8116ee28d3c952b090e4ee0169999bd1a806c6e7c9fbdeed59",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:24866866a335de17fa4e79196513cb49e738a9b3eded8f45e077ebf51f93b5f0",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:6b853b8423da685865dbc54223fb00ca4b77107e661b6aff1dec8f6b30bfe4af",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0036-versioning-mechanism.md": {
+      "data_hash": "c1:sha256:6972de889c7582897224356d0eef9a50fcf02a5f9fadc0093818e0223b8fc852",
+      "id": "D0036",
+      "input_hash": "c1:sha256:85ee06e8697acb1ba5719d87b95064643b8a0b8877d5a3cdbb7353e9afb2601a",
+      "kind": "decisions",
+      "output": "c1:sha256:f4eae7d84e3781675aa4f67442b34ab23d665d6fff224c73598762fb521f7ac2",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:6972de889c7582897224356d0eef9a50fcf02a5f9fadc0093818e0223b8fc852",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:b3d62d5779193c058de4a36fcea34bb5729388cb886c37b931e4ee660caeacf9",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0037-semver-for-records.md": {
+      "data_hash": "c1:sha256:7293234beef071078fabfbec36f8719be9046434980eb6eb8a2d17d2f63cc016",
+      "id": "D0037",
+      "input_hash": "c1:sha256:9b42dede7e7f53d0222c189c4e8e1877a174bcb08d6c6525e91842f8ae120df4",
+      "kind": "decisions",
+      "output": "c1:sha256:4c8ca8c0c06892f7317ad05fa6d5a652bb386a707f772416d4ec965ec0693a2f",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:7293234beef071078fabfbec36f8719be9046434980eb6eb8a2d17d2f63cc016",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:b3d62d5779193c058de4a36fcea34bb5729388cb886c37b931e4ee660caeacf9",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/decisions/D0038-version-increment-policy.md": {
+      "data_hash": "c1:sha256:01138fe560ba59101ecac98b78e7ccb248f5059aa76da8b6ad5f9fc659a04028",
+      "id": "D0038",
+      "input_hash": "c1:sha256:141f6564692e2d1912f01bffafd33e978c72e8e907180c631d6f5c28a0da2bc8",
+      "kind": "decisions",
+      "output": "c1:sha256:ee23275a1636f7f16c4df07ce95b07af51b67145e1b7d94fbbd715029f11d084",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:01138fe560ba59101ecac98b78e7ccb248f5059aa76da8b6ad5f9fc659a04028",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:b3d62d5779193c058de4a36fcea34bb5729388cb886c37b931e4ee660caeacf9",
+        "templates": "c1:sha256:f547a92867a4b0fb507a73f1c9ca1ad8a8e11881d0bf50d85486268bd462f58a"
+      },
+      "sources": [
+        "arch/data/decisions.yaml"
+      ]
+    },
+    "arch/requirements/R0000-requirement-core.md": {
+      "data_hash": "c1:sha256:5b8172a2a914c838e42f1d794569c003353889ab86bc4547481e53df9425a11e",
+      "id": "R0000",
+      "input_hash": "c1:sha256:c4cdc56fd10f2635920251ad8b8727faa0927fa791c0fb0675652fd5c37b430b",
+      "kind": "requirements",
+      "output": "c1:sha256:7eaef88d32f0b532f497b157b2b9f141165376f7d8f7e9c300a8ae4edfd50919",
+      "part": "core_document",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:5b8172a2a914c838e42f1d794569c003353889ab86bc4547481e53df9425a11e",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:ad749f1138983939f4cc30144ac054f67481bac55ed00e26703cbc067863ab17",
+        "templates": "c1:sha256:a0d7b029b661bce1fdd0413cff92df37f937c7ee489bae7a2b814e5330bbbfef"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0001-built-in-record-kinds.md": {
+      "data_hash": "c1:sha256:99a4bd4f36737f17f9468575c7222afef8b8997701c727c877d58e77fb956a95",
+      "id": "R0001",
+      "input_hash": "c1:sha256:954e2f528c0a082849db98f66d4e85937c020da570a4e485685ab2b0e3e3df6f",
+      "kind": "requirements",
+      "output": "c1:sha256:21976ea93c14a95dbe1112df4dfcdc4d32cca779f396691e634cff6ae4540bad",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:99a4bd4f36737f17f9468575c7222afef8b8997701c727c877d58e77fb956a95",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:dac544bb917d95bb934830f6382782ec5c4d51353c5fc0d403f6a680c1ddc7ae",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0002-verbs-and-agent-tools.md": {
+      "data_hash": "c1:sha256:faf78d9540c27537bb5e2a92032da4524d31efccc7554b269a33eeae5d1c9762",
+      "id": "R0002",
+      "input_hash": "c1:sha256:f5d54ceac0f019412c49be44ec50de3885356d43edf1a8c66877b43b84a60b50",
+      "kind": "requirements",
+      "output": "c1:sha256:1d1ce38cd40de16204a2e06d077932bb0b9a25ff16ead79d3fbaa1701ba603e1",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:faf78d9540c27537bb5e2a92032da4524d31efccc7554b269a33eeae5d1c9762",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:00d2c6c2c89c99409b3a6e59a0de54ac32584ae1a7bd983b9314f6533c1465cd",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0003-project-relative-paths.md": {
+      "data_hash": "c1:sha256:adc5c4a41dd449df2dc961001984424c28fe8823d348665d8d3ac24a7dd7d157",
+      "id": "R0003",
+      "input_hash": "c1:sha256:5a28194314fb10f5db1ec39816894ed9f2f3c266a545743aa6d5b4b789282baa",
+      "kind": "requirements",
+      "output": "c1:sha256:482f094fa3af6be6a6909979cc2de1782f61761561fb072a92510c6f8163912b",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:adc5c4a41dd449df2dc961001984424c28fe8823d348665d8d3ac24a7dd7d157",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:2e3ac651056e0777248bfbe30be6327db4167605e3f719c319c0bd2ec8d58e0f",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0004-providers.md": {
+      "data_hash": "c1:sha256:3318a0617507bf81ddf3bc9bc05bf9f4f35b5a9e9d25559f871ceece2d360774",
+      "id": "R0004",
+      "input_hash": "c1:sha256:cf0cf76c9ff1f3bc4452b42182d1d4ffbd63cdd8d6284ae9394c0d15a28d58fd",
+      "kind": "requirements",
+      "output": "c1:sha256:e01c89d9211a461d09f374795a1f5d7f8a93626663a06cbe7349d23e0ffce1e0",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:3318a0617507bf81ddf3bc9bc05bf9f4f35b5a9e9d25559f871ceece2d360774",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:f034cfb552cdc4768a4cfeeece0670647c1325571d5c97e75951e27e0c538e49",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0005-single-registry.md": {
+      "data_hash": "c1:sha256:45b6713f1e9cefc457572170c848974ee09acfcfd9e69ab4d1a42acb9de09de5",
+      "id": "R0005",
+      "input_hash": "c1:sha256:322345c80fb7f6a87893d1aa8383e0b471f43e2c69b280cf8cc57ef390d232ce",
+      "kind": "requirements",
+      "output": "c1:sha256:1fcfa93c4d91d48c2d9ca2d91df6ed1267cf9e55f02ca9fe5db73a9b6bf9455f",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:45b6713f1e9cefc457572170c848974ee09acfcfd9e69ab4d1a42acb9de09de5",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:97358a0be35a2c02b82c4aee9c83a45da2c32ed4cf70e02b7211b67504739a52",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0006-contribution-fingerprints.md": {
+      "data_hash": "c1:sha256:2a4b697f87ea0591a66dae655353e4dcf4ec931f6abe223cef3c5ac7103f904b",
+      "id": "R0006",
+      "input_hash": "c1:sha256:95040ab5becccef10ddde2f6793c0555c1d011d32fc97b22a3f9771664b2db19",
+      "kind": "requirements",
+      "output": "c1:sha256:48f29f6357ef31b990ebb0d3654099ea4c2e9e48f1fa613e6cb7cf12b6e5f408",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:2a4b697f87ea0591a66dae655353e4dcf4ec931f6abe223cef3c5ac7103f904b",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:47377ff3f3539627b2961ac746751e9ca7ea84cd4460b2a128f61506829e0097",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0007-data-hash-scope.md": {
+      "data_hash": "c1:sha256:ae2fd13b85c15478686a594fa03f1dc51c22811db79ed39ff8270b86d2340e2e",
+      "id": "R0007",
+      "input_hash": "c1:sha256:23b16da2e44ba71475a7749fdd7c12bc0fde0856938225f5ec74c046f22bbaeb",
+      "kind": "requirements",
+      "output": "c1:sha256:c2e1640a69ecc48c66910652efb1f20edf12ecd4302492a6b7460b151989af33",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:ae2fd13b85c15478686a594fa03f1dc51c22811db79ed39ff8270b86d2340e2e",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:c583e56713bf89decc6fda6a7cb8ca2dd7b21b57adce351c314383a04ef6a481",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0008-rebuild-scope-and-explain.md": {
+      "data_hash": "c1:sha256:73214b8bf749f673d1ccc28f3c62dcc1ae5a262360ab5b992cadb984d2bed07a",
+      "id": "R0008",
+      "input_hash": "c1:sha256:20de9c55653497d17e9df65fe6e269c10c6ba784a5d83fac93abd9443908c3b2",
+      "kind": "requirements",
+      "output": "c1:sha256:0556b90190087313a16ea104ff03d3f6a44849e472a80b91b9bebc229aa710ee",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:73214b8bf749f673d1ccc28f3c62dcc1ae5a262360ab5b992cadb984d2bed07a",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:d39efab02d6314f72f6e2a576b9d9942a481a1172b70d8f517ee4593bff65cb0",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0009-degradations.md": {
+      "data_hash": "c1:sha256:7c60aa750b326735603397b2179c172d0300f3110cac9d523dfa10c36f182096",
+      "id": "R0009",
+      "input_hash": "c1:sha256:a32568a82970b138fa4b2e9f02b77250665957c665148f1b8ab3f8610211994b",
+      "kind": "requirements",
+      "output": "c1:sha256:16740367a2b74d4f095466c6a6acc5b6e81cf56ae7fb40d1f55803f2a796017c",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:7c60aa750b326735603397b2179c172d0300f3110cac9d523dfa10c36f182096",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:0f8837f70e61586c74eb61eae4a9278c33c17fa6026b7e26031b854804009ff5",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0010-facet-namespacing.md": {
+      "data_hash": "c1:sha256:2b819f783a0202707fa8575ea0b7b3905d05598cfd56bea5abecb3629685d720",
+      "id": "R0010",
+      "input_hash": "c1:sha256:2d5a33c60451e9f76bb75d3e7567cc306bba017f1fc96c94e0e2fda959db17da",
+      "kind": "requirements",
+      "output": "c1:sha256:fed7dd04131ff26f6e6583322f0a82de442031e6356fd15bdf76b3a580c78e59",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:2b819f783a0202707fa8575ea0b7b3905d05598cfd56bea5abecb3629685d720",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:d24cfa84e00dce8540589f0e985523868ff8a55493884487b6f5746a065345f9",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0011-multi-file-data-tree.md": {
+      "data_hash": "c1:sha256:36aa8744c7404fb20ecb1a3ffef651c6fe468dff5824c186d6625ee69d71812d",
+      "id": "R0011",
+      "input_hash": "c1:sha256:21965beb3c76350fc66e57a6ec4698636ee83cb62a3e2aac7302dc28bdc9ce0b",
+      "kind": "requirements",
+      "output": "c1:sha256:b7937d39cd3679de5e04833069eaf2723db492bde1fac20c3ab70f6914922ba7",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:36aa8744c7404fb20ecb1a3ffef651c6fe468dff5824c186d6625ee69d71812d",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:7b830b4132f8f986876cceb74b588772f11675b78b4223f673ca8f073e3178c8",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0012-configuration-loading.md": {
+      "data_hash": "c1:sha256:bff8e9c79e66b5e7e931f83ce2aed37ebe8e519d90ac85c6e31c6cc50f8d756e",
+      "id": "R0012",
+      "input_hash": "c1:sha256:063429695bca5cb7fe2932637547997dbd34e5a038ec0cf10dde02d2a719f876",
+      "kind": "requirements",
+      "output": "c1:sha256:b75853c14a179ea97732c7e386192b781d42215dd952cc5c749bec1208261ed3",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:bff8e9c79e66b5e7e931f83ce2aed37ebe8e519d90ac85c6e31c6cc50f8d756e",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:b19841aa1a720cbfe64da1cb917fd96fb59d243a248c60a55a13e59452d89eb0",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0013-scoped-layout-only.md": {
+      "data_hash": "c1:sha256:d3bdf525f19270a6d382d600167750360c97288978ee544e41b5292e2dbfecc0",
+      "id": "R0013",
+      "input_hash": "c1:sha256:54a2b73b96d9f9e23e3d13f8eecdca3143e48be0fbe4111723c9bea6bee8e602",
+      "kind": "requirements",
+      "output": "c1:sha256:a9f84447fd07ce67b8bf8a4c4f7ccf57dc6719182a7f0a8b5075aa6a8915fd2e",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:d3bdf525f19270a6d382d600167750360c97288978ee544e41b5292e2dbfecc0",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:6b5cdff42865d4d7474b57473e606c33f95c5d94fbb304f48d929c75d89e51ba",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0014-configurable-kind-locations.md": {
+      "data_hash": "c1:sha256:e3b98cd475e240946102f236745421515ccb1cdb60db43c310a40310e4ca4b62",
+      "id": "R0014",
+      "input_hash": "c1:sha256:545d81d879c7233a8039c9bca5a0bdcd383481ff311868ccd72faa12c73e4774",
+      "kind": "requirements",
+      "output": "c1:sha256:86c9bc7761fab3bfa53998a99226dcc81fbbef1c3be2fc79b879e51e0cf3d6a0",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:e3b98cd475e240946102f236745421515ccb1cdb60db43c310a40310e4ca4b62",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:d2c57af45cf2f30d97f5e50273b64e7c2cb88189c3330de09985e2d14292272a",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0015-supplied-root-model.md": {
+      "data_hash": "c1:sha256:388cce6b9944fe0874d446a5891e9a3330925c8a81cbc4ee5a765df69b3f2c95",
+      "id": "R0015",
+      "input_hash": "c1:sha256:b5e0a0c9b2f99418ee036c8cc5e3d5724292721196c3fb00321a5adcf195b299",
+      "kind": "requirements",
+      "output": "c1:sha256:f776f17b5a02385f103a2b568d137166f1c1d8e07de8c44bd74aad038ec7fe94",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:388cce6b9944fe0874d446a5891e9a3330925c8a81cbc4ee5a765df69b3f2c95",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:5036fe7d214e029f2eba67e5e726c22e59098007ff0809da06dafb7a7bf0c384",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0016-golden-output-guard.md": {
+      "data_hash": "c1:sha256:6ce9586d642ce67345d119b4e548377e83a7f4a344f6a0c90df59b5c1134b582",
+      "id": "R0016",
+      "input_hash": "c1:sha256:6b555005f2d241544bb6fde50215532c5c96e85afb430616764d86fec407b750",
+      "kind": "requirements",
+      "output": "c1:sha256:4631f832e2b14c72e972a98e27f8c54128e85aeac92da73faa8c3671404155c2",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:6ce9586d642ce67345d119b4e548377e83a7f4a344f6a0c90df59b5c1134b582",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:7ba9c58a2fe61957712117ac47c4b6d3221b3b04f0d597c5401db665572f4216",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0017-generator-and-hooks.md": {
+      "data_hash": "c1:sha256:3c5dd36044164943f3def9b08a2d962e9fb64fc150b1ea18d69d5f48bae17731",
+      "id": "R0017",
+      "input_hash": "c1:sha256:6fd72f8e5a4de53c5fc7debac162aadcf78b4960c5f6f4afeeff5cfb956a00f6",
+      "kind": "requirements",
+      "output": "c1:sha256:0baef654fa7f8cf0e847c3579af3e96bbf9c57062bf98ed2e59c00444fa4d83b",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:3c5dd36044164943f3def9b08a2d962e9fb64fc150b1ea18d69d5f48bae17731",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:5edb433f93b0371c95bfd59f250750bd7044979ff35f9548b5420415245020d0",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0018-formatter-and-linter-types.md": {
+      "data_hash": "c1:sha256:94c8acd52a1c62c04c5da99d484929c50c2f4ccd04f054d41540c0a4a7e9fce0",
+      "id": "R0018",
+      "input_hash": "c1:sha256:c8af8ffb71484b2d075fcda056ecba2849cdaad89c721af83d7aaf4af4ca08ce",
+      "kind": "requirements",
+      "output": "c1:sha256:46c2588416fc1d6e817c7a202970177ee66ad0c2b2468cc48203c8546ac74ea6",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:94c8acd52a1c62c04c5da99d484929c50c2f4ccd04f054d41540c0a4a7e9fce0",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:70a698fae5405ade250911741aa7e37709603497bf4b213b99d4092ea0e0b08a",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0019-public-extension-interfaces.md": {
+      "data_hash": "c1:sha256:aebb78b75c0c927a26b5c6524bf49ad2f3e360ba4af83e46bc3071f2b0cc182f",
+      "id": "R0019",
+      "input_hash": "c1:sha256:4e82fea05e965fd29988fbf68287909b450473e6c2bd70a5a2f99ea50e62dd69",
+      "kind": "requirements",
+      "output": "c1:sha256:411a64e76974413800d5f6d3bbd7b4a2bde786b693c7ab2f2e7b5874682b1b6d",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:aebb78b75c0c927a26b5c6524bf49ad2f3e360ba4af83e46bc3071f2b0cc182f",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:67dac359672105a483ffd6b2b08f6142170ccab0ef0ef263c232fbc327db68da",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0020-exit-codes.md": {
+      "data_hash": "c1:sha256:06fd7b13bf158ebd88e3185ca5b0e02cee02d896db234d37e795403cb81be555",
+      "id": "R0020",
+      "input_hash": "c1:sha256:601b27d2de33c2ade9ec128a77464ffbe6ded70f2368556d4c7986c588eec3d8",
+      "kind": "requirements",
+      "output": "c1:sha256:1349b54ea892ce369a6de474201a08f8ec7b414674c53fd2401f29c35ce790c4",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:06fd7b13bf158ebd88e3185ca5b0e02cee02d896db234d37e795403cb81be555",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:1334223327aed53746479b85d11d29ba33d358d0d43f6a60821d78992c042502",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0021-canonical-digests.md": {
+      "data_hash": "c1:sha256:211cf56f1c7c573a334d84b55dc62d0019996ad8d8938c68a83ee45f8dd65816",
+      "id": "R0021",
+      "input_hash": "c1:sha256:c2dd00a36cc8452160ad3b878f7463a91cff62dc547d011e6e80103663916be6",
+      "kind": "requirements",
+      "output": "c1:sha256:20153d5648b735e04b0a04f7c9930bbadcf871dcd2445e56a15a66eade90be19",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:211cf56f1c7c573a334d84b55dc62d0019996ad8d8938c68a83ee45f8dd65816",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:17ee887fca6de28a02c93b36d4e9f28dbaa101689c4b58a003be30026ff455d4",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0022-room-for-prose-documents.md": {
+      "data_hash": "c1:sha256:1313c47e2b32941fcd4e8c49a0686d821e0d4cfd24d679c84b1eeaafe7218827",
+      "id": "R0022",
+      "input_hash": "c1:sha256:2573ad8370d36033f84041da640f07386ae217c51b615977884a9264115f5893",
+      "kind": "requirements",
+      "output": "c1:sha256:2396a92c8325d5c3fb57c5d8ce6fcc5fc713ab3fcbd4785c6ba449a1109f78f9",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:1313c47e2b32941fcd4e8c49a0686d821e0d4cfd24d679c84b1eeaafe7218827",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:56523b2c20baa888362b45fd584c0e2a3c5f166b0d3ef5db5f67868099e3360e",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0023-renderer-version-in-the-lock.md": {
+      "data_hash": "c1:sha256:f609f62c983b7a8ae7eb61632a56939d8413e644916c260ab37fe235d67c9110",
+      "id": "R0023",
+      "input_hash": "c1:sha256:171d99f227b8bfd9b5408a695ad0352eca2343d70dec2d635800118cb8b79962",
+      "kind": "requirements",
+      "output": "c1:sha256:f1dcdda4636c777e624746f9c2aed18299677ad8c96e67476e0f2df7939e0d1e",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:f609f62c983b7a8ae7eb61632a56939d8413e644916c260ab37fe235d67c9110",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:ffdee2d43f0ef8396316aaea1039cd9a0a474261dc0801abc5777d51505048f1",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/requirements/R0024-versioned-records.md": {
+      "data_hash": "c1:sha256:d0045b7ccb98e269b1d69285ef6c1dec934081a227e50164681e14ddab7c9daa",
+      "id": "R0024",
+      "input_hash": "c1:sha256:d4b31be556b37ee43d7becc1789e702698eab68d5216840daf64646fb3062f26",
+      "kind": "requirements",
+      "output": "c1:sha256:11fc9af7e5c67eddd18c82cb81c7f783f2498db541288fb68a61f2ffc9381161",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:d0045b7ccb98e269b1d69285ef6c1dec934081a227e50164681e14ddab7c9daa",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:6922ea1f047638527314bd8dff860bc872169b1ce6006c27970e7c69e26dd66d",
+        "templates": "c1:sha256:f512365b536ff29377f8b832ce15846c4513a2fe48d6aaeb06c6f0e0e8c3f2ae"
+      },
+      "sources": [
+        "arch/data/requirements.yaml"
+      ]
+    },
+    "arch/specifications/S0000-specification-core.md": {
+      "data_hash": "c1:sha256:e17b0dd2ae74cec0a14a8a59d46f09ab0d9519832da3a53146719d6533e56bbd",
+      "id": "S0000",
+      "input_hash": "c1:sha256:2dc4ed93e3b1316596c7eeffa4356d9869b6588eedb57f44c08308eb01f4797a",
+      "kind": "specifications",
+      "output": "c1:sha256:92c1dd440b588b4662f73f1c6e726afbabbf217c91e9748532bb8625330548d8",
+      "part": "core_document",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:e17b0dd2ae74cec0a14a8a59d46f09ab0d9519832da3a53146719d6533e56bbd",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:6e3673e882363eaca2c31c16dff795fdec9c50ee1f992824f5591bca46f1b247",
+        "templates": "c1:sha256:0796f86d77563fe51aac2ac605c8fc88010abea4921880fe8ab1fd912a65c034"
+      },
+      "sources": [
+        "arch/data/specifications.yaml"
+      ]
+    },
+    "arch/specifications/S0001-provider-manifest.md": {
+      "data_hash": "c1:sha256:6ad331f69f6da44da225aaf435386d3d99dcb97d9edaa85045b94649c3168cd3",
+      "id": "S0001",
+      "input_hash": "c1:sha256:cec3041ff5144851d3b35b0eb539c7afdee762f3ae80dbdd9b18e99ef76de444",
+      "kind": "specifications",
+      "output": "c1:sha256:d168109bd5647331a77e3eb5cef13784c14aa222781cdeed1a93eaf17fbd6b17",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:6ad331f69f6da44da225aaf435386d3d99dcb97d9edaa85045b94649c3168cd3",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:82271515cecdd92a33dfdc73b4ae853070aa3d3d72b1d23c8f52b76e9469e3e2",
+        "templates": "c1:sha256:a085666bd9e591cbd7594b32d31ca2638791afdcab90822867977b9c473be332"
+      },
+      "sources": [
+        "arch/data/specifications.yaml"
+      ]
+    },
+    "arch/specifications/S0002-project-data-tree.md": {
+      "data_hash": "c1:sha256:55d305c09549a6236270879ff2f7486349b86dde050ba37c9e3f78e5ab03dbb4",
+      "id": "S0002",
+      "input_hash": "c1:sha256:1d403d172b5337f9a3bdafd7400f735e2e7b474b1dc290745896e015ae25319d",
+      "kind": "specifications",
+      "output": "c1:sha256:05697cf598bccfb88c5f01e58a4e752e42c5d78d9d8ace0139c12221fed77322",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:55d305c09549a6236270879ff2f7486349b86dde050ba37c9e3f78e5ab03dbb4",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:74aaa3dc158679984346707436003e1ba6becd70e09065f3088a091b5561fe0e",
+        "templates": "c1:sha256:a085666bd9e591cbd7594b32d31ca2638791afdcab90822867977b9c473be332"
+      },
+      "sources": [
+        "arch/data/specifications.yaml"
+      ]
+    },
+    "arch/specifications/S0003-canonical-form-and-digests.md": {
+      "data_hash": "c1:sha256:54f771162dc3243dfb6176c31b86e9e0f9ba5f4a37817d9c027204c6b5f0491f",
+      "id": "S0003",
+      "input_hash": "c1:sha256:4d2b3d786caac7b56c9294d7b2f328d9c5cef4d5e63f65b3f47adc3d4f5b6542",
+      "kind": "specifications",
+      "output": "c1:sha256:cf8f274b32106b83e43ba36651cbd3d940419df9abbf989ee9f131969b3cd010",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:54f771162dc3243dfb6176c31b86e9e0f9ba5f4a37817d9c027204c6b5f0491f",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:dcf9d4d00b6bfb333277f7f872667876941fe38f0c8126dba20e4468e4b19034",
+        "templates": "c1:sha256:a085666bd9e591cbd7594b32d31ca2638791afdcab90822867977b9c473be332"
+      },
+      "sources": [
+        "arch/data/specifications.yaml"
+      ]
+    },
+    "arch/specifications/S0004-extension-interfaces.md": {
+      "data_hash": "c1:sha256:2751976ec47ba0ecab247183bb8adbd756f61698242e116c4f55d4a94adf173f",
+      "id": "S0004",
+      "input_hash": "c1:sha256:1dae34016bf49dcb365a85a266021af690270663102f29c15ecfa993ccef50f4",
+      "kind": "specifications",
+      "output": "c1:sha256:f29026f557eed9f6949938adcf92637e563a9eb4baa4f219dac2c9f4ec294ac8",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:2751976ec47ba0ecab247183bb8adbd756f61698242e116c4f55d4a94adf173f",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:519c53ef800352ee554fdb6750789165000a81740ff7df050dd46b8c1dc6ec6f",
+        "templates": "c1:sha256:a085666bd9e591cbd7594b32d31ca2638791afdcab90822867977b9c473be332"
+      },
+      "sources": [
+        "arch/data/specifications.yaml"
+      ]
+    },
+    "arch/specifications/S0005-exit-codes.md": {
+      "data_hash": "c1:sha256:665e029aca99d09d875b87675f3ca2a145e4bd1fe924feaf7ce64ab56ec4090d",
+      "id": "S0005",
+      "input_hash": "c1:sha256:49592c74d498ddcee320be70392ef4fe27c28863a837ab48a436ee5c6c590588",
+      "kind": "specifications",
+      "output": "c1:sha256:326a79642f03b7973d3447cfaeb8af99908a82c2de7e7e8fd2b0b489c03f0100",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:665e029aca99d09d875b87675f3ca2a145e4bd1fe924feaf7ce64ab56ec4090d",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:8f09a2907ecea6afdbfb752e8f4dbba8b9cca5b10205a9016380121b9e3ea177",
+        "templates": "c1:sha256:a085666bd9e591cbd7594b32d31ca2638791afdcab90822867977b9c473be332"
+      },
+      "sources": [
+        "arch/data/specifications.yaml"
+      ]
+    },
+    "arch/specifications/S0006-lock-file.md": {
+      "data_hash": "c1:sha256:65dda06a83be1be309d82c88df78abe920609200eb029ec2ccb42fe1d7fbea20",
+      "id": "S0006",
+      "input_hash": "c1:sha256:05bc2bc1996d8cbcb4c1148ad71143ad3eeab686383a115af2bc4b7dbd4d8a2c",
+      "kind": "specifications",
+      "output": "c1:sha256:ca3c44a5c1ec87298716cd22ea07cdd792877ac5e65199fa4577bc9e371a810c",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:65dda06a83be1be309d82c88df78abe920609200eb029ec2ccb42fe1d7fbea20",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:966911c5af470d3aa1d115d8616f71fd6a9b022508cd4b56b0badf9c41893f96",
+        "templates": "c1:sha256:a085666bd9e591cbd7594b32d31ca2638791afdcab90822867977b9c473be332"
+      },
+      "sources": [
+        "arch/data/specifications.yaml"
+      ]
+    },
+    "arch/specifications/S0007-built-in-record-kinds.md": {
+      "data_hash": "c1:sha256:12a30830f62695cd056d67642bce1e9bc5cdb24dd369337ab803d0846addf233",
+      "id": "S0007",
+      "input_hash": "c1:sha256:cc04224c1e3464950cded8867ce49cff21941d6ad5c9186155bc8210699c4b4f",
+      "kind": "specifications",
+      "output": "c1:sha256:27dede5acea3e4e2aa0f9640ee8cf4729c958cfca38bf71362f30b0ec6a1c4bd",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:12a30830f62695cd056d67642bce1e9bc5cdb24dd369337ab803d0846addf233",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:9961475eb430a92148ebb494fdf28389cbd91775ee021f94828f6193e212f6de",
+        "templates": "c1:sha256:a085666bd9e591cbd7594b32d31ca2638791afdcab90822867977b9c473be332"
+      },
+      "sources": [
+        "arch/data/specifications.yaml"
+      ]
+    },
+    "arch/specifications/S0008-versioning-and-absolute-ids.md": {
+      "data_hash": "c1:sha256:213461abb9b066e8a6b8bf3e400e6a852a7540d8fe3d1902f6d7ed5ac6d060d6",
+      "id": "S0008",
+      "input_hash": "c1:sha256:8973914c0bfee64d898930eccf9df0bbd905439f8ed60ab5a39968f345ebd265",
+      "kind": "specifications",
+      "output": "c1:sha256:a0f930f67992aa8482c603de47df873c3114f7875c5267c51164f415b482a1ae",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:213461abb9b066e8a6b8bf3e400e6a852a7540d8fe3d1902f6d7ed5ac6d060d6",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:b3d62d5779193c058de4a36fcea34bb5729388cb886c37b931e4ee660caeacf9",
+        "templates": "c1:sha256:a085666bd9e591cbd7594b32d31ca2638791afdcab90822867977b9c473be332"
+      },
+      "sources": [
+        "arch/data/specifications.yaml"
+      ]
+    },
+    "arch/specifications/S0009-version-increment-policy.md": {
+      "data_hash": "c1:sha256:347a48d37084ad4b174a7973bfe6c73a12fed2d439d63813d1de5b0f3eecc0e9",
+      "id": "S0009",
+      "input_hash": "c1:sha256:b756e5aeb5c4a76878e264141285c4949d9f39b0fa8ff37bcd82c9ea73fd10a5",
+      "kind": "specifications",
+      "output": "c1:sha256:ee40ad7f72781691e8b8160bf98ec395dc03cbd52402fef0d21fecaee1d5dcd4",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:347a48d37084ad4b174a7973bfe6c73a12fed2d439d63813d1de5b0f3eecc0e9",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:b3d62d5779193c058de4a36fcea34bb5729388cb886c37b931e4ee660caeacf9",
+        "templates": "c1:sha256:a085666bd9e591cbd7594b32d31ca2638791afdcab90822867977b9c473be332"
+      },
+      "sources": [
+        "arch/data/specifications.yaml"
+      ]
+    },
+    "arch/specifications/S0010-semver-versions-and-absolute-ids.md": {
+      "data_hash": "c1:sha256:8ec383aee5095471da1021320bb2be1ffd35fca0c5b36944cf60018d92427d59",
+      "id": "S0010",
+      "input_hash": "c1:sha256:ac6b909e161bd949e5ae52bc71e5f29f9cfd85f5ccfd3b0ad6253420b93edd81",
+      "kind": "specifications",
+      "output": "c1:sha256:a429cdd5008da14732076093f2034a16e0c44a206ae5000ff1156bfd2097e845",
+      "part": "records",
+      "parts": {
+        "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+        "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+        "data": "c1:sha256:8ec383aee5095471da1021320bb2be1ffd35fca0c5b36944cf60018d92427d59",
+        "files": "c1:sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "meta": "c1:sha256:aa8c4a2a67d07293f5c9a0d60f0336dad9f93d357446440b643877a9a9f7fce9",
+        "providers": "c1:sha256:35743c593f36126e505078fed9ef7a3ce77757dfcf6049d8c7e65213bd328c28",
+        "refs": "c1:sha256:b3d62d5779193c058de4a36fcea34bb5729388cb886c37b931e4ee660caeacf9",
+        "templates": "c1:sha256:a085666bd9e591cbd7594b32d31ca2638791afdcab90822867977b9c473be332"
+      },
+      "sources": [
+        "arch/data/specifications.yaml"
+      ]
+    }
+  },
+  "environment": {
+    "api": "c1:sha256:b20dbceba831f2f6b63a4b7b9e0d40903aa1d33eddcbe818f881e540eb482ff3",
+    "config": "c1:sha256:e4e29fbb053b62751a085d357e2e9166615b927c3542c6468c6863bcd91bfcb4",
+    "fingerprints": {
+      "builtin": "0.1.0 source c1:sha256:44f0786b65562577b3eb8bd705d882f6b2b94ac6882335b7723696fc1411c2b2",
+      "builtin.jkrenzer": "0.1.0 source c1:sha256:44f0786b65562577b3eb8bd705d882f6b2b94ac6882335b7723696fc1411c2b2",
+      "schema:decisions": "c1:sha256:b84ac61f8ab3fd32ee8a735124f6485ce92a463f4be5bc50853de01136f4dcf3",
+      "schema:requirements": "c1:sha256:7a75bcd3af3db3ae6b2cd86748047fc326eb679d188e60e9920b7ca419726471",
+      "schema:specifications": "c1:sha256:603588013e5d84f0ecd3e779cee1fc6a3098b8198b887aee94ca50039a04b112"
+    },
+    "providers": "c1:sha256:0716d26a294333eb37f194ceef6d05badd5ea69f566489e5c49c3009b8b5a4d7"
+  },
+  "providers": [
+    {
+      "fingerprint": "0.1.0 source c1:sha256:44f0786b65562577b3eb8bd705d882f6b2b94ac6882335b7723696fc1411c2b2",
+      "kinds": [],
+      "name": "builtin",
+      "origin": "chancellor",
+      "type": "code"
+    },
+    {
+      "fingerprint": "0.1.0 source c1:sha256:44f0786b65562577b3eb8bd705d882f6b2b94ac6882335b7723696fc1411c2b2",
+      "kinds": [
+        "decisions",
+        "requirements",
+        "specifications"
+      ],
+      "name": "builtin.jkrenzer",
+      "origin": "chancellor",
+      "type": "code"
+    }
+  ],
+  "renderer": "0.1.0"
+}
