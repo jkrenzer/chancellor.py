@@ -87,13 +87,13 @@ docs = [
 requires = ["poetry-core>=2.3,<3", "poetry-dynamic-versioning>=1.10,<2"]
 build-backend = "poetry_dynamic_versioning.backend"
 
-# Only what no packaging standard covers yet: the src layout, shipping the template tree, and
+# Only what no packaging standard covers yet: the src layout, shipping the built-in providers, and
 # the version field poetry-dynamic-versioning requires.
 [tool.poetry]
 requires-poetry = ">=2.3,<3"
 packages = [{ include = "chancellor", from = "src" }]
 include = [
-  { path = "src/chancellor/templates/**/*", format = ["sdist", "wheel"] },
+  { path = "src/chancellor/builtin/**/*", format = ["sdist", "wheel"] },
 ]
 # Last released version, kept by bump-my-version. Builds take their version from the git tag via
 # poetry-dynamic-versioning; the release workflow checks that both agree. Must stay the last key:

@@ -1,0 +1,38 @@
+{% import "builtin.jkrenzer/_macros.md.j2" as m %}
+{# Authoring contract: an Architectural Requirement Record. Use clear, concise and objective
+language; keep paragraphs short and use lists for distinct points. Cover one requirement per
+record and link related records. Support factual claims with references. Label assumptions,
+proposals and unresolved questions explicitly; do not invent evidence, targets or agreement. #}
+## Context
+
+{# Why the requirement is needed: its problem, origin, related requirements and relevant
+constraints. #}
+{{ context }}
+
+## Requirement
+
+{# What must be achieved and under which conditions. Make fulfillment verifiable where
+possible. Keep rationale in Context and intended benefits in Goals. Prescribe an
+implementation only when that implementation is itself required. #}
+{{ m.bullets(requirement) }}
+
+## Goals
+
+{# Intended outcomes as short bullet points, each one developable into a goal that meets
+SMARTER and PURE criteria. Address likely conflicts now and name unresolved questions. #}
+{{ m.bullets(goals) }}
+
+## Stakeholders
+
+{# Affected people or groups and their relevant interests or impact; distinct from
+accountability under Responsibility. #}
+{{ m.bullets(stakeholders) }}
+
+## Responsibility
+
+{# Who owns the requirement, resolves questions and approves changes. #}
+{{ m.bullets(responsibility) }}
+
+{{ m.references_section(references) }}
+
+{{ m.notes_section(notes) }}

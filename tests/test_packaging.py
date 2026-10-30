@@ -1,4 +1,4 @@
-"""Packaging and placeholder interface checks."""
+"""Packaging checks."""
 
 import importlib.metadata
 import importlib.resources
@@ -18,11 +18,14 @@ def test_version_matches_metadata() -> None:
     assert chancellor.__version__ == importlib.metadata.version("chancellor")
 
 
-def test_builtin_template_directory_is_packaged() -> None:
-    template_dir = (
-        importlib.resources.files("chancellor") / "templates" / "builtin" / "default"
+def test_builtin_providers_are_packaged() -> None:
+    for name in ("core", "jkrenzer"):
+        provider = importlib.resources.files("chancellor") / "builtin" / name
+        assert (provider / "chancellor-provider.yaml").is_file()
+    templates = (
+        importlib.resources.files("chancellor") / "builtin" / "jkrenzer" / "templates"
     )
-    assert template_dir.is_dir()
+    assert (templates / "decision.md.j2").is_file()
 
 
 def test_cli_version_exits_successfully() -> None:
