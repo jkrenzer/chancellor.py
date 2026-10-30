@@ -28,6 +28,7 @@ for phase in "$@"; do
       (cd "$WORKSPACE_DIR" && eval "$PROJECT_SETUP")
       install_profile
       install_commands
+      register_image_mcp
       env_create
       ;;
     start)

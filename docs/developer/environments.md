@@ -68,6 +68,11 @@ Locally two GitHub MCP servers use it: `github`, GitHub's server in Docker on st
 and Codex; and `github-remote`, GitHub's hosted server over HTTP, for Claude Code, whose
 `headersHelper` (`.devcontainer/mcp/github-headers.sh`) fetches the token on each connect.
 
+In every environment built from our image, setup also registers `caut` (`caut mcp`), the coding
+agent usage tracker built into the image. It gives agents their own rate-limit usage per window, a
+pace forecast and the cost from local session logs, so they can plan work around the quota. One of
+its tools, `caut_switch_account`, changes caut's default account.
+
 ## Agent accounts
 
 `CLAUDE_AUTH` and `CODEX_AUTH` in `config.env` choose, per repository, whether each agent bills to
@@ -138,7 +143,8 @@ The top of `.devcontainer/lib.sh` lists every tie-in point; in short:
   in `devcontainer.json`, and extend `register_mcp` and `configure_auth` in `lib.sh`.
 - New MCP server: servers that run anywhere go into `.mcp.json`; servers that need Docker or other
   host capabilities get a launcher in `.devcontainer/mcp/` and a `register_mcp` call in the hooks of
-  the environments that want them.
+  the environments that want them; servers that ship in our image get a `register_mcp` call in
+  `register_image_mcp` in `lib.sh`.
 - New allowed domain: add it to `.devcontainer/root/firewall-allow.txt` and rebuild.
 
 ## File ownership and links

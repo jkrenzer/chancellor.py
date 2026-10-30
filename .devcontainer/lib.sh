@@ -8,7 +8,8 @@
 #   devcontainer.json "mounts", and add it to register_mcp and configure_auth below, with an
 #   <AGENT>_AUTH setting in config.env that defaults to subscription.
 # - New MCP server: register it with register_mcp in the hook of each environment that wants it;
-#   servers every environment can run go into the committed .mcp.json instead.
+#   servers every environment can run go into the committed .mcp.json instead, and servers that
+#   ship in our image go into register_image_mcp below.
 # - Project settings: .devcontainer/config.env.
 
 DEVCONTAINER_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -86,6 +87,13 @@ register_mcp_http() {
   claude mcp add-json --scope user "$name" \
     "$(printf '{"type":"http","url":"%s","headersHelper":"%s"}' "$url" "$helper")" >/dev/null \
     && log "MCP $name: registered for claude (HTTP)"
+}
+
+# Registers the MCP servers our image ships, in every environment that builds it. Each is skipped
+# where its command is missing, e.g. in a vendor's cloud agent with its own base image.
+register_image_mcp() {
+  # caut: the agents' own rate-limit usage, pace forecast and cost (installed in the Dockerfile).
+  if command -v caut >/dev/null; then register_mcp caut caut mcp; fi
 }
 
 # Checks each agent CLI's login against CLAUDE_AUTH / CODEX_AUTH from config.env, and logs Codex
