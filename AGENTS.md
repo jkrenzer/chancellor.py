@@ -7,7 +7,10 @@ truth; vendor-specific files should only point here.
 
 - `.agents/`: vendor-neutral agent assets; see `.agents/AGENTS.md`.
 - `.claude/`: tool-prescribed. `agents` and `skills` are git symbolic links into `.agents/`.
-- `.devcontainer/`: tool-prescribed. Dev container built from the root `Dockerfile`.
+- `.devcontainer/`: tool-prescribed. Dev container built from the `agent` stage of the root
+  `Dockerfile`, for local use and Codespaces. Project settings in `config.env`; tie-in points for
+  new environments, agent CLIs and MCP servers at the top of `lib.sh`. See
+  `docs/developer/environments.md`.
 - `.github/`: tool-prescribed. CI workflows and the Copilot pointer file.
 - `.vscode/`: tool-prescribed. Recommended editor extensions; `mcp.json` registers the GitHub MCP
   server for VS Code.

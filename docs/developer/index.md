@@ -8,6 +8,7 @@ running the checks, finding their way through the code, and releasing.
 maxdepth: 1
 ---
 setup
+environments
 testing
 layout
 releasing

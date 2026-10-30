@@ -11,6 +11,8 @@ repos:
     hooks:
       - id: check-added-large-files
       - id: check-json
+        # The dev container spec allows comments (JSONC), plain JSON parsers reject them.
+        exclude: ^\.devcontainer/devcontainer\.json$
       - id: check-merge-conflict
       - id: check-toml
       - id: check-yaml

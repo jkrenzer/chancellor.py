@@ -1,0 +1,5 @@
+[package.metadata.deb]
+depends = "$auto"
+assets = [
+    ["target/release/caut", "usr/bin/", "755"],
+]
