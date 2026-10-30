@@ -19,7 +19,7 @@ truth; vendor-specific files should only point here.
 - `cla/`: contributor licence agreement records, signing helper and CI check; see `cla/AGENTS.md`.
   The agreements themselves are `CLA.md` and `CLA-entity.md`.
 - `docs/`: user and developer documentation, Sphinx with MyST Markdown sources.
-- `src/chancellor/`: the package; built-in templates under `templates/builtin/`.
+- `src/chancellor/`: the package; built-in providers (manifests, models, templates) in `builtin/`.
 - `tests/`: pytest test suite.
 - `tmp/`: gitignored. Temporary files that are not agent context: generated code, downloads, build
   or test artefacts. Use a subfolder per task.
