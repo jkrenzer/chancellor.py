@@ -54,7 +54,7 @@ dependencies = [
 git = ["dulwich>=1.2.20,<2"]
 
 [project.scripts]
-chancellor = "chancellor.cli:app"
+chancellor = "chancellor.cli:run"
 
 [project.urls]
 Homepage = "https://github.com/jkrenzer/chancellor.py"
