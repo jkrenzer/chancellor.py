@@ -77,3 +77,11 @@ Collected 2026-10-30. "(unchecked)" means the link was not opened when this list
 - [Docker Engine](https://docs.docker.com/engine/install/) (unchecked).
 - [WSL install](https://learn.microsoft.com/windows/wsl/install) (unchecked).
 - [GitHub CLI](https://cli.github.com/) (unchecked).
+
+## Serena
+
+- [oraios/serena](https://github.com/oraios/serena): install via uvx, contexts, MCP client setup
+  (unchecked).
+- [uv tools](https://docs.astral.sh/uv/guides/tools/): `uvx --from` (unchecked).
+- [Pyright configuration](https://microsoft.github.io/pyright/#/configuration): `venvPath`, `venv`
+  (unchecked).

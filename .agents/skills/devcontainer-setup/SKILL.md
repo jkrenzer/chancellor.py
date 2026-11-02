@@ -42,6 +42,7 @@ access; agent logins that survive rebuilds; GitHub token without stored secrets.
    Adapt, do not copy blindly:
    - SSH: `references/ssh.md`
    - agents, logins, MCP, GitHub token: `references/agents-mcp.md`
+   - Serena MCP server (semantic code tools): `references/serena.md`
    - CI and cloud: `references/ci-cloud.md`
 6. **Check before anyone builds**: `references/pitfalls.md` against the repo (Windows host,
    symlinks, .gitignore patterns, base image tags), and the secret scan in `references/safety.md`.

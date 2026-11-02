@@ -29,6 +29,7 @@
 - Remote HTTP servers with a dynamic token: `register_mcp_http` (Claude Code `headersHelper`; a
   command printing a JSON object of headers, run on each connect, 10 s timeout). Codex has no
   equivalent. An `Authorization` header from the helper disables Claude Code's OAuth fallback.
+- Serena (runs via uvx, per-agent context): `serena.md`.
 
 ## GitHub token without storing it
 
