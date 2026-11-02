@@ -40,5 +40,5 @@ jobs:
             if [ "$subject" = "Initial plan" ]; then
               continue
             fi
-            echo "$subject" | poetry run conventional-pre-commit --strict
+            poetry run conventional-pre-commit --strict <(printf '%s\n' "$subject")
           done
