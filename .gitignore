@@ -233,5 +233,5 @@ tmp/
 
 # Serena project state and memories
 .serena/
-# Written by `poe pyright-config` for the active venv
+# Written by `poetry do pyright-config` for the active venv
 pyrightconfig.json

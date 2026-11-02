@@ -30,7 +30,7 @@ def documents(directory: Path) -> dict[str, bytes]:
 def test_golden(project_dir: Path, request: pytest.FixtureRequest) -> None:
     """The sample project renders to the committed golden files, byte for byte.
 
-    Regenerate deliberately with `poe golden`, together with a version bump.
+    Regenerate deliberately with `poetry do golden`, together with a version bump.
     """
     run(Project.load())
     rendered = documents(project_dir)

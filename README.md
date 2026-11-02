@@ -38,10 +38,10 @@ poetry run pre-commit install
 Common commands:
 
 ```bash
-poetry run poe format
-poetry run poe lint
-poetry run poe test
-poetry run poe docs
+poetry do format
+poetry do lint
+poetry do test
+poetry do docs
 ```
 
 ## CLI and MCP server
@@ -52,7 +52,7 @@ subcommands (not implemented yet): `build`, `hash`, `schema`, `explain`, `impact
 
 The MCP server name is `chancellor-records`; its implementation arrives with the renderer migration.
 
-Full documentation lives in [`docs/`](docs/index.md) and builds with `poetry run poe docs`.
+Full documentation lives in [`docs/`](docs/index.md) and builds with `poetry do docs`.
 
 ## License
 

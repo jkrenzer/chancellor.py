@@ -1,7 +1,7 @@
 # Running the tests
 
 ```bash
-poetry run poe test
+poetry do test
 ```
 
 The tests live in `tests/` and run with pytest.
@@ -14,7 +14,7 @@ reproduce the no-git configuration locally, install without extras:
 
 ```bash
 poetry install
-poetry run poe test
+poetry do test
 ```
 
 ```{note}

@@ -33,7 +33,7 @@ Poetry installs the plugin into `.poetry/` in the repository on the first `poetr
    `chore(release): bump version …` through the pre-commit hooks, and creates the tag `v<version>`:
 
    ```bash
-   poetry run poe release-patch   # or release-minor, release-major
+   poetry do release-patch   # or release-minor, release-major
    ```
 
 3. Push the commit and the tag:
@@ -45,7 +45,7 @@ Poetry installs the plugin into `.poetry/` in the repository on the first `poetr
 
 4. The `release` workflow runs the full test matrix and checks that the tag equals the package
    version. Only then does it build the package and publish it to PyPI through Trusted Publishing. A
-   tag pushed without `poe release-*`, or on a commit whose tests fail, publishes nothing.
+   tag pushed without `poetry do release-*`, or on a commit whose tests fail, publishes nothing.
 
 ## TestPyPI
 
@@ -60,16 +60,16 @@ about whether the name is available on PyPI.
 
 ## First release
 
-No release tag exists yet, so builds currently report `0.0.1.dev<n>+g<hash>`. `poe release-*` bumps
-*past* the version in `pyproject.toml`, so the first release, `0.1.0`, is tagged by hand on the
-release commit:
+No release tag exists yet, so builds currently report `0.0.1.dev<n>+g<hash>`. `poetry do release-*`
+bumps *past* the version in `pyproject.toml`, so the first release, `0.1.0`, is tagged by hand on
+the release commit:
 
 ```bash
 git tag -a v0.1.0 -m "chore(release): 0.1.0"
 git push origin v0.1.0
 ```
 
-From then on, use `poe release-*`.
+From then on, use `poetry do release-*`.
 
 ## One-time setup
 

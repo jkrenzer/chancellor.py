@@ -21,7 +21,7 @@
 		"serena": {
 			"type": "stdio",
 			"command": "poetry",
-			"args": ["run", "poe", "-q", "serena", "--context", "vscode"],
+			"args": ["do", "-q", "serena", "--context", "vscode"],
 			"cwd": "${workspaceFolder}"
 		}
 	},

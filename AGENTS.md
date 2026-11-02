@@ -23,7 +23,7 @@ truth; vendor-specific files should only point here.
 - `tests/`: pytest test suite.
 - `tmp/`: gitignored. Temporary files that are not agent context: generated code, downloads, build
   or test artefacts. Use a subfolder per task.
-- `.mcp.json`: registers the `serena` MCP server (`poe serena`, needs
+- `.mcp.json`: registers the `serena` MCP server (`poetry do serena`, needs
   `poetry install --with agents`) and the `chancellor-records` MCP server. `chancellor-records` only
   works once the source migration has landed; until then `chancellor serve` does not exist.
 - `.git_archival.json`: `git archive` fills in its `$Format:` placeholders so archive downloads know
@@ -65,8 +65,8 @@ Several agent sessions may work in this tree at the same time. Reduce the risk o
   rewriting what others wrote.
 - Re-read a file right before you change it, and keep edits small and targeted rather than rewriting
   whole files.
-- Do not run commands that write across the whole tree (`poe format`, `poe prek`, formatters on `.`)
-  while other sessions are active. Limit them to the files you changed, e.g.
+- Do not run commands that write across the whole tree (`poetry do format`, `poetry do prek`,
+  formatters on `.`) while other sessions are active. Limit them to the files you changed, e.g.
   `pre-commit run --files <paths>`.
 - Files that appear or change without your doing belong to someone else: do not revert, move or
   reformat them. Tell the user instead.

@@ -47,7 +47,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$POETRY_HOME/bin:$PATH"
 ENV POETRY_NO_INTERACTION=1
 ENV POETRY_VIRTUALENVS_CREATE=false
 
-# libatomic1: the Node.js that pyright downloads for Serena (`poe serena`) needs it.
+# libatomic1: the Node.js that pyright downloads for Serena (`poetry do serena`) needs it.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     curl \

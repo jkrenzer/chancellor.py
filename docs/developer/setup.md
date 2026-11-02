@@ -42,21 +42,21 @@ environment of its own: Serena pins exact versions that cannot share chancellor'
 poetry install --with agents
 ```
 
-`.mcp.json` registers Serena for Claude Code as `poetry run poe -q serena`, `.vscode/mcp.json` for
-VS Code with `--context vscode`; the dev container registers it for Codex as well. `poe serena`
-writes the gitignored `pyrightconfig.json` first (`poe pyright-config`), so that Serena's pyright
-finds the project's dependencies. Serena keeps its project memories in the gitignored `.serena/`
-folder. On first start, uv downloads Serena, a Python for pyright, pyright and Node.js, which takes
-a while. Pyright's Node.js needs `libatomic.so.1`, which slim Linux images may lack.
+`.mcp.json` registers Serena for Claude Code as `poetry do -q serena`, `.vscode/mcp.json` for VS
+Code with `--context vscode`; the dev container registers it for Codex as well. `poetry do serena`
+writes the gitignored `pyrightconfig.json` first (`poetry do pyright-config`), so that Serena's
+pyright finds the project's dependencies. Serena keeps its project memories in the gitignored
+`.serena/` folder. On first start, uv downloads Serena, a Python for pyright, pyright and Node.js,
+which takes a while. Pyright's Node.js needs `libatomic.so.1`, which slim Linux images may lack.
 
 ## Routine tasks
 
-| Task                     | Purpose                                                            |
-| ------------------------ | ------------------------------------------------------------------ |
-| `poetry run poe format`  | Format Python and Markdown files.                                  |
-| `poetry run poe lint`    | Check formatting, run pylint, and lint Markdown.                   |
-| `poetry run poe test`    | Run the test suite.                                                |
-| `poetry run poe docs`    | Build this documentation as HTML into `docs/_build/html`.          |
-| `poetry run poe docs-md` | Build this documentation as Markdown into `docs/_build/markdown`.  |
-| `poetry run poe prek`    | Run all pre-commit hooks on the whole tree.                        |
-| `poetry run poe serena`  | Start the Serena MCP server on stdio; `--context` picks the agent. |
+| Task                | Purpose                                                            |
+| ------------------- | ------------------------------------------------------------------ |
+| `poetry do format`  | Format Python and Markdown files.                                  |
+| `poetry do lint`    | Check formatting, run pylint, and lint Markdown.                   |
+| `poetry do test`    | Run the test suite.                                                |
+| `poetry do docs`    | Build this documentation as HTML into `docs/_build/html`.          |
+| `poetry do docs-md` | Build this documentation as Markdown into `docs/_build/markdown`.  |
+| `poetry do prek`    | Run all pre-commit hooks on the whole tree.                        |
+| `poetry do serena`  | Start the Serena MCP server on stdio; `--context` picks the agent. |

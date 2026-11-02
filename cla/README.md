@@ -9,7 +9,7 @@ and other legal entities, and the tooling around them.
 Run this in the repository and confirm the record it shows:
 
 ```bash
-poetry run poe sign-cla
+poetry do sign-cla
 ```
 
 The helper takes your name from `git config user.name` and your GitHub login and id from the GitHub
@@ -63,5 +63,5 @@ address, `<id>+<login>@users.noreply.github.com`, so the check can identify them
 
 - `signatures/`: one record per individual who accepted `CLA.md`.
 - `entities/`: one record per entity that signed `CLA-entity.md`.
-- `sign.py`: helper that writes an individual record, run by `poe sign-cla`.
+- `sign.py`: helper that writes an individual record, run by `poetry do sign-cla`.
 - `check.py`: the check run by `.github/workflows/cla.yml` on every pull request.

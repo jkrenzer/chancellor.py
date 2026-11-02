@@ -100,7 +100,7 @@ register_image_mcp() {
   # poe task here, with Serena's context for Codex.
   if command -v codex >/dev/null; then
     codex mcp remove serena >/dev/null 2>&1 || true
-    codex mcp add serena -- poetry -C "$WORKSPACE_DIR" run poe -q -C "$WORKSPACE_DIR" serena \
+    codex mcp add serena -- poetry -C "$WORKSPACE_DIR" do -q serena \
       --context codex >/dev/null && log "MCP serena: registered for codex"
   fi
 }

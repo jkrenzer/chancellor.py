@@ -42,7 +42,7 @@ jkrenzer-2026-10-27-bootstrap-repo-v01
 ## Pull requests
 
 - Keep PRs focused and small.
-- Ensure `poetry run poe lint` and `poetry run poe test` pass.
+- Ensure `poetry do lint` and `poetry do test` pass.
 - For releases, configure Trusted Publishing on PyPI before pushing the first `v*` tag.
 
 ## Licensing of contributions
@@ -64,6 +64,6 @@ project. Only licences the Free Software Foundation recognises as free can be de
 for everyone alike. Chancellor can never be offered under a proprietary licence. You keep your
 copyright.
 
-To accept, run `poetry run poe sign-cla` and add the record it writes to your pull request. This is
+To accept, run `poetry do sign-cla` and add the record it writes to your pull request. This is
 needed once. The `cla` check fails until every commit author and co-author is covered. See
 [`cla/README.md`](cla/README.md) for details and for signing without the helper.

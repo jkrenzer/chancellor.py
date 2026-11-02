@@ -186,7 +186,7 @@ reach them.
 
 ## How to accept
 
-Run `poetry run poe sign-cla` in the repository, or write the record by hand from the template in
+Run `poetry do sign-cla` in the repository, or write the record by hand from the template in
 `cla/README.md`. Add it to your pull request. Opening a pull request that adds your signature record
 from your own GitHub account is your acceptance of this agreement in the version named in the
 record.
