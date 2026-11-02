@@ -1,0 +1,35 @@
+{# Base of the core documents. A child template sets `index_heading` and may override the
+introduction comment. The rules stated in a core document apply to every record of its
+folder; keep them short and verifiable, and change them with a new revision entry. #}
+## Introduction
+
+{{ introduction }}
+
+## Rules
+
+{% for rule_set in rule_sets %}
+{{ rule_set.scope }}
+
+{% for rule in rule_set.rules %}
+- {{ rule.rstrip("\n") | indent(2) }}
+{% endfor %}
+
+{% endfor %}
+## {% block index_heading %}Records{% endblock %}
+
+{# Generated from the kind's records: ID, short title, description and tags of each. #}
+{% for entry in records %}
+- [{{ entry.id }}: {{ entry.short_title }}]({{ entry.file_name }}):
+  {{ entry.description.rstrip("\n") | indent(2) }}
+{% if entry.tags %}
+  - Tags:
+{%- for tag in entry.tags %}
+{%- if tag is mapping %}
+{%- for key, value in tag.items() %} `{{ key }}: {{ value }}`{{ "," if not loop.last }}{% endfor %}
+{%- else %} `{{ tag }}`{% endif %}{{ "," if not loop.last }}
+{%- endfor %}
+
+{% endif %}
+{% else %}
+None.
+{% endfor %}

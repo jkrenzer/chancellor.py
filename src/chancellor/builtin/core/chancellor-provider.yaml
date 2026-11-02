@@ -1,0 +1,16 @@
+# Types addressed as builtin.<name>. Versioned with the chancellor distribution.
+_api:
+  version: 1.0.0
+  kind: chancellor_provider
+name: builtin
+formatters:
+  mdformat: chancellor.formatting:MdformatFormatter
+  none: chancellor.formatting:NoneFormatter
+linters:
+  none: chancellor.linting:NoneLinter
+config_loaders:
+  data_file: chancellor.config:DataTreeLoader
+version_schemes:
+  semver: chancellor.versions:SemverScheme
+  pep440: chancellor.versions:Pep440Scheme
+  free: chancellor.versions:FreeScheme

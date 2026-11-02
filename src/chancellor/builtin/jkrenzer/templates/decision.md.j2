@@ -1,0 +1,35 @@
+{% import "builtin.jkrenzer/_macros.md.j2" as m %}
+{# Authoring contract: an Architectural Decision Record. Use clear, concise and objective
+language; keep paragraphs short and use lists for distinct points. Cover one decision per
+record and link related records. Support factual claims with references. Label assumptions,
+proposals and unresolved questions explicitly; do not invent evidence, targets or agreement. #}
+## Context
+
+{# The problem, background and constraints that led to the decision. #}
+{{ context }}
+
+## Decision
+
+{# The chosen approach, its scope and main reasons, so that an unfamiliar reader can
+understand and later reassess the decision. #}
+{{ m.bullets(decision) }}
+
+## Alternatives Considered
+
+{# Alternatives actually evaluated, their benefits, drawbacks and rejection or deferral
+reasons. An empty list means no evaluation was documented, not that none exists. #}
+{% if alternatives %}
+{{ m.bullets(alternatives) }}
+{% else %}
+- No alternative evaluation was documented for this decision.
+{% endif %}
+
+## Consequences
+
+{# Positive and negative effects of the decision, including maintenance costs and affected
+stakeholders where known. #}
+{{ m.bullets(consequences) }}
+
+{{ m.references_section(references) }}
+
+{{ m.notes_section(notes) }}

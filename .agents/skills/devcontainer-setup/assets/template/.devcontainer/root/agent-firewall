@@ -1,0 +1,82 @@
+#!/bin/bash
+# Limits outbound traffic to /etc/agent-firewall/allow.txt plus GitHub's address ranges, the
+# Docker host network and DNS. Adapted from Anthropic's reference dev container
+# (github.com/anthropics/claude-code, .devcontainer/init-firewall.sh).
+#
+# Runs as root: baked into the image by the Dockerfile's agent stage, and allowed to the dev user
+# through sudo. It only switches the firewall on; switching it off takes a container restart.
+# Needs the NET_ADMIN and NET_RAW capabilities (devcontainer.json "runArgs").
+#
+# Addresses are resolved once, when it runs: services behind CDNs that rotate addresses may
+# become unreachable during a long run. Run it again to refresh them.
+set -euo pipefail
+IFS=$'\n\t'
+allow_file=/etc/agent-firewall/allow.txt
+
+# Keep Docker's embedded DNS, which lives in the nat table.
+docker_dns_rules="$(iptables-save -t nat | grep '127\.0\.0\.11' || true)"
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -t mangle -F
+iptables -t mangle -X
+ipset destroy allowed-domains 2>/dev/null || true
+if [ -n "$docker_dns_rules" ]; then
+  iptables -t nat -N DOCKER_OUTPUT 2>/dev/null || true
+  iptables -t nat -N DOCKER_POSTROUTING 2>/dev/null || true
+  echo "$docker_dns_rules" | xargs -L 1 iptables -t nat
+fi
+
+iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
+iptables -A INPUT -p udp --sport 53 -j ACCEPT
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+ipset create allowed-domains hash:net
+
+gh_meta="$(curl -fsS --connect-timeout 10 https://api.github.com/meta)"
+ipv4_cidr='^[0-9]{1,3}(\.[0-9]{1,3}){3}/[0-9]{1,2}$'
+while read -r cidr; do
+  if [[ ! "$cidr" =~ $ipv4_cidr ]]; then
+    echo "agent-firewall: bad CIDR from GitHub meta: $cidr" >&2
+    exit 1
+  fi
+  ipset add allowed-domains "$cidr"
+done < <(echo "$gh_meta" | jq -r '(.web + .api + .git)[] | select(contains(":") | not)' \
+  | aggregate -q)
+
+while read -r domain; do
+  domain="${domain%%#*}"
+  domain="${domain//[[:space:]]/}"
+  [ -n "$domain" ] || continue
+  ips="$(dig +noall +answer A "$domain" | awk '$4 == "A" {print $5}')"
+  if [ -z "$ips" ]; then
+    echo "agent-firewall: cannot resolve $domain, skipped" >&2
+    continue
+  fi
+  while read -r ip; do
+    ipset add -exist allowed-domains "$ip"
+  done <<<"$ips"
+done <"$allow_file"
+
+# The Docker host network: VS Code server, port forwarding, sshd connections.
+host_ip="$(ip route | awk '/default/ {print $3; exit}')"
+host_net="${host_ip%.*}.0/24"
+iptables -A INPUT -s "$host_net" -j ACCEPT
+iptables -A OUTPUT -d "$host_net" -j ACCEPT
+
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT DROP
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A OUTPUT -m set --match-set allowed-domains dst -j ACCEPT
+iptables -A OUTPUT -j REJECT --reject-with icmp-admin-prohibited
+
+if curl -fsS --connect-timeout 5 https://example.com >/dev/null 2>&1; then
+  echo "agent-firewall: example.com still reachable, firewall not effective" >&2
+  exit 1
+fi
+curl -fsS --connect-timeout 5 https://api.github.com/zen >/dev/null
+echo "agent-firewall: on"

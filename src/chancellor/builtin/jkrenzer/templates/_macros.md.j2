@@ -1,0 +1,35 @@
+{#- Shared parts of the builtin.jkrenzer templates. The models have validated and defaulted
+every value before rendering, so these templates only lay content out. A value placed inside a
+list item drops its trailing line breaks (a YAML `|` block keeps one), or the blank line it
+leaves would make the whole list loose; the data and its digest keep them. -#}
+
+{% macro bullets(items) -%}
+{% for item in items %}
+- {{ item.rstrip("\n") | indent(2) }}
+{% endfor %}
+{%- endmacro %}
+
+{% macro references_section(references) -%}
+## References and Links
+
+{# Each reference has a designation; description and pointers are optional. Pointers are
+Markdown links, bibliographic citations or precise text locations. The designation is always
+followed by text or punctuation, so the item is never bold text alone (pymarkdown MD036). #}
+{% for item in references %}
+- **{{ item.designation }}**{% if item.description %}: {{ item.description.rstrip("\n") | indent(2) }}{% elif item.pointers %}:{% else %}.{% endif %}
+
+{% for pointer in item.pointers %}
+  - {{ pointer.rstrip("\n") | indent(4) }}
+{% endfor %}
+{% else %}
+None.
+{% endfor %}
+{%- endmacro %}
+
+{% macro notes_section(notes) -%}
+## Notes
+
+{# Supplementary or administrative information belongs here. Keep requirements, decisions
+and alternative evaluations in their designated sections. #}
+{{ notes if notes else "None." }}
+{%- endmacro %}

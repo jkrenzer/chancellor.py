@@ -1,0 +1,70 @@
+// Dev container for local VS Code and GitHub Codespaces; JSON with comments.
+// Project-specific are "name" and the extension list; project settings live in config.env,
+// environment specifics in environments/<name>.sh. Overview and tie-in points for new
+// environments, agents and MCP servers: docs/developer/environments.md.
+{
+  "name": "chancellor",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": "..",
+    "target": "agent"
+  },
+  // Must match USERNAME in the Dockerfile's agent stage.
+  "remoteUser": "dev",
+  // The entrypoint runs as root: the features start sshd and the Docker socket proxy there, and
+  // the dev user's sudo is limited to the two helpers in root/. Editor, terminals and lifecycle
+  // scripts still run as remoteUser; a plain `docker exec` needs `-u dev`.
+  "containerUser": "root",
+  // The workspace path for tools and agents. SSH sessions do not inherit it; setup.sh passes it
+  // on through ~/.ssh/environment.
+  "containerEnv": {
+    "DEVCONTAINER_WORKSPACE": "${containerWorkspaceFolder}"
+  },
+  "features": {
+    // Lets the container use the host's Docker, e.g. for MCP servers that ship as images.
+    // Socket access amounts to root on that Docker host: the workstation locally, the
+    // codespace's own VM in Codespaces.
+    // moby: false installs Docker CE's CLI; the default Moby packages do not exist for the
+    // Debian trixie base of python:3.11-slim.
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": { "moby": false },
+    // SSH is the vendor-agnostic way in for agents and editors: `gh codespace ssh` in
+    // Codespaces. Locally the port is not published; `docker exec` serves instead.
+    "ghcr.io/devcontainers/features/sshd:1": {}
+  },
+  // The sshd feature listens on 2222. Not forwarded automatically; forward it by hand in VS
+  // Code's Ports panel to reach the container with any SSH client while VS Code is connected.
+  // The label is what the panel shows; `ssh-info` prints the matching ssh command.
+  "portsAttributes": {
+    "2222": {
+      "label": "SSH: user dev, key login only, run ssh-info for details",
+      "onAutoForward": "ignore"
+    }
+  },
+  // For the opt-in outbound firewall, AGENT_FIREWALL in config.env.
+  "runArgs": ["--cap-add=NET_ADMIN", "--cap-add=NET_RAW"],
+  // Agent and gh logins survive rebuilds, one set per workspace. A new agent CLI adds its
+  // config directory here (and creates it in the Dockerfile's agent stage).
+  "mounts": [
+    "source=${localWorkspaceFolderBasename}-claude-${devcontainerId},target=/home/dev/.claude,type=volume",
+    "source=${localWorkspaceFolderBasename}-codex-${devcontainerId},target=/home/dev/.codex,type=volume",
+    "source=${localWorkspaceFolderBasename}-gh-${devcontainerId},target=/home/dev/.config/gh,type=volume"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-python.pylint",
+        "github.vscode-pull-request-github",
+        "vivaxy.vscode-conventional-commits",
+        "anthropic.claude-code",
+        "openai.chatgpt",
+        "github.copilot-chat"
+      ]
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh create",
+  "postStartCommand": "bash .devcontainer/setup.sh start"
+}

@@ -1,0 +1,176 @@
+# Synthetic sample project covering every built-in kind and template. Content is invented.
+_api:
+  chancellor:
+    version: "2.0.0"
+    kind: project_records
+
+config:
+  chancellor:
+    wrap_width: 100
+
+decisions:
+  core:
+    title: Decision Documentation Core Document
+    id: D0000
+    short_title: Decision Core
+    description: Rules for the decision records of the sample project and their index.
+    author: sample-team
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-01
+        description: Initial record.
+    introduction: |
+      This document is the root of the decision documentation of the sample project.
+    rule_sets:
+      - scope: "Following rules are to be applied to the files in this folder:"
+        rules:
+          - One file covers one decision.
+          - A changed decision gets a new revision entry.
+  records:
+    - title: Store the Sample Data as YAML
+      id: D0001
+      addresses: [R0001]
+      short_title: YAML Storage
+      description: The sample data is kept in YAML files under version control.
+      tags: [storage, {area: data}]
+      author: sample-team
+      state: accepted
+      revisions:
+        - version: "1.0.0"
+          date: 2026-10-02
+          description: Initial record.
+        - version: "1.1.0"
+          date: 2026-10-05
+          description: Clarify the alternatives.
+      context: |
+        The sample project needs a storage format that people can review in pull requests and that
+        tools can validate before anything is rendered. Binary formats and databases make review
+        hard.
+      decision:
+        - Keep all sample data in YAML files.
+        - |
+          Validate every file against the models before rendering.
+          - Invalid files fail the build.
+      alternatives:
+        - JSON is equally strict but harder to comment, so it was rejected.
+      consequences:
+        - Reviews show data changes line by line.
+        - Authors have to quote version strings.
+      references:
+        - designation: Addressed requirements
+          description: The requirement this decision answers.
+          pointers:
+            - "[R0001: Reviewable Data](../requirements/R0001-reviewable-data.md)"
+        - designation: YAML specification
+    - title: Render Documents Without Network Access
+      id: D0002
+      description: Rendering works offline, from local data and templates only, so that a CI runner
+        without network access produces the same documents as a developer's machine does.
+      author: sample-team
+      state: drafted
+      revisions:
+        - version: "0.1.0"
+          date: 2026-10-06
+          description: Draft written to try the approach before the CI runners were configured for offline builds.
+      context: Rendering runs in CI without network access.
+      decision:
+        - Render from local data and templates only.
+      consequences:
+        - No remote includes.
+      notes: Open question whether caching is needed.
+
+requirements:
+  core:
+    title: Requirement Documentation Core Document
+    id: R0000
+    short_title: Requirement Core
+    description: Rules for the requirement records of the sample project and their index.
+    author: sample-team
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-01
+        description: Initial record.
+    introduction: This document is the root of the requirement documentation.
+    rule_sets:
+      - scope: "Following rules are to be applied to the files in this folder:"
+        rules:
+          - One file covers one requirement.
+  records:
+    - title: Sample Data Must Be Reviewable
+      id: R0001
+      addressed_by: [D0001, S0001]
+      short_title: Reviewable Data
+      description: Every change to the sample data can be reviewed as text.
+      author: sample-team
+      state: accepted
+      revisions:
+        - version: "1.0.0"
+          date: 2026-10-02
+          description: Initial record.
+      context: Reviewers approve data changes in pull requests.
+      requirement:
+        - Store data in a line-oriented text format.
+      goals:
+        - A reviewer understands a data change from the diff alone, without running any tool or opening a second document to look up what a value means.
+      stakeholders:
+        - Reviewers, who approve changes.
+      responsibility:
+        - The sample team.
+
+specifications:
+  core:
+    title: Specification Documentation Core Document
+    id: S0000
+    short_title: Specification Core
+    description: Rules for the specification records of the sample project and their index.
+    author: sample-team
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-01
+        description: Initial record.
+    introduction: This document is the root of the specification documentation.
+    rule_sets:
+      - scope: "Following rules are to be applied to the files in this folder:"
+        rules:
+          - Every clause statement is normative.
+  records:
+    - title: Sample Data File Format
+      id: S0001
+      addresses: [R0001]
+      short_title: Data File Format
+      description: Structure of the sample data files.
+      tags: [format]
+      author: sample-team
+      state: accepted
+      revisions:
+        - version: "1.0.0"
+          date: 2026-10-03
+          description: Initial record.
+      context: The data files are read by people and tools.
+      subject:
+        - The sample data files.
+        - "Excluded: the rendered documents."
+      terms:
+        - "Record: one entry of a kind section."
+      specification:
+        - designation: Encoding
+          statements:
+            - Files are UTF-8 with LF line endings.
+        - designation: Structure
+          description: |
+            A file is a mapping:
+
+            ```yaml
+            decisions:
+              records: []
+            ```
+          statements:
+            - The top level holds module facets and kind sections only.
+            - |
+              Records carry an ID.
+              - Note: IDs are unique within the project.
+      conformance:
+        - Loading the file with chancellor succeeds.

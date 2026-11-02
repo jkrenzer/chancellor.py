@@ -1,0 +1,1349 @@
+# Decisions of chancellor: this kind's section (core, records). Edit here, then run
+# `poetry run chancellor build`.
+core:
+  title: Decision Documentation Core Document
+  id: D0000
+  short_title: Decision Core
+  description: Rules for chancellor's decision records and the index of all decisions.
+  author: jkrenzer
+  state: accepted
+  revisions:
+    - version: "1.0.0"
+      date: 2026-10-29
+      description: Initial record.
+  introduction: |
+    This document is the core and root of chancellor's decision documentation. A decision record,
+    identified as `D####`, states one choice taken for chancellor, the alternatives that were
+    evaluated and the consequences. The need behind a decision belongs in a requirement record,
+    the resulting format or interface in a specification record.
+
+    The records are data in `arch/data/decisions.yaml` and are rendered by chancellor itself.
+  rule_sets:
+    - scope: 'Following rules are to be applied to the files in this folder:'
+      rules:
+        - >-
+          Do not edit the rendered documents. Change the data in `arch/data/` and run
+          `chancellor build`.
+        - One record covers one decision actually taken, not one question or one table row.
+        - File names are lower-kebab-case of the record ID and short title.
+        - Short and long title shall be descriptive and specific.
+        - >-
+          Use clear language and be concise but do not resort too much to short or partial
+          sentences.
+    - scope: 'Following rules are to be applied to the content of a record:'
+      rules:
+        - >-
+          List the requirements the decision addresses in `addresses`, and keep their
+          `addressed_by` consistent.
+        - Keep the rationale in the record, not in a commit message.
+        - >-
+          A decision taken during implementation and not yet confirmed by the maintainer has the
+          state `proposed`.
+records:
+  - title: Keep Validation, Derived Values and Front Matter in the Model
+    id: D0001
+    addresses: [R0001, R0019]
+    short_title: Model Owns Record Logic
+    description: >-
+      Record models validate, default and serialize; templates render the body only and
+      never repair, default or re-check data.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-30
+        description: Initial record.
+    context: |-
+      When templates compute defaults, write front matter field by field, re-check what the
+      model already checked, and are split apart again after rendering, documents and data drift
+      apart. A template that forgets a field then produces a document that still looks valid.
+    decision:
+      - >-
+        Validation lives in the model: unknown inputs are refused (`extra="forbid"`) with a
+        readable error that lists every violation.
+      - >-
+        Derived values, such as the short title, the creation date and the version, are
+        computed on the model in one place; templates do no defaulting.
+      - >-
+        Chancellor serializes the front matter from the model; templates render the body only,
+        and front matter and body are produced separately, never split back apart.
+      - >-
+        Templates run with `StrictUndefined`; the `required_text` and `required_list` filters
+        stay available, but the built-in templates do not rely on them for correctness.
+      - Each kind's model declares its ID pattern and its core document's ID.
+      - >-
+        Chancellor orders records by ID and generates each core document's index; the index is
+        excluded from the digest and refused as input.
+    alternatives:
+      - >-
+        Defaults and front matter written by templates: rejected, because a forgotten or
+        misquoted field goes unnoticed.
+    consequences:
+      - A template cannot drop or misquote a front-matter field.
+      - A provider's templates only lay content out, which keeps them short.
+    references:
+      - designation: Specification
+        pointers:
+          - '[S0007: Built-In Record Kinds](../specifications/S0007-built-in-record-kinds.md)'
+  - title: Contribute Kinds and Templates Through Providers Addressed by Prefix
+    id: D0002
+    addresses: [R0004, R0005]
+    short_title: Providers With Prefix Addressing
+    description: >-
+      One mechanism, the provider, carries every contribution, and each contribution is
+      addressed as `<provider>/<name>` so nothing shadows anything silently.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Projects need local templates and model definitions. Templates were already loaded through
+      a Jinja2 `PrefixLoader`; models had no comparable mechanism.
+    decision:
+      - >-
+        A provider is a named, versioned bundle declared in one manifest file; built-in, plugin
+        and local providers load through the same code path.
+      - >-
+        Every contribution is addressed as `<provider>/<name>`, extending the template prefix
+        rule to models.
+      - >-
+        Load order is fixed: built-in, entry points by distribution name, local providers in
+        declared order. Redefinition is an error; an override is written out in configuration.
+      - One registry is the only lookup from a kind to everything it needs.
+    alternatives:
+      - >-
+        Search paths where a later folder shadows an earlier one were not adopted, because
+        shadowing is silent.
+    consequences:
+      - >-
+        The built-in kinds get no privileged path, so local providers stay covered by the same
+        tests.
+      - >-
+        A provider cannot redefine a kind; a project extends one by a model override in
+        configuration (D0025).
+    references:
+      - designation: Specification
+        pointers:
+          - '[S0001: Provider Manifest](../specifications/S0001-provider-manifest.md)'
+
+  - title: Use One Coarse Digest for All of config/chancellor
+    id: D0003
+    addresses: [R0008]
+    short_title: Coarse Environment Digest
+    description: >-
+      One fingerprint covers the resolved provider set and one digest the whole of
+      `config/chancellor`; any change in either rebuilds every document chancellor owns.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      A finer digest would rebuild only documents affected by a configuration key, but which key
+      affects which file depends on templates and providers and cannot be known reliably.
+    decision:
+      - >-
+        The configuration part of every document's `input_hash` is one digest over the whole
+        validated `config/chancellor`.
+      - >-
+        The provider part is one fingerprint over the whole resolved provider set; any change in
+        it, too, rebuilds every document chancellor owns.
+    alternatives:
+      - >-
+        Per-document configuration slices: rejected, because a wrong slice yields a stale
+        document, and a needless rebuild is cheaper than a stale one.
+    consequences:
+      - Changing the wrap width or any kind setting rebuilds everything.
+      - '`explain` can always name `config` or the provider set as the moved part.'
+  - title: Load Configuration Through a Loader Interface Built on pydantic-settings
+    id: D0004
+    addresses: [R0012]
+    short_title: Config Loader Interface
+    description: >-
+      Configuration comes from a loader interface whose sources follow pydantic-settings; the
+      first release has one loader reading the data file.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Pydantic validates objects; it does not read files. pydantic-settings already provides an
+      ordered source stack for JSON, YAML, TOML and `pyproject.toml`.
+    decision:
+      - Build the loader interface on the pydantic-settings source protocol.
+      - Ship one loader in v1, reading `config/chancellor` from the data tree.
+      - >-
+        A standalone file and `[tool.chancellor]` are later loaders against the same
+        interface.
+      - >-
+        Use a source built on ruamel.yaml rather than the `pydantic-settings[yaml]` extra
+        (D0011).
+    alternatives:
+      - >-
+        A hard-wired read of the data file: rejected, because it would have to be torn up for
+        the second source.
+    consequences:
+      - Source order is defined once and dumped at DEBUG.
+
+  - title: Define Kinds by Imported Pydantic Models Fingerprinted by Their Schema
+    id: D0005
+    addresses: [R0004, R0006]
+    short_title: Pydantic Models and Schema Fingerprints
+    description: >-
+      A kind's model is an imported Pydantic v2 class by default, schema-first input sits behind
+      a `[schema]` extra, and a model is fingerprinted by the JSON Schema it emits.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Some projects write models by hand, others generate them from a schema in CI or at load.
+      All three must fingerprint alike, and generator formatting changes should rebuild nothing.
+    decision:
+      - Import Pydantic v2 modules by default.
+      - >-
+        Accept schema input through a `[schema]` extra; a consumer committing generated models
+        keeps the generator in its dev group.
+      - >-
+        Fingerprint a model by its emitted JSON Schema, canonicalized, plus its distribution
+        version or the source bytes of a loose module, since validators never appear in a schema.
+    alternatives:
+      - >-
+        Fingerprinting the generator that wrote a model: rejected, because a generator upgrade
+        would rebuild everything.
+    consequences:
+      - Generated files must be written without a timestamp header.
+      - Record refs and digest exclusions must be visible in the emitted schema (S0004).
+
+  - title: Canonicalize With JCS and Tag Every Digest
+    id: D0006
+    addresses: [R0021, R0007]
+    short_title: JCS Canonical Form
+    description: >-
+      Canonical bytes are JCS (RFC 8785) over the validated dump with defaults filled, and
+      digests are written `c1:sha256:<hex>`.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Hand-rolled canonicalizers, such as `json.dumps` with sorted keys, break at key sorting
+      and number formatting, and a digest prefix that names no rules cannot change them safely.
+    decision:
+      - >-
+        Produce canonical bytes with the `rfc8785` package from the validated dump with
+        defaults filled.
+      - >-
+        Normalize strings to NFC and multi-line values to LF; never strip trailing whitespace;
+        refuse floats.
+      - Declare digest exclusions on the model with a marker, never in a list beside it.
+      - Tag digests with the spec, `c1:sha256:`, and rebuild on an unknown tag.
+    alternatives:
+      - >-
+        A hand-rolled `json.dumps` with sorted keys: rejected for number formatting and
+        key-order edge cases.
+    consequences:
+      - '`rfc8785` becomes a runtime dependency (D0011).'
+      - >-
+        A future change of the canonical form bumps the tag to `c2` and rebuilds everything
+        once.
+      - >-
+        Repositories still set `* text=auto eol=lf` in `.gitattributes`, so rendered documents
+        keep LF line endings on every platform.
+    references:
+      - designation: Specification
+        pointers:
+          - >-
+            [S0003: Canonical Form and
+            Digests](../specifications/S0003-canonical-form-and-digests.md)
+      - designation: RFC 8785
+        description: JSON Canonicalization Scheme (JCS).
+
+  - title: Ship Model Generation as a Plugin of the schema Extra With Hooks
+    id: D0007
+    addresses: [R0017]
+    short_title: Generation Tooling in the schema Extra
+    description: >-
+      Model generation is chancellor's own plugin module inside the `[schema]` extra, with its
+      settings documented flag by flag and pre-commit hooks for it and the check commands.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Every consumer generating models would otherwise repeat the same generator settings in its
+      own CI scripts, and drift between them changes fingerprints.
+    decision:
+      - >-
+        `chancellor model generate` lives in a plugin module inside the `[schema]` extra and
+        owns the generator settings.
+      - Every setting is documented with its upstream CLI flag.
+      - >-
+        Chancellor ships `.pre-commit-hooks.yaml` entries for generation and the check
+        commands.
+    consequences:
+      - >-
+        The `[schema]` extra pulls in datamodel-code-generator, and with it PyYAML
+        transitively (D0011).
+    notes: Not built yet.
+
+  - title: Configure Formatter and Linter by Type With No Default Linter
+    id: D0008
+    addresses: [R0018]
+    short_title: Formatter and Linter by Type
+    description: >-
+      Formatter and linter are configured as types resolved through the registry; mdformat is the
+      default formatter and the default linter is none, which makes `lint` fail.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Wrapping and linting Markdown is one project's workflow, not chancellor's: another
+      consumer may emit HTML, pipe the output through pandoc or check it with something else.
+    decision:
+      - >-
+        Types `builtin.mdformat`, `builtin.shell`, `builtin.python` and `builtin.none` ship;
+        plugins may add more.
+      - >-
+        `builtin.mdformat` is the default formatter, because the built-in kinds must render
+        correctly from an empty configuration.
+      - >-
+        `builtin.none` is the default linter, and `lint` under it exits 1 with "No linter
+        set".
+      - >-
+        The wrap width becomes `config/chancellor/wrap_width`; `doctor` compares it with
+        `[tool.pymarkdown]`.
+    alternatives:
+      - >-
+        A built-in pymarkdown linter: rejected, because chancellor would hard-wire one
+        consumer's workflow.
+    consequences:
+      - A project points `builtin.shell` at its own lint task, such as `poe lint`.
+      - A script calling `lint` without a linter fails loudly instead of passing silently.
+
+  - title: Give Every Extension Point an Abstract Class and the Model Six Hooks
+    id: D0009
+    addresses: [R0019]
+    short_title: Abstract Classes and Six Model Hooks
+    description: >-
+      Every extension point is an abstract base class in `chancellor.api`, implemented by the
+      built-ins too, and the model interface has six hooks for loading, validation,
+      canonicalization, indexing, serialization and saving.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Options for every edge case are expensive to support. A class the consumer writes is cheap,
+      provided the interface is stable; the model is where a later addition hurts most.
+    decision:
+      - >-
+        One abstract base class per extension point in `chancellor.api`: model, provider,
+        formatter, linter, config loader, version scheme.
+      - Built-ins implement the same classes on no privileged path.
+      - >-
+        Interfaces carry hooks rather than switches; a consumer's subclass is accepted
+        wherever a type is named.
+      - >-
+        The model interface has six hooks: loading, validation, canonicalization, indexing,
+        serialization and saving, fixed before the classes are written.
+    consequences:
+      - A change to one of these signatures is a breaking change of the distribution.
+      - The hook names are recorded in D0024.
+    references:
+      - designation: Specification
+        pointers:
+          - '[S0004: Extension Interfaces](../specifications/S0004-extension-interfaces.md)'
+          - '[D0024: Model Hook Names](D0024-model-hook-names.md)'
+
+  - title: Use a Fixed Seven-Value Exit-Code Table
+    id: D0010
+    addresses: [R0020]
+    short_title: Seven Exit Codes
+    description: >-
+      Chancellor returns one of seven exit codes with fixed meanings from every command.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      A script has to tell a misconfiguration from a finding, so every kind of result gets its
+      own code instead of a habit of returning 1.
+    decision:
+      - >-
+        Codes 0 to 6 mean success, configuration error, invalid input, drift, degradations,
+        lint findings and internal error.
+      - >-
+        Exit code 2 is for record data errors, including one-sided links that `doctor` finds and
+        record data defined twice across files.
+    consequences:
+      - Hooks and CI can react to drift, degradation and lint findings separately.
+    notes: >-
+      Command-line misuse exits 1, as a configuration error (D0029).
+    references:
+      - designation: Specification
+        pointers:
+          - '[S0005: Exit Codes](../specifications/S0005-exit-codes.md)'
+
+  - title: Keep the Runtime Dependencies Small and Free of PyYAML
+    id: D0011
+    addresses: [R0018, R0021]
+    short_title: Runtime Dependencies
+    description: >-
+      mdformat and `rfc8785` are required, pymarkdownlnt and application-properties are dropped,
+      and YAML is read and written with ruamel.yaml only.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Once the linter is the consumer's own command, chancellor no longer needs pymarkdown.
+      mdformat shapes the bytes chancellor writes and must stay.
+    decision:
+      - Runtime dependencies include mdformat, mdformat-gfm, `rfc8785` and pydantic-settings.
+      - >-
+        pymarkdownlnt and application-properties leave the runtime dependencies; pymarkdownlnt
+        stays a dev dependency.
+      - >-
+        YAML is read and written with ruamel.yaml only; chancellor's code never imports PyYAML,
+        even where an optional extra pulls it in, and a test checks that.
+      - >-
+        `packaging` is a runtime dependency, for the built-in `pep440` version scheme.
+    alternatives:
+      - 'The `pydantic-settings[yaml]` extra: rejected, because it brings PyYAML.'
+    consequences:
+      - Chancellor needs its own pydantic-settings source on ruamel.yaml.
+      - If mdformat ever moves to an extra, the default formatter becomes `builtin.none`.
+
+  - title: Scope the Data Tree by Facet and Rename Its Kind to project_records
+    id: D0012
+    addresses: [R0010, R0013]
+    short_title: Facet-Scoped Data Tree
+    description: >-
+      The data tree is scoped by facet with chancellor's keys under `_api/chancellor` and
+      `config/chancellor`, its kind is `project_records`, and the old layout gets no shim.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Other tools, such as field-marshall, read the same requirements chancellor renders. An
+      unscoped layout, or a data-tree kind named after architecture records only, would tie the
+      shared data to chancellor and to its first document type.
+    decision:
+      - Top-level keys are `_api/<module>`, `config/<module>` and one section per record kind.
+      - '`_api/chancellor.kind` is renamed to `project_records` now.'
+      - Data in an unscoped layout gets no compatibility path; it is refused.
+      - The module key is a module-level default plus a mapping of per-facet overrides.
+    alternatives:
+      - >-
+        A compatibility shim for the unscoped layout: rejected, because no released data uses
+        it.
+    consequences:
+      - The unscoped layout is refused with a message naming the new shape.
+    references:
+      - designation: Specification
+        pointers:
+          - '[S0002: Project Data Tree](../specifications/S0002-project-data-tree.md)'
+
+  - title: Ship Only the jkrenzer Flavour in the First Release
+    id: D0013
+    addresses: [R0001, R0004]
+    short_title: Built-In Flavours
+    description: >-
+      The first release ships the `builtin.jkrenzer` flavour only; Nygard joins the built-ins
+      later and ECSS comes as a plugin module.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Flavours are sub-namespaces of the built-in provider. The common shape of record kinds
+      across flavours is not settled yet.
+    decision:
+      - >-
+        The decision, requirement and specification kinds of the first release ship as
+        `builtin.jkrenzer`.
+      - A Nygard flavour joins the built-ins once the common shape is settled.
+      - A standard as particular as ECSS ships as a plugin module, not in the distribution.
+    consequences:
+      - Template addresses carry the flavour, e.g. `builtin.jkrenzer/decision.md.j2`.
+
+  - title: Defer Reports and Prose Documents but Keep Room for Them
+    id: D0014
+    addresses: [R0022]
+    short_title: Defer Prose Documents
+    description: >-
+      The first release builds records only and keeps rendering open for template-to-template
+      rendering and document-walking functions.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: Records come first; reports and prose documents follow in a later release.
+    decision:
+      - Reports and prose documents are deferred to a later release.
+      - >-
+        The rendering design must not assume a record-shaped model and a single rendering
+        pass.
+    consequences:
+      - The build pipeline keeps the template environment open to registered functions.
+
+  - title: Keep the Version at 0.1.0 for the First Internal Release
+    id: D0015
+    short_title: Version 0.1.0
+    description: >-
+      The first release is an internal test and stays at version `0.1.0`, which leaves room to
+      change the documented public surface.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      `chancellor.api` is documented as the public surface, so a change to it is breaking. The
+      first release is an internal test for now.
+    decision:
+      - The version stays `0.1.0`.
+      - '`chancellor.api` is still documented as the public surface.'
+    consequences:
+      - Under 0.x, breaking changes to `chancellor.api` remain possible before 1.0.
+
+  - title: Ship No Markdown Import
+    id: D0016
+    addresses: [R0001]
+    short_title: No Markdown Import
+    description: >-
+      Chancellor ships no command that parses records back from Markdown; a project that needs
+      one subclasses the model's load hook.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Records written before a project adopts chancellor often exist only as Markdown. Moving
+      them into data could be automated by parsing them back.
+    decision:
+      - No built-in Markdown import.
+      - >-
+        The API documentation shows a custom load hook as the worked example of a custom
+        loader.
+      - >-
+        A project moving to chancellor writes its data and reviews the re-rendered documents.
+    consequences:
+      - Paths and documents are never parsed back into records.
+
+  - title: Accept an Editable Install Whose Changes Chancellor Detects
+    id: D0017
+    addresses: [R0009, R0023]
+    short_title: Editable Install Detected
+    description: >-
+      An editable install of chancellor is no degradation when its code changes are caught
+      by the source digest; `--strict` means fully reproducible.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      An editable install reports the version of its last installation, so after more commits
+      the version names the wrong code. Chancellor now adds a digest of the package source to
+      the fingerprint of an editable install, so a code change is detected and rebuilds what it
+      feeds.
+    decision:
+      - >-
+        An editable install whose code changes are caught by the source digest is no
+        degradation; chancellor logs it at INFO level.
+      - '`--strict` means fully reproducible: equal digests yield equal output.'
+    alternatives:
+      - >-
+        Treat every editable install as a degradation, so `--strict` fails in every
+        development checkout.
+      - >-
+        Probe git at runtime when running from a checkout; it would have to degrade silently
+        where git is missing.
+      - >-
+        Refuse or warn when the checkout's HEAD differs from the installed version's commit.
+    consequences:
+      - >-
+        The `api` digest part covers the Python implementation and its major.minor version and
+        the installed versions of the libraries that shape output, so equal digests mean equal
+        output.
+      - >-
+        An editable install whose source digest is incomplete, for example because of compiled
+        extensions or unreadable files, records `editable-install` with the reason.
+      - A development checkout passes `--strict`.
+  - title: Rebuild Every Document After a Provider Change
+    id: D0018
+    addresses: [R0008, R0006]
+    short_title: Whole-Set Provider Part
+    description: >-
+      The providers part is one digest per build over the provider set and every
+      fingerprint, so any provider change rebuilds every document.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Rebuilding only the documents a changed provider feeds needs a per-document map of which
+      provider fed what, and that map is easy to get wrong. A needless rebuild is cheaper than a
+      stale document (D0003).
+    decision:
+      - >-
+        The `providers` part is one digest per build over the provider set and every
+        fingerprint: providers, `data_model`, `model:<kind>`, `code:<address>` and
+        `schema:<kind>`.
+      - >-
+        The lock stores the whole fingerprint map, and `explain` names the entries that
+        differ.
+    alternatives:
+      - >-
+        A per-document provider part that rebuilds only the documents a changed provider
+        feeds: first implemented, then reversed for simplicity.
+    consequences:
+      - >-
+        Any change of a provider or model rebuilds every document chancellor owns; the loaders
+        proposed in D0034 would join the providers part.
+      - >-
+        Lock entries carry no per-document list of feeding providers; the lock format version
+        is 2.
+  - title: Read Each Kind's Records From Its Own Data File
+    id: D0019
+    addresses: [R0014, R0011]
+    short_title: Per-Kind Data Files
+    description: >-
+      `kinds.<kind>.data` names the file that holds a kind's records; `kinds.<kind>.folder`
+      is where the kind's documents go.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      A setting called a kind's location could mean where its records are read or where its
+      documents are written. Both need to be configurable, and a project should be able to keep
+      each kind's records in a file of its own.
+    decision:
+      - >-
+        `kinds.<kind>.data` names a file, relative to the project root and confined to it,
+        holding the kind's section (`core`, `records`).
+      - >-
+        A missing data file means the kind has no data yet; chancellor logs it at INFO level.
+      - >-
+        A file used as a kind's data and as a whole data tree, or by two kinds, is a
+        configuration error.
+      - "`kinds.<kind>.folder` is the kind's output folder."
+      - >-
+        Whole data-tree files can still be merged through `include`; `providers` and `include`
+        are honoured only in the main data file.
+      - Provider folders are never read as data.
+    consequences:
+      - >-
+        Data file paths are layout, not content, and stay out of the configuration digest
+        (D0020).
+    alternatives:
+      - >-
+        One shared file for every kind, addressed by the path to its top-level key: planned
+        for later, and the code marks where it ties in.
+  - title: Digest the Validated Configuration in Chancellor, Not in the Loader
+    id: D0020
+    addresses: [R0008, R0011, R0012, R0021]
+    short_title: Config Digest by Chancellor
+    description: >-
+      Configuration loaders return data only; chancellor digests the validated configuration
+      with defaults filled and without layout keys.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      If every loader returned a digest of its own configuration, loaders could disagree on the
+      canonical form, and an omitted default would digest differently from a written one.
+    decision:
+      - '`ConfigLoader.load()` returns the raw mapping and its origin, no digest.'
+      - Chancellor digests the validated configuration with defaults filled.
+      - >-
+        Layout keys, `include` and `kinds.<kind>.data`, are excluded from the digest.
+    consequences:
+      - Moving configuration between loaders changes no digest.
+
+      - >-
+        A `loaders` key would be a layout key as well; it is proposed in D0034.
+  - title: Treat Completely Hashed Code as No Degradation
+    id: D0021
+    addresses: [R0009, R0006]
+    short_title: Fingerprinted Code Does Not Degrade
+    description: >-
+      Code and resources chancellor can hash completely are no degradation; an unversioned
+      provider hashed completely raises only an INFO message.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      A loose module can be fingerprinted reliably by its source bytes, yet unversioned
+      providers and loose modules were treated as degradations, while supplied root models and
+      model overrides in configuration were not.
+    decision:
+      - A reliably fingerprintable module or other resource is no degradation.
+      - >-
+        A provider without a version whose manifest, templates and full code closure are
+        digested completely raises an INFO message instead of a degradation: "Drop the level to
+        an info message as long as we can safely hash it."
+      - >-
+        If anything in it cannot be hashed safely, `unversioned-provider` stays a degradation
+        next to `unfingerprinted-code`, and `--strict` fails.
+    alternatives:
+      - >-
+        Degrade every loose module even when its bytes are fingerprinted, as first
+        implemented.
+    consequences:
+      - >-
+        A project with a local Python model passes `--strict` when its code closure is
+        complete.
+      - An unversioned provider no longer fails `--strict` by itself.
+
+  - title: Guard Output With Chancellor's Own Golden Fixtures
+    id: D0022
+    addresses: [R0016]
+    short_title: Own Golden Fixtures
+    description: >-
+      Synthetic sample records and their committed renders guard chancellor's output between
+      versions.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Consuming projects rely on chancellor's version to know when their documents may change.
+      Output that changes without a version bump breaks that silently.
+    decision:
+      - >-
+        A synthetic sample project under `tests/fixtures/sample/` covers every built-in kind
+        and template.
+      - Its renders are committed under `tests/golden/` and compared byte for byte.
+      - '`poe golden` regenerates them deliberately.'
+    consequences:
+      - A CI check against unbumped versions is still to be built.
+
+  - title: Write Every File Through One Propose-and-Apply Path
+    id: D0023
+    short_title: One Write Path
+    description: >-
+      Nothing is written outside a staging tree except by `apply`, and `output_path_for` is the
+      only place output paths are built.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      When commands write files on their own and tools build paths on their own, partial writes
+      and divergent path rules follow.
+    decision:
+      - One write path; nothing is written outside the staging tree except by `apply`.
+      - >-
+        `output_path_for` is the only place an output path is constructed; paths are never
+        parsed back into records.
+    consequences:
+      - The MCP server's authority tiers default to `propose`.
+    notes: >-
+      Staging inside the repository, backups during the write phase, an NDJSON journal and
+      `recover` are pending a pipeline specification for the maintainer's review. Today
+      `write.apply` is the single write function.
+
+  - title: Name the Model Hooks After Pydantic's Conventions
+    id: D0024
+    addresses: [R0019]
+    short_title: Model Hook Names
+    description: >-
+      The six model hooks are named `model_load`, `model_validate`, `model_canonicalize`,
+      `model_index`, `model_serialize` and `model_save`.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      The hook names are public API in `chancellor.api`, so they are chosen once and reviewed
+      before consumers depend on them.
+    decision:
+      - >-
+        The hooks are named as Pydantic names things: `model_load`, `model_validate`,
+        `model_canonicalize`, `model_index`, `model_serialize`, `model_save`.
+      - '`front_matter` is a class variable on the model, not a seventh hook.'
+    alternatives:
+      - 'Shorter names: load, validate, canonical, index, dump and save.'
+      - '`model_canonical` for the canonicalization hook.'
+    consequences:
+      - Renaming a hook after the release is a breaking change of `chancellor.api` (D0009).
+
+  - title: Let a Project Subclass a Provider's Kind Model in Configuration
+    id: D0025
+    addresses: [R0004, R0019]
+    short_title: Model Override in Configuration
+    description: >-
+      A project replaces a kind's record or core model with a subclass of the provider's model,
+      named in `config/chancellor` as `kinds.<kind>.model` or `kinds.<kind>.core_model`.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      A project may need a field the built-in record kinds lack. The built-in models refuse
+      unknown fields, and a later provider may not redefine a kind (R0004).
+    decision:
+      - >-
+        `config/chancellor` accepts `kinds.<kind>.model` and `kinds.<kind>.core_model`, each a
+        subclass of the provider's model for that kind; anything else is refused.
+      - >-
+        A model is named as `path/to/file.py:Class`, relative to the project root, or as
+        `module:Class`.
+      - '`chancellor providers` lists each override as `model:<kind>`.'
+      - >-
+        An override is fingerprinted by its code and the JSON Schema it emits and is no
+        degradation when its code can be hashed completely.
+    alternatives:
+      - A field added to `builtin.jkrenzer` for one project's needs.
+      - >-
+        Tags as a stand-in for a missing field: rejected, because they crowd every core index
+        entry.
+      - Letting a provider extend an existing kind, which R0004 rules out.
+    consequences:
+      - >-
+        Both reference forms, code from installed or editable distributions and helper modules
+        a file override imports are fingerprinted along the one code path (D0031).
+      - >-
+        Like a file override, a provider's loose module degrades only when it cannot be hashed
+        completely (D0021).
+    references:
+      - designation: Specification
+        pointers:
+          - '[S0004: Extension Interfaces](../specifications/S0004-extension-interfaces.md)'
+          - '[S0002: Project Data Tree](../specifications/S0002-project-data-tree.md)'
+
+  - title: Command-Line Changes Taken While Coding
+    id: D0026
+    addresses: [R0002]
+    short_title: CLI Changes While Coding
+    description: >-
+      `hash [IDS]` and `schema data` replace the old forms `hash INPUT` and `schema
+      architecture`, without aliases.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      R0002 keeps the verbs available but does not fix their arguments. `hash` works on the
+      project's records, and the data-tree schema is named after the data tree.
+    decision:
+      - '`hash [IDS]` prints the data hash of records of the project, replacing `hash INPUT`.'
+      - '`schema data` prints the data-tree schema, replacing `schema architecture`.'
+      - No aliases for the old forms.
+    alternatives:
+      - Keeping the old forms as aliases, rejected by the maintainer.
+    consequences:
+      - Scripts that call the earlier forms must change.
+  - title: Log Every Top-Level Section at INFO Level
+    id: D0027
+    addresses: [R0010]
+    short_title: Log Top-Level Sections
+    description: >-
+      Chancellor logs every top-level section of the data tree it encounters at INFO level, and
+      the user documentation explains raising the log level to investigate the YAML.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Other modules may keep their own sections in the shared data tree (R0010), so chancellor
+      cannot reject a section it does not know, and a misspelt kind section would be ignored
+      silently.
+    decision:
+      - Every top-level section encountered is logged at INFO level, for debugging.
+      - >-
+        The user documentation tells users to raise the log level to look into problems with
+        the YAML.
+    alternatives:
+      - 'An `unknown-section` degradation that fails `--strict`: not chosen.'
+    consequences:
+      - An unknown section is neither an error nor a degradation.
+  - title: Export a Snapshot of the Validated Data on Request
+    id: D0028
+    addresses: [R0010]
+    short_title: Data Snapshot Export
+    description: >-
+      On request, chancellor writes the validated data tree as JSON to a configured path;
+      the snapshot is output, never input.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-30
+        description: Initial record.
+    context: |-
+      Other tools may want the validated data with every default filled rather than the raw
+      YAML, for example to index records or to check them in CI.
+    decision:
+      - >-
+        `config/chancellor/snapshot` names a path; when it is set, `build` writes the
+        validated data tree there as JSON.
+      - The snapshot is opt-in and is excluded from every document's inputs.
+    consequences:
+      - Writing a snapshot never causes a rebuild.
+  - title: Usage Errors and Ref Resolution Taken While Coding
+    id: D0029
+    addresses: [R0020, R0024]
+    short_title: Usage Errors and Ref Resolution
+    description: >-
+      Command-line misuse exits 1, and a reference shaped like a registered kind's ID must
+      resolve; external references are written so they cannot be mistaken for one.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      The exit-code table does not say which code command-line misuse returns, nor how
+      chancellor tells a record ID from an external identifier.
+    decision:
+      - Command-line misuse exits 1, as a configuration error.
+      - >-
+        A ref shaped like an ID of a registered kind must resolve to a record, else the input is
+        invalid; any other value is an external identifier.
+      - >-
+        A dangling reference shaped like an ID fails with a hint to write an external
+        reference as `<project>:<version>:<id>` or as a URL; a local absolute ID's first part
+        parses as a version (S0008).
+    consequences:
+      - A typo in an ID of a known kind fails the build instead of passing as external.
+
+  - title: Supplied Root Models Inherit Every Field and Default From Base Classes
+    id: D0030
+    addresses: [R0015]
+    short_title: Root Models by Inheritance
+    description: >-
+      A supplied root model inherits from base classes chancellor provides, which bring every
+      field and its default, configuration included; it does not block output folders.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Making a supplied root model and configured kind folders mutually exclusive would block a
+      root-model project from choosing where its documents go.
+    decision:
+      - Blocking output folders for a project with a supplied root model is not intended.
+      - >-
+        Chancellor provides inheritable base classes for all its model classes, bringing every
+        field and its default, especially in the configuration; a supplied root model inherits
+        from them, so a valid data model can be filled in by inheritance.
+      - A user who supplies classes without the base classes can still break things.
+    consequences:
+      - A root model and configured output folders work together.
+      - >-
+        The public bases are `ProjectModel`, `ApiTree`, `ConfigTree`, `ChancellorConfig`,
+        `KindConfig` and `Section`; the merged configuration model is built on the consumer's
+        `ChancellorConfig` subclass.
+      - >-
+        Settings take priority in this order: command line, environment, data file and
+        loaders, the consumer's class defaults, provider defaults, built-in defaults; the
+        maintainer confirmed this order.
+  - title: Fingerprint Code by Where It Comes From, Along One Path
+    id: D0031
+    addresses: [R0006, R0009]
+    short_title: One Code Fingerprint Path
+    description: >-
+      Every piece of Python code chancellor loads is fingerprinted by one function, by its
+      distribution version, its source digest or its static import closure.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Models, providers, overrides, loaders and root models arrive as installed distributions,
+      editable installs, files in the project or helper modules those files import.
+      Fingerprinting only some of them lets code change output unnoticed.
+    decision:
+      - >-
+        A module of an installed distribution is fingerprinted by the distribution's exact
+        version string.
+      - >-
+        In an editable install, the fingerprint is the version plus a source digest of the
+        top-level package, and the build records an `editable-install` degradation.
+      - >-
+        Any other module is fingerprinted by the digest of its own source and every module it
+        imports, found statically without executing anything; the walk stops at the standard
+        library, at installed distributions and at chancellor itself.
+      - >-
+        An import that cannot be resolved, or whose name is computed, records an
+        `unfingerprinted-code` degradation; an optional import guarded by `except ImportError`
+        that does not resolve is recorded as absent.
+    consequences:
+      - The Python version and files a module reads at runtime stay outside every digest.
+      - Model overrides in both forms and their helper modules are fingerprinted (D0025).
+
+      - The user documentation explains how chancellor fingerprints code.
+  - title: Declare on Each Reference What Flows Over It
+    id: D0032
+    addresses: [R0004, R0008, R0019]
+    short_title: Reference Dependencies
+    description: >-
+      A reference declares with `depends` whether its document reads the target's ID, its file
+      name or its data, and only that can rebuild the document or reach its template.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Hashing every record reachable through references moved core documents whose text could
+      not differ when one requirement changed. The maintainer's principle: "If it is e.g. just a
+      reference to the file name which stays the same while the content changes, the document
+      does not need to rebuild. If the document reads data from a source that changes it has to
+      be rebuild, too to ensure the changes are reflected in any imported data. So it depends on
+      the type of reference connection and if the changes in the referenced document can flow
+      over this connection or not."
+    decision:
+      - >-
+        A reference is declared as `RecordRef(depends="id"|"name"|"data")`, default `id`; a
+        declarative field takes `depends:` likewise. A parameter only, no aliases.
+      - >-
+        `id`: the target's ID only; `name`: also its document's file name and path; `data`: also
+        its serialized data.
+      - >-
+        Templates see other records only under `refs.<field>`, exactly as declared, so a template
+        cannot read what the digest does not cover.
+      - >-
+        The `refs` digest part covers exactly that context plus the record's `Generated` fields,
+        such as a core document's index.
+    alternatives:
+      - >-
+        Hashing every record reachable through references: rejected, because it rebuilds
+        documents that cannot change.
+    consequences:
+      - '`refs` and `data_hash` are reserved field names.'
+      - >-
+        In this repository, changing a requirement's `state` moves only that requirement; its
+        `short_title` moves it and its core document.
+
+  - title: Expose Only One Hop of References to a Template
+    id: D0033
+    addresses: [R0008]
+    short_title: One-Hop References
+    description: >-
+      A template sees a referenced record's declared context but not that record's own
+      references; reaching further is an error.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-29
+        description: Initial record.
+    context: |-
+      Under D0032 a reference with `depends="data"` exposes the target's data. Whether the
+      target's own references are exposed in turn decides how far a change can flow.
+    decision:
+      - >-
+        A data flow reaches one hop; a target's own references are neither exposed nor
+        digested.
+      - A template that reaches past one hop fails with a clear error.
+      - >-
+        Chains of references are deferred; the documentation says so and the code marks where
+        they tie in.
+    alternatives:
+      - >-
+        Following references transitively, which rebuilds documents that cannot change
+        (D0032).
+    consequences:
+      - >-
+        A template that needs a second hop must have its record reference that target
+        directly.
+  - title: Resolve Configuration Loaders Through the Registry and Accept Command-Line Overrides
+    id: D0034
+    addresses: [R0012]
+    short_title: Config Loaders and Overrides
+    description: >-
+      Proposed: `config/chancellor/loaders` names the loaders by type, and `--set KEY=VALUE`
+      overrides a setting for one run, recorded in the lock.
+    author: jkrenzer
+    state: proposed
+    revisions:
+      - version: "0.1.0"
+        date: 2026-10-30
+        description: Initial record.
+    context: |-
+      Configuration arrives through a loader interface (R0012), but a loader that is hard-wired
+      instead of resolved like every other type cannot be replaced, and the command-line source
+      of the documented source order did not exist.
+    decision:
+      - >-
+        `config/chancellor/loaders` lists loader types, default `["builtin.data_file"]`,
+        resolved through the registry or as an import path; it is a layout key and not
+        digested.
+      - >-
+        A loader is constructed with a `LoaderContext` and its arguments; a loader that fails
+        exits 1 naming its entry.
+      - >-
+        The global option `--set KEY=VALUE`, repeatable, overrides a setting below
+        `config/chancellor` with the highest priority; the value is parsed as YAML without
+        tags, anchors or aliases.
+      - >-
+        Overrides are logged at INFO level and recorded in the lock, and `explain` names them
+        under `config`.
+    consequences:
+      - A loader's code fingerprint joins the providers part (D0018).
+      - >-
+        A build with `--set` moves the configuration digest, so the next build without it
+        rebuilds again.
+  - title: Keep and Report Documents Chancellor Cannot Vouch For
+    id: D0035
+    addresses: [R0014]
+    short_title: Unvouched Documents Kept
+    description: >-
+      Proposed: documents an unusable lock still names are reported as orphans and kept, and
+      unknown files in a kind's output folder are warned about and kept; `doctor` flags
+      them.
+    author: jkrenzer
+    state: proposed
+    revisions:
+      - version: "0.1.0"
+        date: 2026-10-30
+        description: Initial record.
+    context: |-
+      An outdated lock is ignored and everything is rebuilt (R0009). A cold build knows nothing
+      of the documents the old lock tracked, so a renamed document stays behind and looks
+      current.
+    decision:
+      - >-
+        The document paths of an unusable lock are read best effort; those still on disk are
+        reported as orphans and never deleted, because their hashes cannot be trusted.
+      - >-
+        A file in a kind's output folder named `<ID>…<suffix>`, with an ID matching the kind's
+        pattern and unknown to the plan and every lock, is listed as untracked with a warning,
+        kept, and not counted as drift.
+      - '`doctor` reports untracked documents as problems and exits 1.'
+    alternatives:
+      - >-
+        Delete such files: rejected, because chancellor cannot tell whether someone edited
+        them.
+    consequences:
+      - >-
+        A stale document after a lock-format change is visible instead of silent; removing it
+        stays a person's decision.
+    notes: >-
+      The maintainer confirmed that `doctor` exits 1 for untracked documents; the rest of
+      the record is still proposed.
+  - title: Version the Record Set in a meta Facet With a Configurable Scheme
+    id: D0036
+    addresses: [R0024]
+    short_title: Versioning Mechanism
+    description: >-
+      Chancellor keeps the record-set version in a `meta` facet, validates versions through
+      a pluggable version scheme that defaults to no checks, and resolves bare and absolute
+      references.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-30
+        description: Initial record.
+    context: |-
+      Records carry revision versions, but chancellor treats them as opaque strings, and the
+      record set as a whole has no version. `_api.chancellor.version` is the version of the
+      data-file format, not of the records.
+    decision:
+      - >-
+        The record-set version lives in a data facet, `meta.<key>.version`, scoped by module
+        key like `_api` and `config`; it describes content, so it is data, not configuration.
+      - >-
+        How versions are written is project policy, set in `config.<key>.versioning`: a
+        `scheme` and an `absolute_id` format (default `"{version}:{id}"`).
+      - >-
+        Version handling is an extension point: a scheme is a `VersionScheme` type resolved
+        through the registry; the built-ins are `semver`, `pep440` (through `packaging`) and
+        `free`, the default, which checks nothing.
+      - >-
+        A known scheme validates the record-set version and every revision version, and checks
+        that revision versions increase from oldest to newest.
+      - >-
+        Inside the record data, a bare reference means the current record-set version. An
+        absolute reference with the current version is checked like a bare one; one with an
+        older version is historic; one with a newer version is invalid.
+      - >-
+        A historic reference cannot be resolved: it is a warning, not an error; `doctor` lists
+        it and templates see it marked `historic`. A version increment turns current absolute
+        references historic by itself.
+      - >-
+        A historic ID given on the command line is a warning, and the command proceeds on the
+        current record of that ID if it exists.
+      - >-
+        A local absolute ID's first part parses as a version of the configured scheme; an
+        external reference names its project, as `<project>:<version>:<id>`, or is a URL.
+      - >-
+        `ProjectModel` gains a `meta` field with public bases, and templates see the
+        record-set version and each record's absolute ID.
+    alternatives:
+      - >-
+        Only bare references inside the record data: not chosen, because absolute references
+        let a version increment mark what they cite as historic.
+      - >-
+        Digesting the version only for documents that show it: rejected, because rebuilding
+        every document is more robust and easier to check.
+      - >-
+        One fixed scheme for every project: rejected, because projects keep their own
+        versioning policies.
+      - 'The record-set version in configuration: rejected, because it describes content.'
+    consequences:
+      - >-
+        The record-set version and the absolute-ID format enter every document's digest, so a
+        version increment rebuilds every document.
+      - >-
+        Editors can screen for historic references after an increment, and templates can mark
+        them.
+      - '`packaging` becomes a runtime dependency (D0011).'
+      - '`_api.chancellor.version` stays the version of the data-file format.'
+    references:
+      - designation: Specification
+        pointers:
+          - >-
+            [S0008: Versioning and Absolute
+            IDs](../specifications/S0008-versioning-and-absolute-ids.md)
+    notes: The data model support is not implemented yet.
+  - title: Use SemVer 2.0.0 for Record Revisions and the Record Set
+    id: D0037
+    addresses: [R0024]
+    short_title: SemVer for Records
+    description: >-
+      This project versions every record revision and the record set with SemVer 2.0.0,
+      writes absolute IDs as `<version>:<id>`, and starts the record set at `0.1.0`.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-30
+        description: Initial record.
+    context: |-
+      R0024 asks for a decided versioning scheme. The records already write their revision
+      versions as MAJOR.MINOR.PATCH, and chancellor's own releases follow PEP 440 numbers of the
+      same shape.
+    decision:
+      - Every record revision and the record set use Semantic Versioning 2.0.0.
+      - The absolute ID format is `<version>:<id>`, for example `0.1.0:D0017`.
+      - The record set starts at version `0.1.0`.
+      - The repository configures the scheme `semver` once chancellor supports it.
+    alternatives:
+      - >-
+        PEP 440 versions, as for chancellor's distribution: not chosen, because SemVer states
+        what each component means for a reader.
+    consequences:
+      - >-
+        Commit messages, code comments, tests and documentation refer to records as
+        `<version>:<id>`.
+    references:
+      - designation: Specification
+        pointers:
+          - >-
+            [S0010: SemVer Versions and Absolute
+            IDs](../specifications/S0010-semver-versions-and-absolute-ids.md)
+      - designation: Semantic Versioning 2.0.0
+        pointers:
+          - '[semver.org/spec/v2.0.0](https://semver.org/spec/v2.0.0.html)'
+  - title: Increment Versions by Their Impact on Absolute References
+    id: D0038
+    addresses: [R0024]
+    short_title: Version Increment Policy
+    description: >-
+      A version increments by the highest impact of the changes since the last version:
+      MAJOR when an absolute ID would mislead, MINOR when content is added or firmed up,
+      PATCH for corrections.
+    author: jkrenzer
+    state: accepted
+    revisions:
+      - version: "1.0.0"
+        date: 2026-10-30
+        description: Initial record.
+    context: |-
+      A version is only useful to a reader if its increments say how far the content may have
+      moved. An absolute ID such as `0.1.0:D0017` should keep meaning what it meant.
+    decision:
+      - >-
+        Increments mark published states, committed to the shared history or released; all
+        changes between two published states fold into one increment by their highest category
+        (S0009).
+      - >-
+        MAJOR when an absolute ID would now lead a reader astray, MINOR when content is added
+        or firmed up without invalidating what an absolute ID said, PATCH for corrections that
+        do not change meaning.
+      - Rendering, layout, configuration, lock and provider changes do not increment.
+      - >-
+        Each record's revision version follows the same rules; the record set moves by the
+        highest category among the record changes since its last version, once per batch.
+      - >-
+        While the major version is 0, MAJOR-category changes increment MINOR and all others
+        PATCH; the record set goes to `1.0.0` with chancellor's first final release.
+    alternatives:
+      - >-
+        One increment per edit: rejected, because versions mark published states, and per-edit
+        increments show as jumps in git.
+    consequences:
+      - >-
+        A version never goes back, and a released `<version>:<id>` stays valid in history.
+    references:
+      - designation: Specification
+        pointers:
+          - >-
+            [S0009: Version Increment Policy](../specifications/S0009-version-increment-policy.md)

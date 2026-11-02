@@ -1,3 +1,13 @@
+# Temporary files and directories
+tmp/
+
+# SSH local files except documentation
+.ssh/*
+!.ssh/README.md
+
+# Project-local Poetry plugins (requires-plugins in pyproject.toml)
+.poetry/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -218,3 +228,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+tmp/
+.claude/settings.local.json
+
+# Serena project state and memories
+.serena/
+# Written by `poetry do pyright-config` for the active venv
+pyrightconfig.json

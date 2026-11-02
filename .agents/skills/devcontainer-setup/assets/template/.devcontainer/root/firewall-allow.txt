@@ -1,0 +1,26 @@
+# Domains the outbound firewall (agent-firewall) lets through, one per line. GitHub's address
+# ranges are added from api.github.com/meta. Baked into the image: changes need a rebuild.
+
+# Agent APIs and logins
+api.anthropic.com
+statsig.anthropic.com
+downloads.claude.ai
+sentry.io
+statsig.com
+api.openai.com
+auth.openai.com
+chatgpt.com
+
+# Package indexes: {{PACKAGE_INDEXES}}, the language's registries, e.g. pypi.org and
+# files.pythonhosted.org, registry.npmjs.org, crates.io and static.crates.io
+registry.npmjs.org
+
+# GitHub content outside the meta ranges
+objects.githubusercontent.com
+release-assets.githubusercontent.com
+raw.githubusercontent.com
+
+# VS Code server and extensions
+marketplace.visualstudio.com
+vscode.blob.core.windows.net
+update.code.visualstudio.com

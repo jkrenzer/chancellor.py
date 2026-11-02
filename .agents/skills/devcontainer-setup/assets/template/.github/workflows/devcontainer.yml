@@ -1,0 +1,32 @@
+# Builds the dev container image and runs the project's checks inside it, so CI uses exactly the
+# environment developers and agents use. Template from the devcontainer-setup skill.
+name: devcontainer
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      # {{CI_ACTION_VERSION}}: check https://github.com/devcontainers/ci for the current release.
+      - uses: devcontainers/ci@v0.3
+        with:
+          # Selects .devcontainer/environments/ci.sh inside the container.
+          env: |
+            CI=true
+            DEVCONTAINER_ENV=ci
+          # {{CI_COMMAND}}: the project's checks, e.g. "poetry run pytest", "npm test".
+          runCmd: bash -lc 'echo "replace with the project checks"'
+          # Optional image cache: build once, reuse in later runs. Needs packages: write and
+          # a registry login step before this one.
+          # imageName: ghcr.io/${{ github.repository }}/devcontainer
+          # cacheFrom: ghcr.io/${{ github.repository }}/devcontainer
+          # push: filter
+          # refFilterForPush: refs/heads/main

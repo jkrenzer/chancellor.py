@@ -1,0 +1,23 @@
+#!/bin/bash
+# Gives the calling user ownership of the files in its workspace that belong to someone else.
+# Usage: sudo /usr/local/sbin/fix-workspace <workspace>
+#
+# Runs as root: baked into the image by the Dockerfile's agent stage, and allowed to the dev user
+# through sudo. It therefore accepts only a git work tree below /workspaces, stays on that
+# filesystem and does not follow links.
+set -euo pipefail
+
+if [ -z "${SUDO_UID:-}" ] || [ $# -ne 1 ]; then
+  echo "usage: sudo $0 <workspace>" >&2
+  exit 2
+fi
+ws="$(realpath -e -- "$1")"
+case "$ws" in
+  /workspaces/?*) ;;
+  *) echo "fix-workspace: refusing $ws, not below /workspaces" >&2; exit 1 ;;
+esac
+if [ ! -e "$ws/.git" ]; then
+  echo "fix-workspace: refusing $ws, not a git work tree" >&2
+  exit 1
+fi
+find "$ws" -xdev ! -user "$SUDO_UID" -exec chown -h "$SUDO_UID:$SUDO_GID" {} +

@@ -1,0 +1,43 @@
+{% import "builtin.jkrenzer/_macros.md.j2" as m %}
+{# Authoring contract: an Architectural Specification Record. A specification states what an
+artifact is, not why it was chosen; keep the rationale in the addressed requirement and the
+governing decision. Every clause statement is normative; all other text is explanatory. #}
+## Context
+
+{# Why the specification exists, where its subject comes from and which constraints apply.
+Keep normative content out of this section. #}
+{{ context }}
+
+## Subject
+
+{# The artifact being specified and its delimitation, exclusions stated as such. #}
+{{ m.bullets(subject) }}
+
+## Terms
+
+{# Every term the normative statements rely on, with its definition. #}
+{{ m.bullets(terms) }}
+
+## Specification
+
+{# The normative content, grouped into clauses. An explanatory sub-bullet inside a statement
+begins with "Note:" or "Example:". Cite a statement by clause designation and position. #}
+{% for clause in specification %}
+### {{ clause.designation }}
+
+{% if clause.description %}
+{{ clause.description }}
+
+{% endif %}
+{{ m.bullets(clause.statements) }}
+
+{% endfor %}
+## Conformance
+
+{# How an artifact is checked against the clauses: the check, its evidence and the clause it
+covers. Record a statement that cannot be checked yet as such. #}
+{{ m.bullets(conformance) }}
+
+{{ m.references_section(references) }}
+
+{{ m.notes_section(notes) }}

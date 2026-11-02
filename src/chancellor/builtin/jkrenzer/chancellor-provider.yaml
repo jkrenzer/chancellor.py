@@ -1,0 +1,39 @@
+# Decision, requirement and specification records, each with a core document that introduces
+# the kind's folder and indexes its records. Versioned with the chancellor distribution.
+_api:
+  version: 1.0.0
+  kind: chancellor_provider
+name: builtin.jkrenzer
+templates:
+  directory: templates
+kinds:
+  decisions:
+    folder: arch/decisions
+    model: chancellor.builtin.jkrenzer.models:Decision
+    core_model: chancellor.builtin.jkrenzer.models:DecisionCore
+    templates:
+      records: builtin.jkrenzer/decision.md.j2
+      core_document: builtin.jkrenzer/decision-core.md.j2
+    aliases:
+      adr: records
+      adr-core: core_document
+  requirements:
+    folder: arch/requirements
+    model: chancellor.builtin.jkrenzer.models:Requirement
+    core_model: chancellor.builtin.jkrenzer.models:RequirementCore
+    templates:
+      records: builtin.jkrenzer/requirement.md.j2
+      core_document: builtin.jkrenzer/requirement-core.md.j2
+    aliases:
+      arr: records
+      arr-core: core_document
+  specifications:
+    folder: arch/specification
+    model: chancellor.builtin.jkrenzer.models:Specification
+    core_model: chancellor.builtin.jkrenzer.models:SpecificationCore
+    templates:
+      records: builtin.jkrenzer/specification.md.j2
+      core_document: builtin.jkrenzer/specification-core.md.j2
+    aliases:
+      asr: records
+      asr-core: core_document
