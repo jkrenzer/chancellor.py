@@ -3,6 +3,10 @@
     "chancellor-records": {
       "command": "poetry",
       "args": ["run", "chancellor", "serve"]
+    },
+    "serena": {
+      "command": "poetry",
+      "args": ["run", "poe", "-q", "serena"]
     }
   }
 }

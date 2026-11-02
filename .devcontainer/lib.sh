@@ -93,7 +93,16 @@ register_mcp_http() {
 # where its command is missing, e.g. in a vendor's cloud agent with its own base image.
 register_image_mcp() {
   # caut: the agents' own rate-limit usage, pace forecast and cost (installed in the Dockerfile).
-  if command -v caut >/dev/null; then register_mcp caut caut mcp; fi
+  if command -v caut >/dev/null; then
+    register_mcp caut caut mcp;
+  fi
+  # serena: Claude Code starts it from .mcp.json. Codex reads no .mcp.json, so it gets the same
+  # poe task here, with Serena's context for Codex.
+  if command -v codex >/dev/null; then
+    codex mcp remove serena >/dev/null 2>&1 || true
+    codex mcp add serena -- poetry -C "$WORKSPACE_DIR" run poe -q -C "$WORKSPACE_DIR" serena \
+      --context codex >/dev/null && log "MCP serena: registered for codex"
+  fi
 }
 
 # Checks each agent CLI's login against CLAUDE_AUTH / CODEX_AUTH from config.env, and logs Codex

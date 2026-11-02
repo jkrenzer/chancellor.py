@@ -47,16 +47,19 @@ ENV PATH="$VIRTUAL_ENV/bin:$POETRY_HOME/bin:$PATH"
 ENV POETRY_NO_INTERACTION=1
 ENV POETRY_VIRTUALENVS_CREATE=false
 
+# libatomic1: the Node.js that pyright downloads for Serena (`poe serena`) needs it.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     curl \
     gh \
+    libatomic1 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN python -m venv "$POETRY_HOME" \
     && "$POETRY_HOME/bin/pip" install --upgrade pip \
     && "$POETRY_HOME/bin/pip" install "poetry>=2.3,<3" \
     && python -m venv "$VIRTUAL_ENV"
+
 
 FROM toolchain AS builder
 
@@ -123,12 +126,15 @@ RUN printf 'export PATH="%s"\nexport CLAUDE_CONFIG_DIR="%s"\n' "$PATH" "$CLAUDE_
 RUN mkdir -p /etc/ssh/sshd_config.d \
     && echo 'PermitUserEnvironment DEVCONTAINER_WORKSPACE,PATH,CLAUDE_CONFIG_DIR' \
     > /etc/ssh/sshd_config.d/devcontainer.conf
+# The dev user owns Poetry's venv too: Poetry installs the project's plugins (requires-plugins)
+# into .poetry/plugins only while it can write to its own bin/. Otherwise it falls back to a user
+# install and garbles the target path (Poetry 2.5.1).
 RUN chmod 0755 /usr/local/sbin/agent-firewall /usr/local/sbin/fix-workspace \
     && useradd --create-home --shell /bin/bash --uid "$USER_UID" "$USERNAME" \
     && echo "$USERNAME ALL=(root) NOPASSWD: /usr/local/sbin/agent-firewall, /usr/local/sbin/fix-workspace" \
     > /etc/sudoers.d/agent \
     && chmod 0440 /etc/sudoers.d/agent \
-    && chown -R "$USERNAME:$USERNAME" "$VIRTUAL_ENV"
+    && chown -R "$USERNAME:$USERNAME" "$VIRTUAL_ENV" "$POETRY_HOME"
 
 USER $USERNAME
 # The directories devcontainer.json mounts volumes on exist first, so the volumes belong to

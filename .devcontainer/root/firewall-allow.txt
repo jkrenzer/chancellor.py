@@ -15,6 +15,7 @@ chatgpt.com
 pypi.org
 files.pythonhosted.org
 registry.npmjs.org
+nodejs.org
 
 # GitHub content outside the meta ranges
 objects.githubusercontent.com

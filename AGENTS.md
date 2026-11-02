@@ -12,8 +12,8 @@ truth; vendor-specific files should only point here.
   new environments, agent CLIs and MCP servers at the top of `lib.sh`. See
   `docs/developer/environments.md`.
 - `.github/`: tool-prescribed. CI workflows and the Copilot pointer file.
-- `.vscode/`: tool-prescribed. Recommended editor extensions; `mcp.json` registers the GitHub MCP
-  server for VS Code.
+- `.vscode/`: tool-prescribed. Recommended editor extensions; `mcp.json` registers the GitHub and
+  Serena MCP servers for VS Code.
 - `arch/`: chancellor's own architecture records (decisions, requirements, specifications), managed
   with chancellor itself; see `arch/AGENTS.md`.
 - `cla/`: contributor licence agreement records, signing helper and CI check; see `cla/AGENTS.md`.
@@ -23,14 +23,17 @@ truth; vendor-specific files should only point here.
 - `tests/`: pytest test suite.
 - `tmp/`: gitignored. Temporary files that are not agent context: generated code, downloads, build
   or test artefacts. Use a subfolder per task.
-- `.mcp.json`: registers the `chancellor-records` MCP server. It only works once the source
-  migration has landed; until then `chancellor serve` does not exist.
+- `.mcp.json`: registers the `serena` MCP server (`poe serena`, needs
+  `poetry install --with agents`) and the `chancellor-records` MCP server. `chancellor-records` only
+  works once the source migration has landed; until then `chancellor serve` does not exist.
 - `.git_archival.json`: `git archive` fills in its `$Format:` placeholders so archive downloads know
   their version (see `docs/developer/releasing.md`). Leave the placeholders as they are.
 - `.poetry/`: gitignored. Poetry installs the poetry-dynamic-versioning plugin here.
 - `CLAUDE.md`, `.github/copilot-instructions.md`: thin pointers to this file.
 
-## Context persistence rules
+## Rules
+
+### Context persistence
 
 - At the start of a session, look for persisted context below `.agents/`, including `.agents/tmp/`:
   hand-off documents, work-state records, work boards, plans and notes.
@@ -52,7 +55,7 @@ truth; vendor-specific files should only point here.
   - The *only* exception is material encrypted with a credible encryption tool, where only the
     ciphertext is committed to git or stored in Git LFS.
 
-## Working alongside other sessions
+### Working alongside other sessions
 
 Several agent sessions may work in this tree at the same time. Reduce the risk of collisions:
 
@@ -68,7 +71,7 @@ Several agent sessions may work in this tree at the same time. Reduce the risk o
 - Files that appear or change without your doing belong to someone else: do not revert, move or
   reformat them. Tell the user instead.
 
-## Folder documentation rules
+### Folder documentation
 
 - A folder with a purpose of its own includes a `README.md` and an `AGENTS.md`.
 - A folder whose purpose is customary (`src/`, `tests/`, `docs/`) gets only a short description in
@@ -81,13 +84,13 @@ Several agent sessions may work in this tree at the same time. Reduce the risk o
 - A child rule can override a parent rule only when it names the overridden rule and explains why
   the override is required.
 
-## Git and commit rules
+### Git and commiting
 
 - Never commit, push, rebase, or create branches unless explicitly requested.
 - Propose commits only after requested work is complete and verified.
 - Use Conventional Commits and validate with `conventional-pre-commit --strict`.
 
-## Markdown rules
+### Markdown writing
 
 - Keep lines at 100 characters unless a longer line is unavoidable.
 - Use consistent heading levels and fenced code blocks with language hints.
@@ -96,6 +99,8 @@ Several agent sessions may work in this tree at the same time. Reduce the risk o
 
 - Use the GitHub MCP server or the `gh` CLI to read issues, pull requests and other GitHub
   information that touches or is touched by your work.
+- Use the serena-agent MCP for retrieving non-trivial information about source code and for editing
+  it.
 - Use Poetry for dependency management and virtual environments.
 - Use `poe` tasks for routine formatting, linting, testing, docs, and release actions.
 - Run pre-commit hooks before proposing commits.

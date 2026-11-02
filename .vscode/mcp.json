@@ -17,6 +17,12 @@
 			],
 			"gallery": "https://api.mcp.github.com",
 			"version": "2.0.3"
+		},
+		"serena": {
+			"type": "stdio",
+			"command": "poetry",
+			"args": ["run", "poe", "-q", "serena", "--context", "vscode"],
+			"cwd": "${workspaceFolder}"
 		}
 	},
 	"inputs": [

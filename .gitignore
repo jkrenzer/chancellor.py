@@ -230,3 +230,8 @@ __marimo__/
 .streamlit/secrets.toml
 tmp/
 .claude/settings.local.json
+
+# Serena project state and memories
+.serena/
+# Written by `poe pyright-config` for the active venv
+pyrightconfig.json

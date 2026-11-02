@@ -74,13 +74,17 @@ dev = [
   "pytest>=9.1.1,<10",
   "pre-commit>=4.7.0,<5",
   "conventional-pre-commit>=4.4.0,<5",
-  "poethepoet>=0.49.0,<0.50",
   "bump-my-version>=1.6.7,<2",
 ]
 docs = [
   "sphinx>=8.2,<9",
   "myst-parser>=4.0,<5",
   "sphinx-markdown-builder>=0.6.11,<0.7",
+]
+# Tooling for coding agents, installed with `--with agents`. uvx runs Serena in an environment of
+# its own: its exact pins (pyyaml among them) cannot share this one.
+agents = [
+  "uv>=0.9,<1",
 ]
 
 [build-system]
@@ -102,11 +106,15 @@ version = "0.1.0"
 
 [tool.poetry.requires-plugins]
 poetry-dynamic-versioning = { version = ">=1.10,<2", extras = ["plugin"] }
+poethepoet = { version = ">=0.49.0,<0.50", extras = ["poetry_plugin"]}
+
+[tool.poetry.group.agents]
+optional = true
 
 # Version from git: the tag on a release commit (0.1.0), the next patch as a dev release with the
 # commit hash in between (0.1.1.dev3+g9f2c1ab). Archive downloads read .git_archival.json.
 [tool.poetry-dynamic-versioning]
-enable = true
+enable = false
 vcs = "git"
 style = "pep440"
 # Tags are written by bump-my-version as v{new_version}; this preset requires the v prefix.
@@ -183,6 +191,9 @@ regex = true
 search = "^version = \"{current_version}\""
 replace = "version = \"{new_version}\""
 
+[tool.poe]
+poetry_command = "do"
+
 [tool.poe.tasks]
 # mdformat cannot exclude gitignored paths on Python < 3.13, so it gets git's file list.
 # Settings live in .mdformat.toml.
@@ -206,6 +217,8 @@ docs = "sphinx-build -W --keep-going -b html docs docs/_build/html"
 docs-md = "sphinx-build -W --keep-going -b markdown docs docs/_build/markdown"
 prek = "pre-commit run --all-files --show-diff-on-failure"
 sign-cla = { cmd = "python cla/sign.py", help = "Write your CLA signature record" }
+pyright-config = { cmd = "python .agents/scripts/pyright_config.py", help = "Point pyright at this venv (gitignored pyrightconfig.json)" }
+serena = { cmd = "uvx --from 'serena-agent>=2.1.0,<3' serena start-mcp-server --context ${context} --project ${POE_ROOT}", deps = ["pyright-config"], args = [{ name = "context", default = "claude-code", help = "Serena context: claude-code, codex, ..." }], help = "Start the Serena MCP server on stdio (needs --with agents)" }
 publish = "poetry publish --build"
 release-patch = "bump-my-version bump patch"
 release-minor = "bump-my-version bump minor"
